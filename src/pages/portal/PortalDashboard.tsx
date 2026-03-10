@@ -1,27 +1,49 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
-import { 
-  CalendarCheck, CreditCard, GraduationCap, Bell, ArrowRight, 
-  MapPin, Star, MessageSquare, Clock, Gift, Zap 
+import { useState } from "react";
+import {
+  CalendarCheck, CreditCard, GraduationCap, Bell, ArrowRight,
+  MapPin, Star, MessageSquare, Clock, Gift, Zap, X, ShieldCheck,
+  Smartphone, Wallet, ArrowLeft, Check
 } from "lucide-react";
 import { notifications, userActiveMembership, userEnrollments } from "@/data/mockData";
+import summerSplashImg from "@/assets/summer_splash_offer_bg_1773151662663.png";
+import proCoachingImg from "@/assets/pro_coaching_bundle_bg_1773151684239.png";
+import aquaFitnessImg from "@/assets/aqua_fitness_masterclass_bg_1773152099078.png";
+import familyWeekendImg from "@/assets/family_weekend_special_bg_1773152117111.png";
 
 const campaigns = [
   {
     id: 1,
     title: "Summer Splash Offer",
     desc: "Get 20% off on Annual Memberships this week!",
-    icon: Gift,
-    color: "from-primary/10 to-primary/5",
-    badge: "Limited Time"
+    image: summerSplashImg,
+    badge: "Limited Time",
+    basePrice: 5000,
   },
   {
     id: 2,
     title: "Pro Coaching Bundle",
     desc: "Buy 10 sessions, get 2 free for advanced swimmers.",
-    icon: Zap,
-    color: "from-primary/10 to-primary/5",
-    badge: "Popular"
+    image: proCoachingImg,
+    badge: "Popular",
+    basePrice: 3500,
+  },
+  {
+    id: 3,
+    title: "Aqua Fitness Masterclass",
+    desc: "Join our expert-led aqua aerobics for a full-body workout.",
+    image: aquaFitnessImg,
+    badge: "New",
+    basePrice: 1200,
+  },
+  {
+    id: 4,
+    title: "Family Weekend Special",
+    desc: "Kids swim for free every Saturday & Sunday morning.",
+    image: familyWeekendImg,
+    badge: "Weekend Only",
+    basePrice: 800,
   }
 ];
 
@@ -33,110 +55,387 @@ const upcomingBooking = {
 };
 
 export default function PortalDashboard() {
+  const [selectedCamp, setSelectedCamp] = useState<typeof campaigns[0] | null>(null);
+  const [isRedeeming, setIsRedeeming] = useState(false);
+  const [manualCode, setManualCode] = useState("");
+  const [redeemStatus, setRedeemStatus] = useState<"none" | "success" | "error">("none");
+  const [discountAmount, setDiscountAmount] = useState(0);
+  const [modalStep, setModalStep] = useState<"details" | "payment" | "success">("details");
+  const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
+
+  const resetModal = () => {
+    setSelectedCamp(null);
+    setIsRedeeming(false);
+    setManualCode("");
+    setRedeemStatus("none");
+    setDiscountAmount(0);
+    setModalStep("details");
+    setSelectedMethod(null);
+  };
+
+  const calculateDiscount = (code: string) => {
+    const upperCode = code.toUpperCase();
+    if (upperCode === "SAVE10") return 100;
+    if (upperCode === "SPLASH20") return 500;
+    if (upperCode === "SWIMFREE") return 300;
+    return 0;
+  };
+
+  const currentPrice = selectedCamp ? selectedCamp.basePrice : 0;
+  const finalPrice = Math.max(0, currentPrice - discountAmount);
+
+  const handleRedeem = (code?: string) => {
+    const finalCode = code || manualCode;
+    if (!finalCode && !selectedCamp) return;
+
+    setIsRedeeming(true);
+    setRedeemStatus("none");
+
+    setTimeout(() => {
+      setIsRedeeming(false);
+      const discount = calculateDiscount(finalCode);
+      if (discount > 0 || selectedCamp) {
+        setDiscountAmount(discount);
+        setRedeemStatus("success");
+        if (code) {
+          alert(`Success! Mid-plan benefit applied. You saved ₹${discount}! 🏊‍♂️`);
+          setManualCode("");
+        }
+      } else {
+        setRedeemStatus("error");
+        alert("Invalid code for your current plan tier.");
+      }
+    }, 1500);
+  };
+
   return (
     <div className="space-y-10">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-4xl font-bold text-navy tracking-tight">
-          Welcome back, Aarav! 👋
-        </h1>
-        <p className="text-navy/50 font-medium">You have 2 sessions scheduled for this week.</p>
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div className="flex flex-col gap-1">
+          <h1 className="font-display text-4xl font-bold text-primary tracking-tight">
+            Welcome back, Aarav! 👋
+          </h1>
+          <p className="text-navy/70 font-semibold text-lg italic">You have 2 sessions scheduled for this week.</p>
+        </div>
+        <div className="flex items-center gap-4">
+          <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex flex-col items-center">
+            <span className="text-[10px] uppercase font-black tracking-widest text-primary mb-1">Status</span>
+            <span className="text-sm font-bold text-primary">Member</span>
+          </div>
+          <div className="p-4 rounded-2xl bg-gold/10 border border-gold/20 flex flex-col items-center">
+            <span className="text-[10px] uppercase font-black tracking-widest text-gold mb-1">Points</span>
+            <span className="text-sm font-bold text-gold">1,250</span>
+          </div>
+        </div>
       </div>
 
-      {/* Campaigns & Offers Section */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {campaigns.map((camp, i) => (
+      {/* Campaigns & Offers Section - Floating Marquee Style */}
+      <div className="relative overflow-hidden -mx-4 px-4 py-4">
+        <div className="flex overflow-hidden">
           <motion.div
-            key={camp.id}
-            initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.1 }}
-            className={`relative overflow-hidden card-premium border-none group cursor-pointer`}
+            className="flex gap-8 whitespace-nowrap"
+            animate={{
+              x: [0, -1000]
+            }}
+            transition={{
+              duration: 30,
+              repeat: Infinity,
+              ease: "linear"
+            }}
           >
-            <div className={`absolute inset-0 bg-gradient-to-br ${camp.color} opacity-40 group-hover:opacity-60 transition-opacity`} />
-            <div className="relative z-10 flex gap-5 items-start">
-              <div className={`w-14 h-14 rounded-2xl bg-white flex items-center justify-center text-primary shadow-lg shadow-black/5`}>
-                <camp.icon size={28} />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center justify-between mb-1">
-                   <span className="text-[10px] font-black uppercase tracking-widest text-primary/60">{camp.badge}</span>
-                   <ArrowRight size={14} className="text-navy/20 group-hover:text-primary transition-colors" />
+            {[...campaigns, ...campaigns, ...campaigns].map((camp, i) => (
+              <div
+                key={`${camp.id}-${i}`}
+                onClick={() => setSelectedCamp(camp)}
+                className="relative h-[240px] w-[500px] shrink-0 rounded-[2.5rem] overflow-hidden group cursor-pointer shadow-2xl shadow-black/10 border border-white/20 inline-block align-top"
+              >
+                <div className="absolute inset-0 z-0">
+                  <img
+                    src={camp.image}
+                    alt=""
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity group-hover:opacity-80" />
                 </div>
-                <h3 className="font-bold text-lg text-navy mb-1">{camp.title}</h3>
-                <p className="text-sm text-navy/60 leading-relaxed">{camp.desc}</p>
+
+                <div className="relative z-10 h-full p-8 flex flex-col justify-end whitespace-normal">
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="px-4 py-1.5 bg-primary rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-primary/30">
+                      {camp.badge}
+                    </span>
+                    <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+                      <ArrowRight size={20} />
+                    </div>
+                  </div>
+
+                  <div className="space-y-2">
+                    <h3 className="text-2xl font-display font-bold text-white leading-tight">
+                      {camp.title}
+                    </h3>
+                    <p className="text-white/80 text-sm font-medium max-w-[90%] leading-relaxed">
+                      {camp.desc}
+                    </p>
+                  </div>
+
+                  <div className="mt-4 flex items-center gap-2 text-white font-bold text-xs transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                    <span>View Details & Redeem</span>
+                    <ArrowRight size={14} />
+                  </div>
+                </div>
               </div>
-            </div>
+            ))}
           </motion.div>
-        ))}
+        </div>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Upcoming Booking */}
+      {/* Campaign Details Modal */}
+      <AnimatePresence>
+        {selectedCamp && (
+          <div className="fixed inset-0 z-[100] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => !isRedeeming && setSelectedCamp(null)}
+              className="absolute inset-0 bg-navy/80 backdrop-blur-md"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-2xl bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-white/20"
+            >
+              <div className="grid md:grid-cols-2">
+                <div className="relative h-64 md:h-auto overflow-hidden">
+                  <img
+                    src={selectedCamp.image}
+                    alt=""
+                    className="w-full h-full object-cover"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                  <div className="absolute bottom-6 left-6">
+                    <span className="px-3 py-1 bg-white/20 backdrop-blur-lg rounded-full text-[10px] font-black uppercase tracking-widest text-white border border-white/30 mb-2 inline-block">
+                      Limited Offer
+                    </span>
+                    <h2 className="text-3xl font-display font-bold text-white leading-tight">
+                      {selectedCamp.title}
+                    </h2>
+                  </div>
+                </div>
+
+                <div className="p-10 flex flex-col justify-between bg-white/80 backdrop-blur-3xl min-h-[500px]">
+                  <button
+                    onClick={resetModal}
+                    className="absolute top-6 right-6 p-2 rounded-full hover:bg-navy/5 text-navy/40 transition-colors z-20"
+                  >
+                    <X size={20} />
+                  </button>
+
+                  <AnimatePresence mode="wait">
+                    {modalStep === "details" && (
+                      <motion.div
+                        key="details"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <div className="space-y-3">
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">About this offer</h4>
+                          <p className="text-navy text-base font-semibold leading-relaxed">
+                            {selectedCamp.desc} Buy this exclusive aquatic add-on and boost your swimming experience today!
+                          </p>
+                        </div>
+
+                        <div className="space-y-4">
+                          <div className="p-5 rounded-[2rem] bg-navy/5 border border-navy/5 space-y-4">
+                            <div className="flex justify-between items-center">
+                              <p className="text-[10px] font-black uppercase tracking-widest text-navy/40">Pricing Details</p>
+                              {discountAmount > 0 && (
+                                <span className="px-2 py-0.5 bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest rounded-full animate-pulse">
+                                  Discount Applied
+                                </span>
+                              )}
+                            </div>
+
+                            <div className="flex items-end justify-between">
+                              <div className="space-y-1">
+                                {discountAmount > 0 && (
+                                  <p className="text-sm font-bold text-navy/30 line-through leading-none">₹{selectedCamp.basePrice}</p>
+                                )}
+                                <p className="text-3xl font-black text-primary leading-none">₹{finalPrice}</p>
+                              </div>
+                              <div className="text-right">
+                                <p className="text-[9px] font-black uppercase tracking-widest text-navy/40 mb-1">Promo Code</p>
+                                <input
+                                  type="text"
+                                  placeholder="Enter..."
+                                  value={manualCode}
+                                  onChange={(e) => {
+                                    setManualCode(e.target.value);
+                                    const d = calculateDiscount(e.target.value);
+                                    setDiscountAmount(d);
+                                  }}
+                                  className="w-24 px-3 py-1.5 rounded-xl bg-white border border-navy/10 text-navy font-bold text-[10px] uppercase focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                />
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <button
+                          onClick={() => setModalStep("payment")}
+                          className="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/20 flex items-center justify-center gap-3 hover:scale-[1.02] transition-all"
+                        >
+                          Redeem & Continue to Payment
+                          <ArrowRight size={16} />
+                        </button>
+                      </motion.div>
+                    )}
+
+                    {modalStep === "payment" && (
+                      <motion.div
+                        key="payment"
+                        initial={{ opacity: 0, x: 20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -20 }}
+                        className="space-y-6"
+                      >
+                        <div className="flex items-center gap-3">
+                          <button onClick={() => setModalStep("details")} className="p-2 -ml-2 rounded-full hover:bg-navy/5 text-navy/40">
+                            <ArrowLeft size={20} />
+                          </button>
+                          <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Select Payment Method</h4>
+                        </div>
+
+                        <div className="space-y-3">
+                          {[
+                            { id: 'upi', name: 'UPI / Google Pay', icon: Smartphone },
+                            { id: 'card', name: 'Credit / Debit Card', icon: CreditCard },
+                            { id: 'wallet', name: 'Scooled Wallet', icon: Wallet },
+                          ].map(method => (
+                            <button
+                              key={method.id}
+                              onClick={() => setSelectedMethod(method.id)}
+                              className={`w-full p-4 rounded-2xl border-2 flex items-center justify-between transition-all ${selectedMethod === method.id
+                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/5 scale-[1.02]"
+                                : "border-navy/5 hover:border-primary/20"
+                                }`}
+                            >
+                              <div className="flex items-center gap-4">
+                                <div className={`w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center`}>
+                                  <method.icon size={20} />
+                                </div>
+                                <span className="font-bold text-navy text-sm">{method.name}</span>
+                              </div>
+                              {selectedMethod === method.id && <Check className="text-primary" size={20} />}
+                            </button>
+                          ))}
+                        </div>
+
+                        <button
+                          onClick={() => {
+                            setIsRedeeming(true);
+                            setTimeout(() => {
+                              setIsRedeeming(false);
+                              setModalStep("success");
+                            }, 2000);
+                          }}
+                          disabled={!selectedMethod || isRedeeming}
+                          className="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/20 flex items-center justify-center gap-3 hover:scale-[1.02] transition-all disabled:opacity-50"
+                        >
+                          {isRedeeming ? "Processing..." : `Pay ₹${finalPrice} Now`}
+                          {!isRedeeming && <Gift size={16} />}
+                        </button>
+                      </motion.div>
+                    )}
+
+                    {modalStep === "success" && (
+                      <motion.div
+                        key="success"
+                        initial={{ opacity: 0, scale: 0.9 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        className="flex flex-col items-center justify-center gap-6 text-center h-full pt-10"
+                      >
+                        <div className="w-20 h-20 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center animate-bounce">
+                          <Check size={40} strokeWidth={3} />
+                        </div>
+                        <div className="space-y-2">
+                          <h3 className="text-2xl font-display font-bold text-navy uppercase tracking-tight">Payment Successful!</h3>
+                          <p className="text-sm font-bold text-navy/60">
+                            The <span className="text-primary">{selectedCamp.title}</span> has been added to your membership benefits.
+                          </p>
+                        </div>
+                        <button
+                          onClick={resetModal}
+                          className="px-8 py-3 bg-navy text-white text-[10px] font-black uppercase tracking-widest rounded-full hover:bg-navy/80 transition-all"
+                        >
+                          Back to Dashboard
+                        </button>
+                      </motion.div>
+                    )}
+                  </AnimatePresence>
+
+                  {modalStep !== "success" && (
+                    <p className="text-center text-[9px] text-navy/30 font-bold mt-4 uppercase tracking-widest leading-relaxed">
+                      Terms & conditions apply. This will be added as an active sub-offer.
+                    </p>
+                  )}
+                </div>
+
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+
+      <div className="grid lg:grid-cols-2 gap-6">
         <div className="card-premium relative overflow-hidden group">
-           <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all" />
-          <h3 className="text-sm font-black uppercase tracking-widest text-primary/60 mb-6 flex items-center gap-2">
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all" />
+          <h3 className="text-sm font-black uppercase tracking-widest text-primary mb-6 flex items-center gap-2">
             <CalendarCheck size={16} /> Booking
           </h3>
           <div className="space-y-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-navy">{upcomingBooking.date}</span>
-              <span className="text-sm font-semibold text-primary">{upcomingBooking.time}</span>
+              <span className="text-2xl font-bold text-primary">{upcomingBooking.date}</span>
+              <span className="text-sm font-bold text-aqua">{upcomingBooking.time}</span>
             </div>
-            <div className="flex items-center gap-3 pt-4 border-t border-navy/5">
-              <div className="p-2 rounded-lg bg-navy/5">
-                <MapPin size={16} className="text-navy/40" />
+            <div className="flex items-center gap-3 pt-4 border-t border-navy/10">
+              <div className="p-2 rounded-lg bg-primary/10">
+                <MapPin size={16} className="text-primary" />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-navy">{upcomingBooking.centre} Centre</span>
-                <span className="text-[10px] text-navy/40 uppercase font-black">{upcomingBooking.type}</span>
+                <span className="text-xs font-bold text-primary">{upcomingBooking.centre} Centre</span>
+                <span className="text-[10px] text-aqua uppercase font-black">{upcomingBooking.type}</span>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Membership Status */}
         <div className="card-premium relative overflow-hidden group">
-           <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-all" />
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-all" />
           <h3 className="text-sm font-black uppercase tracking-widest text-gold/60 mb-6 flex items-center gap-2">
             <CreditCard size={16} /> Subscription
           </h3>
           <div className="space-y-5">
             <div>
-              <p className="text-2xl font-bold text-navy leading-none mb-1">{userActiveMembership.name} Plan</p>
-              <p className="text-xs text-navy/40 font-medium">Auto-renews on {userActiveMembership.expiryDate}</p>
+              <p className="text-2xl font-bold text-gold leading-none mb-1">{userActiveMembership.name} Plan</p>
+              <p className="text-xs text-navy/60 font-bold">Auto-renews on {userActiveMembership.expiryDate}</p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/20">
+              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
                 {userActiveMembership.status}
               </span>
             </div>
-            <Link to="/portal/memberships" className="flex items-center gap-2 text-xs font-bold text-navy hover:text-primary transition-colors pt-2">
+            <Link to="/portal/memberships" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-primary hover:text-aqua transition-colors pt-2">
               Upgrade Plan <ArrowRight size={14} />
             </Link>
-          </div>
-        </div>
-
-        {/* Recent Notifications */}
-        <div className="card-premium">
-          <h3 className="text-sm font-black uppercase tracking-widest text-cyan/60 mb-6 flex items-center gap-2">
-            <Bell size={16} /> Feed
-          </h3>
-          <div className="space-y-4">
-            {notifications.slice(0, 3).map((n) => (
-              <div key={n.id} className="flex gap-4 items-start group cursor-pointer border-b border-navy/5 pb-3 last:border-0">
-                <div className={`w-2 h-2 rounded-full mt-1.5 shrink-0 ${n.read ? "bg-navy/10" : "bg-primary animate-pulse shadow-glow shadow-primary/30"}`} />
-                <div>
-                  <p className="text-xs font-bold text-navy mb-0.5 group-hover:text-primary transition-colors leading-tight">{n.title}</p>
-                  <p className="text-[10px] text-navy/40 font-medium">{n.time}</p>
-                </div>
-              </div>
-            ))}
           </div>
         </div>
       </div>
 
       <div className="grid lg:grid-cols-4 gap-6">
-        {/* Programs Progress */}
         <div className="lg:col-span-3 card-premium">
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-2xl font-bold text-navy flex items-center gap-2">
@@ -155,7 +454,7 @@ export default function PortalDashboard() {
                   </div>
                 </div>
                 <div className="h-2 w-full bg-navy/5 rounded-full overflow-hidden border border-navy/5">
-                  <motion.div 
+                  <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${prog.progress}%` }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
@@ -173,17 +472,18 @@ export default function PortalDashboard() {
           </div>
         </div>
 
-        {/* Quick Help */}
-        <div className="lg:col-span-1 card-premium bg-gradient-to-br from-primary/5 to-navy/5 border-primary/20">
-          <h3 className="text-sm font-bold text-navy mb-4">Need Help?</h3>
-          <p className="text-xs text-navy/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
-          <div className="space-y-3">
-            <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
-              Chat Support <MessageSquare size={14} />
-            </button>
-            <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
-              Call Manager <Clock size={14} />
-            </button>
+        <div className="lg:col-span-1 space-y-6">
+          <div className="card-premium bg-white border-primary/20 hover:border-primary/40 transition-colors">
+            <h3 className="text-sm font-bold text-navy mb-4">Need Help?</h3>
+            <p className="text-xs text-navy/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
+            <div className="space-y-3">
+              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
+                Chat Support <MessageSquare size={14} />
+              </button>
+              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
+                Call Manager <Clock size={14} />
+              </button>
+            </div>
           </div>
         </div>
       </div>

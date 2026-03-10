@@ -5,9 +5,9 @@ import { userEnrollments } from "@/data/mockData";
 export default function PortalPrograms() {
   return (
     <div className="space-y-10">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-4xl font-bold text-navy tracking-tight">Active Programs</h1>
-        <p className="text-navy/50 font-medium">Manage your current enrollments and track your performance.</p>
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8">
+        <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Active Programs</h1>
+        <p className="text-sm text-navy/70 font-bold">Manage your current enrollments and track your performance.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">

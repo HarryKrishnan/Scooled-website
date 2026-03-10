@@ -1,22 +1,58 @@
-import { motion } from "framer-motion";
-import { CreditCard, CheckCircle2, Calendar, ShieldCheck, Zap, ArrowUpRight, Crown, History } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  CreditCard, CheckCircle2, Calendar, ShieldCheck, Zap,
+  ArrowUpRight, Crown, History, Gift, Loader2, AlertCircle, Check
+} from "lucide-react";
 import { userActiveMembership, membershipPlans } from "@/data/mockData";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 export default function PortalMemberships() {
   const activePlan = userActiveMembership;
-  
+
+  // Redemption States
+  const [promoCode, setPromoCode] = useState("");
+  const [isValidating, setIsValidating] = useState(false);
+  const [promoStatus, setPromoStatus] = useState<"none" | "success" | "error">("none");
+  const [promoMessage, setPromoMessage] = useState("");
+
+  const handleRedeem = () => {
+    if (!promoCode) return;
+    setIsValidating(true);
+    setPromoStatus("none");
+
+    setTimeout(() => {
+      setIsValidating(false);
+      if (promoCode.toUpperCase() === "SWIMFREE") {
+        setPromoStatus("success");
+        setPromoMessage("Applied! 1 Week added to your current plan.");
+      } else if (promoCode.toUpperCase() === "UPGRADE20") {
+        setPromoStatus("success");
+        setPromoMessage("Offer Active: 20% discount on next upgrade!");
+      } else {
+        setPromoStatus("error");
+        setPromoMessage("Invalid or expired code.");
+      }
+    }, 1500);
+  };
+
+  // Mock Add-ons (Simulating redeemed campaign offers)
+  const redeemedAddons = [
+    { id: 1, name: "Summer Splash Bonus", type: "Discount", val: "20% Off Renewals", expiry: "Aug 2026", color: "text-emerald-500", bg: "bg-emerald-500/10" },
+    { id: 2, name: "Pro Coaching Pack", type: "Benefit", val: "+2 Free Sessions", expiry: "Apr 2026", color: "text-primary", bg: "bg-primary/10" },
+  ];
+
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Memberships</h1>
-        <p className="text-sm text-white/50 font-medium">Manage your subscription and explore premium aquatic plans.</p>
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8">
+        <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Memberships</h1>
+        <p className="text-sm text-navy/70 font-bold mt-1">Manage your subscription and explore premium aquatic plans.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
         {/* Active Membership Status */}
         <div className="lg:col-span-2 space-y-8">
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="card-premium bg-gradient-to-br from-navy to-navy-light text-primary-foreground relative overflow-hidden group border-white/10"
@@ -24,18 +60,18 @@ export default function PortalMemberships() {
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-700">
               <Crown size={120} />
             </div>
-            
+
             <div className="relative z-10">
               <div className="flex items-center gap-2 mb-6">
                 <span className="px-3 py-1 bg-primary/20 backdrop-blur-md rounded-full text-[10px] font-bold uppercase tracking-widest text-cyan border border-primary/30">
                   {activePlan.status} Subscription
                 </span>
               </div>
-              
+
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                 <div>
-                  <h2 className="font-display text-3xl font-bold mb-1">{activePlan.name} Plan</h2>
-                  <p className="text-white/60 text-sm">Valid until <span className="text-white font-semibold">{activePlan.expiryDate}</span></p>
+                  <h2 className="font-display text-3xl font-bold mb-1 text-white">{activePlan.name} Plan</h2>
+                  <p className="text-white/70 text-sm">Valid until <span className="text-white font-bold">{activePlan.expiryDate}</span></p>
                 </div>
                 <div className="text-left md:text-right">
                   <p className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Billing cycle</p>
@@ -65,13 +101,45 @@ export default function PortalMemberships() {
             </div>
           </motion.div>
 
+          {/* Active Add-ons Section */}
+          <div className="space-y-4">
+            <h3 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
+              <Gift size={18} className="text-primary" /> Active Add-ons
+            </h3>
+            <div className="grid sm:grid-cols-2 gap-4">
+              {redeemedAddons.map((addon) => (
+                <motion.div
+                  key={addon.id}
+                  initial={{ opacity: 0, x: -20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  className="card-premium flex items-center justify-between group hover:border-primary/30 transition-all border-dashed border-2"
+                >
+                  <div className="flex items-center gap-4">
+                    <div className={`w-12 h-12 rounded-2xl ${addon.bg} ${addon.color} flex items-center justify-center`}>
+                      <Zap size={20} />
+                    </div>
+                    <div>
+                      <p className="text-[10px] uppercase font-black tracking-widest text-navy/40 mb-1">{addon.type}</p>
+                      <h4 className="font-display font-bold text-navy leading-none">{addon.name}</h4>
+                      <p className={`text-xs font-black mt-1 ${addon.color}`}>{addon.val}</p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-[9px] uppercase font-black tracking-widest text-navy/20 mb-1">Expires</p>
+                    <p className="text-[10px] font-bold text-navy/60">{addon.expiry}</p>
+                  </div>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+
           <div className="space-y-4">
             <h3 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
               <Zap size={18} className="text-primary" /> Upgrade Options
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {membershipPlans.filter(p => p.price > activePlan.price).map((plan, i) => (
-                <motion.div 
+                <motion.div
                   key={plan.id}
                   initial={{ opacity: 0, x: -20 }}
                   animate={{ opacity: 1, x: 0 }}
@@ -120,17 +188,6 @@ export default function PortalMemberships() {
             </div>
           </div>
 
-          <div className="card-premium bg-gold/5 border-gold/20 p-6">
-            <div className="flex items-center gap-2 mb-3">
-              <div className="w-8 h-8 rounded-full bg-gold/10 flex items-center justify-center text-gold">
-                <Zap size={16} />
-              </div>
-              <h4 className="font-display font-bold text-foreground">Special Offer</h4>
-            </div>
-            <p className="text-sm font-medium text-foreground mb-1">Renewal Bonus</p>
-            <p className="text-xs text-muted-foreground mb-4 leading-relaxed">Renew your Quarterly membership 7 days before expiry to get <span className="text-gold font-bold">1 extra week free!</span></p>
-            <button className="w-full py-2.5 bg-gold text-white text-[10px] font-bold uppercase tracking-widest rounded-full hover:bg-gold/80 transition-all shadow-lg shadow-gold/20">Claim Renewal Offer</button>
-          </div>
         </div>
       </div>
     </div>

@@ -6,7 +6,7 @@ import {
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo.png";
-import bgImage from "@/assets/Customer-dash.jpg";
+import bgImage from "@/assets/portal-dash.jpg";
 
 const navItems = [
   { label: "Dashboard", path: "/portal", icon: LayoutDashboard },
@@ -37,9 +37,9 @@ export default function PortalLayout() {
     <div className="relative min-h-screen w-full overflow-x-hidden selection:bg-primary/20">
       {/* 1. THE FRONT FACING IMAGE (Base Layer) */}
       <div className="fixed inset-0 z-0 pointer-events-none">
-        <img 
-          src={bgImage} 
-          alt="" 
+        <img
+          src={bgImage}
+          alt=""
           className="w-full h-full object-cover"
         />
         {/* Subtle Frost for Readability */}
@@ -70,11 +70,10 @@ export default function PortalLayout() {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                        active 
-                          ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${active
+                          ? "bg-primary text-white shadow-lg shadow-primary/20"
                           : "text-navy/60 hover:bg-white/50 hover:text-navy"
-                      }`}
+                        }`}
                     >
                       <Icon size={14} />
                       {item.label}
@@ -99,7 +98,7 @@ export default function PortalLayout() {
                 </div>
               </div>
 
-              <button 
+              <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-navy hover:bg-navy/5 rounded-xl transition-colors"
               >
@@ -131,11 +130,10 @@ export default function PortalLayout() {
                       key={item.path}
                       to={item.path}
                       onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${
-                        location.pathname === item.path 
-                          ? "bg-primary/10 text-primary" 
+                      className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
+                          ? "bg-primary/10 text-primary"
                           : "text-navy/60 hover:bg-navy/5"
-                      }`}
+                        }`}
                     >
                       <item.icon size={20} />
                       {item.label}

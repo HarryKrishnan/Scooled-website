@@ -15,21 +15,20 @@ export default function PortalBookings() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-3xl font-bold text-navy tracking-tight">My Bookings</h1>
-        <p className="text-sm text-navy/50 font-medium">Keep track of your upcoming and past swimming sessions.</p>
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8">
+        <h1 className="font-display text-3xl font-bold text-primary tracking-tight">My Bookings</h1>
+        <p className="text-sm text-navy/70 font-bold"></p>
       </div>
 
       <div className="flex gap-2 flex-wrap">
         {["All", "Upcoming", "Completed", "Cancelled"].map((f) => (
-          <button 
-            key={f} 
-            onClick={() => setFilter(f)} 
-            className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
-              filter === f 
-                ? "bg-primary text-white shadow-lg shadow-primary/20" 
+          <button
+            key={f}
+            onClick={() => setFilter(f)}
+            className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${filter === f
+                ? "bg-primary text-white shadow-lg shadow-primary/20"
                 : "bg-navy/5 text-navy/40 hover:bg-navy/10 hover:text-navy"
-            }`}
+              }`}
           >
             {f}
           </button>
@@ -45,16 +44,15 @@ export default function PortalBookings() {
                   <CalendarCheck size={16} className="text-primary" />
                 </div>
                 <span className="text-sm font-bold text-navy">{b.date}</span>
-                <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border ${
-                  b.status === "Upcoming" ? "bg-primary/10 text-primary border-primary/20" :
-                  b.status === "Completed" ? "bg-navy/5 text-navy/40 border-navy/5" :
-                  "bg-destructive/10 text-destructive border-destructive/20"
-                }`}>{b.status}</span>
+                <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border ${b.status === "Upcoming" ? "bg-primary/10 text-primary border-primary/20" :
+                    b.status === "Completed" ? "bg-navy/5 text-navy/40 border-navy/5" :
+                      "bg-destructive/10 text-destructive border-destructive/20"
+                  }`}>{b.status}</span>
               </div>
-              <div className="flex items-center gap-4 text-[11px] font-bold text-navy/40">
-                <span className="flex items-center gap-1.5"><Clock size={14} className="text-navy/20" /> {b.time}</span>
-                <span className="flex items-center gap-1.5"><MapPin size={14} className="text-navy/20" /> {b.centre} Centre</span>
-                <span className="text-primary/60 font-black uppercase tracking-widest text-[9px] px-2 py-0.5 rounded bg-navy/5">{b.type}</span>
+              <div className="flex items-center gap-4 text-[11px] font-bold text-navy/60">
+                <span className="flex items-center gap-1.5"><Clock size={14} className="text-primary/40" /> {b.time}</span>
+                <span className="flex items-center gap-1.5"><MapPin size={14} className="text-primary/40" /> {b.centre} Centre</span>
+                <span className="text-primary font-black uppercase tracking-widest text-[9px] px-2.5 py-1 rounded-lg bg-primary/5 border border-primary/10">{b.type}</span>
               </div>
             </div>
             {b.status === "Upcoming" && (

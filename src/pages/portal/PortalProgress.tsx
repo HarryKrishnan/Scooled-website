@@ -19,12 +19,12 @@ export default function PortalProgress() {
 
   return (
     <div className="space-y-8 pb-10">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
-          <h1 className="font-display text-3xl font-bold text-white tracking-tight">Progress & Reports</h1>
-          <p className="text-sm text-white/50 font-medium mt-1">Deep dive into your swimming performance and trends.</p>
+          <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Progress & Reports</h1>
+          <p className="text-sm text-navy/70 font-bold mt-1">Deep dive into your swimming performance and trends.</p>
         </div>
-        <button className="btn-primary flex items-center gap-2 px-6 py-2.5 shadow-xl shadow-primary/20">
+        <button className="btn-primary flex items-center gap-2 px-8 py-2.5 shadow-xl shadow-primary/20 shrink-0">
           <Download size={18} /> Download Report
         </button>
       </div>
@@ -47,8 +47,8 @@ export default function PortalProgress() {
             <div className={`w-12 h-12 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
               <stat.icon size={24} />
             </div>
-            <p className="text-[10px] uppercase tracking-widest font-black text-white/30 mb-1">{stat.label}</p>
-            <p className="text-3xl font-bold text-white">{stat.value}</p>
+            <p className="text-[10px] uppercase tracking-widest font-black text-navy/30 mb-1">{stat.label}</p>
+            <p className="text-3xl font-bold text-navy">{stat.value}</p>
           </motion.div>
         ))}
       </div>
@@ -96,12 +96,12 @@ export default function PortalProgress() {
 
         {/* Training Insights */}
         <div className="lg:col-span-1 space-y-6">
-          <div className="card-premium bg-primary/5 border-primary/20 h-full">
-            <h3 className="font-display text-base font-semibold text-foreground mb-4 flex items-center gap-2">
+          <div className="card-premium h-full">
+            <h3 className="font-display text-base font-semibold text-navy mb-4 flex items-center gap-2">
               <Zap size={16} className="text-primary" /> Smart Insights
             </h3>
             <div className="space-y-5">
-              <div className="flex gap-4 p-3 rounded-xl bg-background/50 border border-border/50">
+              <div className="flex gap-4 p-3 rounded-xl bg-navy/5 border border-navy/5">
                 <div className="w-10 h-10 rounded-full bg-green-500/10 flex items-center justify-center shrink-0">
                   <TrendingUp size={18} className="text-green-500" />
                 </div>
@@ -110,7 +110,7 @@ export default function PortalProgress() {
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Your attendance is 12% higher than average swimmers this month. Keep it up!</p>
                 </div>
               </div>
-              <div className="flex gap-4 p-3 rounded-xl bg-background/50 border border-border/50">
+              <div className="flex gap-4 p-3 rounded-xl bg-navy/5 border border-navy/5">
                 <div className="w-10 h-10 rounded-full bg-gold/10 flex items-center justify-center shrink-0">
                   <Award size={18} className="text-gold" />
                 </div>
@@ -119,7 +119,7 @@ export default function PortalProgress() {
                   <p className="text-xs text-muted-foreground mt-1 leading-relaxed">Complete 3 more sessions to unlock the "Master Endurance" badge.</p>
                 </div>
               </div>
-              <div className="flex gap-4 p-3 rounded-xl bg-background/50 border border-border/50">
+              <div className="flex gap-4 p-3 rounded-xl bg-navy/5 border border-navy/5">
                 <div className="w-10 h-10 rounded-full bg-blue-500/10 flex items-center justify-center shrink-0">
                   <Info size={18} className="text-blue-500" />
                 </div>
@@ -172,7 +172,7 @@ export default function PortalProgress() {
                 <motion.div
                   key={ach.id}
                   whileHover={{ scale: 1.02 }}
-                  className="p-4 rounded-xl border border-border bg-muted/20 flex gap-4 transition-all"
+                  className="p-4 rounded-xl border border-navy/5 bg-navy/5 flex gap-4 transition-all"
                 >
                   <div className={`w-12 h-12 rounded-full ${ach.bg} ${ach.color} flex items-center justify-center shrink-0 shadow-sm shadow-black/5`}>
                     {ach.icon === "Target" && <Target size={24} />}
@@ -199,7 +199,7 @@ export default function PortalProgress() {
             </h3>
             <div className="grid md:grid-cols-2 gap-6">
               {userCoachFeedback.map((fb, i) => (
-                <div key={fb.id} className="p-6 rounded-2xl bg-muted/30 border border-border/50">
+                <div key={fb.id} className="p-6 rounded-2xl bg-navy/5 border border-navy/5">
                   <div className="flex justify-between items-start mb-4">
                     <div>
                       <h4 className="text-base font-bold text-foreground">{fb.program}</h4>

@@ -14,9 +14,9 @@ export default function PortalBookSlot() {
 
   return (
     <div className="space-y-8">
-      <div className="flex flex-col gap-1">
-        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Book Slots</h1>
-        <p className="text-sm text-white/50 font-medium">Select your centre, date, and preferred time to reserve a session.</p>
+      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8">
+        <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Book Slots</h1>
+        <p className="text-sm text-navy/70 font-bold mt-1">Select your centre, date, and preferred time to reserve a session.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -33,12 +33,12 @@ export default function PortalBookSlot() {
                   onClick={() => setSelectedCentre(c.id)}
                   className={`p-4 rounded-2xl border-2 text-left transition-all duration-300 ${
                     selectedCentre === c.id 
-                      ? "border-primary bg-primary/20 shadow-lg shadow-primary/10" 
-                      : "border-white/5 bg-white/5 hover:border-white/20"
+                      ? "border-primary bg-primary/10 shadow-lg shadow-primary/10" 
+                      : "border-navy/5 bg-navy/5 hover:border-primary/20"
                   }`}
                 >
-                  <p className="font-bold text-white text-sm">{c.name}</p>
-                  <p className="text-xs text-white/40 mt-1">{c.address}</p>
+                  <p className={`font-bold text-sm ${selectedCentre === c.id ? "text-primary" : "text-navy"}`}>{c.name}</p>
+                  <p className={`text-xs mt-1 ${selectedCentre === c.id ? "text-primary/70" : "text-navy/40"}`}>{c.address}</p>
                   <p className="text-xs text-primary font-black uppercase tracking-widest mt-2">{c.pools} pools</p>
                 </button>
               ))}
@@ -108,15 +108,15 @@ export default function PortalBookSlot() {
             {showSummary && slot ? (
               <div className="space-y-6">
                 <div className="space-y-4 text-sm">
-                  <div className="flex justify-between items-center"><span className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Centre</span><span className="font-bold text-white">{centre.name.replace("Scooled — ", "")}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Date</span><span className="font-bold text-white">{selectedDate}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Time</span><span className="font-bold text-primary">{slot.time}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-white/40 font-bold uppercase tracking-widest text-[10px]">Type</span><span className="font-bold text-white">{slot.type}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Centre</span><span className="font-bold text-navy">{centre.name.replace("Scooled — ", "")}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Date</span><span className="font-bold text-navy">{selectedDate}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Time</span><span className="font-bold text-primary">{slot.time}</span></div>
+                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Type</span><span className="font-bold text-navy">{slot.type}</span></div>
                 </div>
-                <hr className="border-white/10" />
+                <hr className="border-navy/5" />
                 <div className="flex justify-between items-center">
-                  <span className="text-white/60 text-sm font-medium">Amount</span>
-                  <span className="text-2xl font-black text-white">₹299</span>
+                  <span className="text-navy/60 text-sm font-medium">Amount</span>
+                  <span className="text-2xl font-black text-primary">₹299</span>
                 </div>
                 <button className="btn-primary w-full flex items-center justify-center gap-2 py-4 shadow-xl shadow-primary/20" onClick={() => alert("Demo: Booking confirmed!")}>
                   <CheckCircle2 size={18} /> Confirm Booking

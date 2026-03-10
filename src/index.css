@@ -108,14 +108,14 @@
     @apply bg-muted border-primary/30;
   }
   .card-premium {
-    @apply bg-white/40 backdrop-blur-3xl rounded-[2.5rem] p-8 transition-all duration-500 border border-white/80 shadow-2xl shadow-black/5;
+    @apply bg-white/95 backdrop-blur-3xl rounded-[2.5rem] p-8 transition-all duration-500 border border-white/80 shadow-2xl shadow-black/5;
   }
   .card-premium:hover {
-    @apply -translate-y-2 bg-white/60 border-white;
+    @apply -translate-y-2 bg-white border-white;
     box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.1);
   }
   .glass-panel {
-    @apply bg-white/5 backdrop-blur-md border border-white/10 shadow-lg;
+    @apply bg-white/90 backdrop-blur-md border border-white/10 shadow-lg;
   }
   .portal-bg {
     @apply bg-transparent;
