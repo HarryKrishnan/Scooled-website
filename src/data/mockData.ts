@@ -1,0 +1,98 @@
+export const centres = [
+  { id: "c1", name: "Scooled Aquatics — Downtown", city: "Mumbai", address: "12 Marine Drive, Mumbai 400001", pools: 3 },
+  { id: "c2", name: "Scooled Aquatics — Westside", city: "Mumbai", address: "45 Bandra West, Mumbai 400050", pools: 2 },
+];
+
+export const coaches = [
+  { id: "co1", name: "Arjun Menon", specialization: "Competitive Swimming", avatar: "", certifications: ["FINA Level 2", "CPR Certified"] },
+  { id: "co2", name: "Priya Sharma", specialization: "Kids Learn to Swim", avatar: "", certifications: ["SSA Coach", "First Aid"] },
+  { id: "co3", name: "Rahul Das", specialization: "Adult Fitness", avatar: "", certifications: ["ACE Certified", "Lifeguard"] },
+];
+
+export const programs = [
+  { id: "p1", title: "Kids Learn to Swim", ageGroup: "4–8 years", level: "Beginner", coach: "Priya Sharma", schedule: "Mon, Wed, Fri", time: "4:00 PM – 5:00 PM", duration: "60 min", capacity: 12, enrolled: 8, price: 3500, image: "" },
+  { id: "p2", title: "Adult Fitness Swimming", ageGroup: "18+ years", level: "All Levels", coach: "Rahul Das", schedule: "Tue, Thu, Sat", time: "6:00 AM – 7:00 AM", duration: "60 min", capacity: 15, enrolled: 11, price: 4500, image: "" },
+  { id: "p3", title: "Competitive Coaching", ageGroup: "10–18 years", level: "Advanced", coach: "Arjun Menon", schedule: "Mon–Sat", time: "5:30 AM – 7:30 AM", duration: "120 min", capacity: 10, enrolled: 7, price: 8000, image: "" },
+  { id: "p4", title: "Weekend Training", ageGroup: "All Ages", level: "Intermediate", coach: "Rahul Das", schedule: "Sat, Sun", time: "8:00 AM – 10:00 AM", duration: "120 min", capacity: 20, enrolled: 14, price: 3000, image: "" },
+  { id: "p5", title: "Water Safety & Survival", ageGroup: "6–14 years", level: "Beginner", coach: "Priya Sharma", schedule: "Wed, Fri", time: "3:00 PM – 4:00 PM", duration: "60 min", capacity: 15, enrolled: 9, price: 2500, image: "" },
+  { id: "p6", title: "Master's Swimming", ageGroup: "30+ years", level: "Intermediate", coach: "Arjun Menon", schedule: "Mon, Wed, Fri", time: "7:00 PM – 8:00 PM", duration: "60 min", capacity: 12, enrolled: 6, price: 5000, image: "" },
+];
+
+export const membershipPlans = [
+  { id: "m1", name: "Monthly", duration: "1 Month", price: 2999, features: ["Unlimited pool access", "Locker facility", "1 Guest pass", "Basic progress report"], popular: false },
+  { id: "m2", name: "Quarterly", duration: "3 Months", price: 7999, features: ["Unlimited pool access", "Locker facility", "3 Guest passes", "Detailed progress reports", "10% coaching discount"], popular: true },
+  { id: "m3", name: "Half-Yearly", duration: "6 Months", price: 13999, features: ["Unlimited pool access", "Premium locker", "6 Guest passes", "Detailed progress reports", "15% coaching discount", "Free towel service"], popular: false },
+  { id: "m4", name: "Annual", duration: "12 Months", price: 24999, features: ["Unlimited pool access", "Premium locker", "12 Guest passes", "All progress reports", "20% coaching discount", "Free towel service", "Priority slot booking"], popular: false },
+];
+
+export const slots = [
+  { id: "s1", time: "5:30 AM – 6:30 AM", capacity: 20, booked: 14, type: "Open Swim" },
+  { id: "s2", time: "6:30 AM – 7:30 AM", capacity: 20, booked: 18, type: "Open Swim" },
+  { id: "s3", time: "7:30 AM – 8:30 AM", capacity: 15, booked: 15, type: "Coaching" },
+  { id: "s4", time: "8:30 AM – 9:30 AM", capacity: 20, booked: 8, type: "Open Swim" },
+  { id: "s5", time: "4:00 PM – 5:00 PM", capacity: 15, booked: 12, type: "Coaching" },
+  { id: "s6", time: "5:00 PM – 6:00 PM", capacity: 20, booked: 16, type: "Open Swim" },
+  { id: "s7", time: "6:00 PM – 7:00 PM", capacity: 20, booked: 19, type: "Open Swim" },
+  { id: "s8", time: "7:00 PM – 8:00 PM", capacity: 15, booked: 10, type: "Coaching" },
+  { id: "s9", time: "8:00 PM – 9:00 PM", capacity: 20, booked: 5, type: "Open Swim" },
+  { id: "s10", time: "9:30 AM – 10:30 AM", capacity: 12, booked: 4, type: "Ladies Only" },
+  { id: "s11", time: "10:30 AM – 11:30 AM", capacity: 10, booked: 6, type: "Kids Batch" },
+  { id: "s12", time: "3:00 PM – 4:00 PM", capacity: 12, booked: 3, type: "Open Swim" },
+];
+
+export const customers = [
+  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15" },
+  { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20" },
+  { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01" },
+  { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10" },
+  { id: "cu5", name: "Vikram Singh", email: "vikram@example.com", phone: "+91 98765 43214", membership: "Quarterly", status: "Expired", joinDate: "2024-06-15" },
+  { id: "cu6", name: "Ananya Reddy", email: "ananya@example.com", phone: "+91 98765 43215", membership: "Monthly", status: "Active", joinDate: "2025-02-20" },
+  { id: "cu7", name: "Karthik Raj", email: "karthik@example.com", phone: "+91 98765 43216", membership: "Annual", status: "Active", joinDate: "2024-03-01" },
+  { id: "cu8", name: "Divya Kapoor", email: "divya@example.com", phone: "+91 98765 43217", membership: "None", status: "Trial", joinDate: "2025-03-05" },
+];
+
+export const leads = [
+  { id: "l1", name: "Arjun K", phone: "+91 99887 76655", email: "arjun.k@email.com", source: "Website", interest: "Kids Learn to Swim", status: "New", date: "2025-03-08" },
+  { id: "l2", name: "Kavitha M", phone: "+91 99887 76656", email: "kavitha@email.com", source: "Walk-in", interest: "Adult Fitness", status: "Contacted", date: "2025-03-06" },
+  { id: "l3", name: "Suresh P", phone: "+91 99887 76657", email: "suresh@email.com", source: "Referral", interest: "Competitive Coaching", status: "Qualified", date: "2025-03-04" },
+  { id: "l4", name: "Nisha T", phone: "+91 99887 76658", email: "nisha@email.com", source: "Instagram", interest: "Membership", status: "New", date: "2025-03-09" },
+  { id: "l5", name: "Rajesh B", phone: "+91 99887 76659", email: "rajesh@email.com", source: "Google Ads", interest: "Weekend Training", status: "Lost", date: "2025-02-28" },
+];
+
+export const payments = [
+  { id: "pay1", customer: "Aarav Patel", amount: 7999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-01", invoice: "INV-2025-001" },
+  { id: "pay2", customer: "Sneha Iyer", amount: 8000, type: "Coaching", method: "Credit Card", status: "Completed", date: "2025-02-28", invoice: "INV-2025-002" },
+  { id: "pay3", customer: "Rohan Gupta", amount: 2999, type: "Membership", method: "Net Banking", status: "Completed", date: "2025-03-01", invoice: "INV-2025-003" },
+  { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", invoice: "INV-2025-004" },
+  { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", invoice: "INV-2025-005" },
+  { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", invoice: "INV-2025-006" },
+];
+
+export const complaints = [
+  { id: "cmp1", customer: "Rohan Gupta", subject: "Water temperature too cold", category: "Facility", status: "Open", priority: "Medium", date: "2025-03-07", assignedTo: "" },
+  { id: "cmp2", customer: "Vikram Singh", subject: "Payment not reflected", category: "Billing", status: "In Progress", priority: "High", date: "2025-03-06", assignedTo: "Admin" },
+  { id: "cmp3", customer: "Meera Nair", subject: "Slot was overbooked", category: "Booking", status: "Resolved", priority: "High", date: "2025-03-03", assignedTo: "Manager" },
+  { id: "cmp4", customer: "Aarav Patel", subject: "Locker not working", category: "Facility", status: "Open", priority: "Low", date: "2025-03-08", assignedTo: "" },
+];
+
+export const testimonials = [
+  { name: "Sneha Iyer", role: "Annual Member", text: "Scooled Aquatics transformed my mornings. The coaches are world-class and the facilities are pristine. My kids love the weekend programs!", avatar: "" },
+  { name: "Karthik Raj", role: "Competitive Swimmer", text: "Coach Arjun's training methodology is exceptional. I've seen a 15% improvement in my lap times in just 3 months.", avatar: "" },
+  { name: "Divya Kapoor", role: "New Member", text: "The booking process is so smooth! I can see available slots, book instantly, and even track my progress. Truly modern.", avatar: "" },
+];
+
+export const faqs = [
+  { q: "How do I book a swimming slot?", a: "Simply log in to your account, navigate to 'Book a Slot', select your preferred centre, date, and time slot. Confirm your booking with a secure payment." },
+  { q: "Can I cancel or reschedule a booking?", a: "Yes! You can cancel or reschedule up to 4 hours before your slot time through the customer portal. Cancellations within 4 hours may incur a small fee." },
+  { q: "What coaching programs are available?", a: "We offer Kids Learn to Swim, Adult Fitness Swimming, Competitive Coaching, Weekend Training, Water Safety, and Master's Swimming programs." },
+  { q: "How do memberships work?", a: "Choose from Monthly, Quarterly, Half-Yearly, or Annual plans. Each includes unlimited pool access, locker facility, and additional perks based on the plan." },
+  { q: "What payment methods do you accept?", a: "We accept Credit/Debit Cards, UPI, Net Banking, and select digital wallets for seamless transactions." },
+  { q: "Is there a trial session available?", a: "Yes! First-time visitors can enjoy a complimentary trial session. Contact our team or register online to book yours." },
+];
+
+export const notifications = [
+  { id: "n1", type: "booking", title: "Booking Confirmed", message: "Your slot for tomorrow 6:30 AM has been confirmed.", time: "2 hours ago", read: false },
+  { id: "n2", type: "payment", title: "Payment Received", message: "₹7,999 received for Quarterly membership renewal.", time: "1 day ago", read: false },
+  { id: "n3", type: "reminder", title: "Session Reminder", message: "Your coaching session starts in 2 hours.", time: "3 hours ago", read: true },
+  { id: "n4", type: "update", title: "New Program Available", message: "Master's Swimming program now open for enrollment!", time: "2 days ago", read: true },
+];
