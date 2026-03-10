@@ -36,6 +36,7 @@ import AdminCustomers from "@/pages/admin/AdminCustomers";
 import AdminCoaches from "@/pages/admin/AdminCoaches";
 import AdminPrograms from "@/pages/admin/AdminPrograms";
 import AdminPayments from "@/pages/admin/AdminPayments";
+import AdminCalendar from "@/pages/admin/AdminCalendar";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
 
@@ -75,7 +76,7 @@ const App = () => (
           {/* Admin Dashboard */}
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminOverview />} />
-            <Route path="calendar" element={<AdminPlaceholder title="Calendar & Scheduling" />} />
+            <Route path="calendar" element={<AdminCalendar />} />
             <Route path="programs" element={<AdminPrograms />} />
             <Route path="memberships" element={<AdminPlaceholder title="Membership Management" />} />
             <Route path="customers" element={<AdminCustomers />} />

@@ -78,6 +78,43 @@ export const payments = [
   { id: "pay10", customer: "Sneha Iyer", amount: 2500, type: "Guest Pass", method: "UPI", status: "Completed", date: "2025-03-07", time: "10:10 AM", invoice: "INV-2025-010" },
 ];
 
+export const slotBookings = [
+  // March 11, 2025 (Today) - Downtown
+  { id: "sb1", slotId: "s1", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb2", slotId: "s1", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb3", slotId: "s1", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb4", slotId: "s2", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb5", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb6", slotId: "s3", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb7", slotId: "s5", customerId: "cu8", customerName: "Divya Kapoor", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb8", slotId: "s6", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb9", slotId: "s7", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb10", slotId: "s7", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  
+  // March 11, 2025 (Today) - Westside
+  { id: "sb11", slotId: "s1", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  { id: "sb12", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  { id: "sb13", slotId: "s6", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  
+  // March 12, 2025 (Tomorrow) - Downtown
+  { id: "sb14", slotId: "s1", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb15", slotId: "s2", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb16", slotId: "s4", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb17", slotId: "s5", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb18", slotId: "s6", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  
+  // March 10, 2025 (Yesterday) - Downtown
+  { id: "sb19", slotId: "s1", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-10", centreId: "c1", status: "completed" },
+  { id: "sb20", slotId: "s2", customerId: "cu8", customerName: "Divya Kapoor", date: "2025-03-10", centreId: "c1", status: "completed" },
+  { id: "sb21", slotId: "s6", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-10", centreId: "c1", status: "completed" },
+  
+  // March 13-15, 2025 (Rest of week) - Downtown
+  { id: "sb22", slotId: "s1", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-13", centreId: "c1", status: "confirmed" },
+  { id: "sb23", slotId: "s3", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-13", centreId: "c1", status: "confirmed" },
+  { id: "sb24", slotId: "s7", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-14", centreId: "c1", status: "confirmed" },
+  { id: "sb25", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-15", centreId: "c1", status: "confirmed" },
+];
+
 export const userEnrollments = [
   {
     programId: "p3",
