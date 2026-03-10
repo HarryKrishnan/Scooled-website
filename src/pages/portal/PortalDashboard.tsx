@@ -1,6 +1,7 @@
 import { CalendarCheck, CreditCard, GraduationCap, Bell, ArrowRight, Clock, MapPin } from "lucide-react";
+import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { notifications } from "@/data/mockData";
+import { notifications, userActiveMembership, userEnrollments } from "@/data/mockData";
 
 const upcomingBooking = {
   date: "Today, March 10",
@@ -57,10 +58,11 @@ export default function PortalDashboard() {
             <CreditCard size={16} className="text-primary" /> Membership
           </h3>
           <div className="space-y-2">
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Plan</span><span className="font-medium text-foreground">Quarterly</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Status</span><span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">Active</span></div>
-            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Expires</span><span className="font-medium text-foreground">Apr 15, 2025</span></div>
+            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Plan</span><span className="font-medium text-foreground">{userActiveMembership.name}</span></div>
+            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Status</span><span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{userActiveMembership.status}</span></div>
+            <div className="flex justify-between text-sm"><span className="text-muted-foreground">Expires</span><span className="font-medium text-foreground">{userActiveMembership.expiryDate}</span></div>
           </div>
+          <Link to="/portal/memberships" className="text-xs text-primary font-medium mt-4 block">Manage Membership</Link>
         </div>
 
         {/* Notifications */}
@@ -79,6 +81,32 @@ export default function PortalDashboard() {
           <Link to="/portal/notifications" className="text-xs text-primary font-medium mt-3 flex items-center gap-1">
             View all <ArrowRight size={12} />
           </Link>
+        </div>
+        {/* Programs Progress */}
+        <div className="lg:col-span-3 card-premium">
+          <div className="flex items-center justify-between mb-4">
+            <h3 className="text-sm font-semibold text-foreground flex items-center gap-2">
+              <GraduationCap size={16} className="text-primary" /> Program Progress
+            </h3>
+            <Link to="/portal/programs" className="text-xs text-primary font-medium">My Programs</Link>
+          </div>
+          <div className="grid md:grid-cols-2 gap-6">
+            {userEnrollments.map((prog) => (
+              <div key={prog.programId} className="space-y-2">
+                <div className="flex justify-between items-end">
+                  <p className="text-sm font-medium text-foreground">{prog.title}</p>
+                  <p className="text-xs text-muted-foreground">{prog.progress}%</p>
+                </div>
+                <div className="h-1.5 w-full bg-muted rounded-full overflow-hidden">
+                  <motion.div 
+                    initial={{ width: 0 }}
+                    animate={{ width: `${prog.progress}%` }}
+                    className="h-full bg-primary"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </div>
 

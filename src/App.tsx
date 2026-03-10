@@ -14,7 +14,6 @@ import HomePage from "@/pages/HomePage";
 import AboutPage from "@/pages/AboutPage";
 import ProgramsPage from "@/pages/ProgramsPage";
 import MembershipsPage from "@/pages/MembershipsPage";
-import BookSlotPage from "@/pages/BookSlotPage";
 import ContactPage from "@/pages/ContactPage";
 import LoginPage from "@/pages/LoginPage";
 import NotFound from "@/pages/NotFound";
@@ -26,6 +25,10 @@ import PortalBookings from "@/pages/portal/PortalBookings";
 import PortalPayments from "@/pages/portal/PortalPayments";
 import PortalNotifications from "@/pages/portal/PortalNotifications";
 import PortalPlaceholder from "@/pages/portal/PortalPlaceholder";
+import PortalBookSlot from "@/pages/portal/PortalBookSlot";
+import PortalPrograms from "@/pages/portal/PortalPrograms";
+import PortalMemberships from "@/pages/portal/PortalMemberships";
+import PortalProgress from "@/pages/portal/PortalProgress";
 
 // Admin Pages
 import AdminOverview from "@/pages/admin/AdminOverview";
@@ -49,7 +52,6 @@ const App = () => (
             <Route path="/about" element={<AboutPage />} />
             <Route path="/programs" element={<ProgramsPage />} />
             <Route path="/memberships" element={<MembershipsPage />} />
-            <Route path="/book" element={<BookSlotPage />} />
             <Route path="/contact" element={<ContactPage />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />
@@ -58,12 +60,12 @@ const App = () => (
           <Route path="/portal" element={<PortalLayout />}>
             <Route index element={<PortalDashboard />} />
             <Route path="profile" element={<PortalProfile />} />
-            <Route path="book" element={<PortalPlaceholder title="Book Slots" />} />
+            <Route path="book" element={<PortalBookSlot />} />
             <Route path="bookings" element={<PortalBookings />} />
-            <Route path="programs" element={<PortalPlaceholder title="My Programs" />} />
-            <Route path="memberships" element={<PortalPlaceholder title="My Membership" />} />
+            <Route path="programs" element={<PortalPrograms />} />
+            <Route path="memberships" element={<PortalMemberships />} />
             <Route path="payments" element={<PortalPayments />} />
-            <Route path="progress" element={<PortalPlaceholder title="Progress Reports" />} />
+            <Route path="progress" element={<PortalProgress />} />
             <Route path="feedback" element={<PortalPlaceholder title="Feedback & Complaints" />} />
             <Route path="notifications" element={<PortalNotifications />} />
           </Route>

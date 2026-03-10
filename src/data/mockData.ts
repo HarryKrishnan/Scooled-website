@@ -1,6 +1,6 @@
 export const centres = [
-  { id: "c1", name: "Scooled Aquatics — Downtown", city: "Mumbai", address: "12 Marine Drive, Mumbai 400001", pools: 3 },
-  { id: "c2", name: "Scooled Aquatics — Westside", city: "Mumbai", address: "45 Bandra West, Mumbai 400050", pools: 2 },
+  { id: "c1", name: "Scooled — Downtown", city: "Mumbai", address: "12 Marine Drive, Mumbai 400001", pools: 3 },
+  { id: "c2", name: "Scooled — Westside", city: "Mumbai", address: "45 Bandra West, Mumbai 400050", pools: 2 },
 ];
 
 export const coaches = [
@@ -66,6 +66,82 @@ export const payments = [
   { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", invoice: "INV-2025-004" },
   { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", invoice: "INV-2025-005" },
   { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", invoice: "INV-2025-006" },
+];
+
+export const userEnrollments = [
+  {
+    programId: "p3",
+    title: "Competitive Coaching",
+    coach: "Arjun Menon",
+    sessionsTotal: 24,
+    sessionsCompleted: 14,
+    lastSession: "2025-03-08",
+    attendanceRate: 92,
+    nextSession: "Tomorrow, 5:30 AM",
+    progress: 58,
+  },
+  {
+    programId: "p1",
+    title: "Kids Learn to Swim",
+    coach: "Priya Sharma",
+    sessionsTotal: 12,
+    sessionsCompleted: 8,
+    lastSession: "2025-03-07",
+    attendanceRate: 100,
+    nextSession: "Mon, 4:00 PM",
+    progress: 66,
+  }
+];
+
+export const userActiveMembership = {
+  id: "m2",
+  name: "Quarterly",
+  duration: "3 Months",
+  startDate: "2025-01-15",
+  expiryDate: "2025-04-15",
+  price: 7999,
+  status: "Active",
+  features: ["Unlimited pool access", "Locker facility", "3 Guest passes", "Detailed progress reports", "10% coaching discount"],
+  usage: {
+    poolAccess: 28,
+    guestPassesUsed: 1,
+    guestPassesTotal: 3,
+  }
+};
+
+export const userPerformanceTrend = [
+  { week: "Feb 1", sessions: 3, distance: 1200, calories: 450 },
+  { week: "Feb 8", sessions: 4, distance: 1800, calories: 680 },
+  { week: "Feb 15", sessions: 2, distance: 1000, calories: 380 },
+  { week: "Feb 22", sessions: 5, distance: 2500, calories: 950 },
+  { week: "Mar 1", sessions: 4, distance: 2200, calories: 820 },
+  { week: "Mar 8", sessions: 3, distance: 1600, calories: 600 },
+];
+
+export const userAchievements = [
+  { id: "a1", title: "First 10 Sessions", desc: "Completed 10 swimming sessions.", icon: "Target", date: "2025-02-15", color: "text-blue-500", bg: "bg-blue-500/10" },
+  { id: "a2", title: "Attendance Pro", desc: "Maintained 90%+ attendance for 30 days.", icon: "Award", date: "2025-03-01", color: "text-gold", bg: "bg-gold/10" },
+  { id: "a3", title: "1000m Milestone", desc: "Swam 1000m in a single session.", icon: "Zap", date: "2025-02-28", color: "text-cyan", bg: "bg-cyan/10" },
+  { id: "a4", title: "Early Bird", desc: "Completed 5 sessions before 7:00 AM.", icon: "Sun", date: "2025-03-08", color: "text-orange-500", bg: "bg-orange-500/10" },
+];
+
+export const userCoachFeedback = [
+  {
+    id: "f1",
+    program: "Competitive Coaching",
+    coach: "Arjun Menon",
+    date: "2025-03-05",
+    feedback: "High discipline in morning sessions. Focus on streamlining the freestyle turn to shave off another 0.5s.",
+    ratings: { technique: 4.5, speed: 4.0, endurance: 4.8, discipline: 5.0 },
+  },
+  {
+    id: "f2",
+    program: "Kids Learn to Swim",
+    coach: "Priya Sharma",
+    date: "2025-03-01",
+    feedback: "Excellent progress in backstroke. Needs to work on breath control during longer laps.",
+    ratings: { technique: 3.8, speed: 3.5, endurance: 3.0, discipline: 4.5 },
+  }
 ];
 
 export const complaints = [

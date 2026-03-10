@@ -78,9 +78,6 @@ export default function HomePage() {
               Book swimming slots, enroll in coaching programs, and manage your aquatic journey — all from one beautiful platform.
             </p>
             <div className="flex flex-wrap gap-4">
-              <Link to="/book" className="btn-primary text-base py-3.5 px-10">
-                Book a Slot
-              </Link>
               <Link to="/programs" className="btn-outline-hero text-base py-3.5 px-10">
                 Explore Programs
               </Link>
@@ -182,41 +179,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Booking Flow */}
-      <section className="section-padding bg-navy text-primary-foreground relative overflow-hidden">
-        <div className="absolute top-0 left-0 right-0"><WaveDivider color="hsl(var(--muted) / 0.5)" flip /></div>
-        <div className="container-custom relative z-10">
-          <SectionHeading badge="How It Works" title="Book in 4 Simple Steps" subtitle="From selection to confirmation in under 2 minutes." light />
-          <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
-            {bookingSteps.map((s, i) => (
-              <motion.div
-                key={i}
-                variants={fadeUp}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true }}
-                custom={i}
-                className="text-center p-6"
-              >
-                <div className="w-16 h-16 rounded-2xl bg-primary/20 backdrop-blur-sm flex items-center justify-center mx-auto mb-4 relative">
-                  <s.icon size={28} className="text-cyan" />
-                  <span className="absolute -top-2 -right-2 w-7 h-7 rounded-full bg-primary text-primary-foreground text-xs font-bold flex items-center justify-center">
-                    {i + 1}
-                  </span>
-                </div>
-                <h3 className="font-display text-lg font-semibold mb-2">{s.title}</h3>
-                <p className="text-sm text-primary-foreground/60">{s.desc}</p>
-              </motion.div>
-            ))}
-          </div>
-          <div className="text-center mt-10">
-            <Link to="/book" className="btn-primary text-base py-3.5 px-10">
-              Book Your Slot Now <ArrowRight className="inline ml-2" size={18} />
-            </Link>
-          </div>
-        </div>
-        <div className="absolute bottom-0 left-0 right-0"><WaveDivider /></div>
-      </section>
+
 
       {/* Membership Plans */}
       <section className="section-padding bg-background">
@@ -253,11 +216,10 @@ export default function HomePage() {
                 </ul>
                 <Link
                   to="/memberships"
-                  className={`block text-center py-2.5 rounded-full text-sm font-semibold transition-all ${
-                    plan.popular
+                  className={`block text-center py-2.5 rounded-full text-sm font-semibold transition-all ${plan.popular
                       ? "btn-primary w-full"
                       : "border border-border text-foreground hover:bg-muted"
-                  }`}
+                    }`}
                 >
                   Get Started
                 </Link>
@@ -335,10 +297,10 @@ export default function HomePage() {
         <div className="container-custom text-center relative z-10">
           <h2 className="font-display text-3xl md:text-5xl font-bold mb-4">Ready to Make a Splash?</h2>
           <p className="text-lg text-primary-foreground/70 mb-8 max-w-lg mx-auto">
-            Join thousands of swimmers who trust Scooled Aquatics for their aquatic journey.
+            Join thousands of swimmers who trust Scooled for their aquatic journey.
           </p>
           <div className="flex flex-wrap justify-center gap-4">
-            <Link to="/book" className="btn-primary text-base py-3.5 px-10">Book Your First Session</Link>
+            <Link to="/login" className="btn-primary text-base py-3.5 px-10">Sign In to Book</Link>
             <Link to="/contact" className="btn-outline-hero text-base py-3.5 px-10">Contact Us</Link>
           </div>
         </div>

@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
-import { Waves, Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
+import logo from "@/assets/logo.png";
 
 export default function PublicFooter() {
   return (
@@ -8,8 +9,10 @@ export default function PublicFooter() {
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
             <div className="flex items-center gap-2 mb-4">
-              <Waves className="h-6 w-6 text-cyan" />
-              <span className="font-display text-xl font-bold text-primary-foreground">Scooled Aquatics</span>
+              <img src={logo} alt="Scooled Logo" className="h-8 w-auto object-contain" />
+              <span className="font-body text-xl font-black tracking-tighter text-primary-foreground">
+                SCOOLED <span className="text-cyan font-display font-semibold">Aquatics</span>
+              </span>
             </div>
             <p className="text-sm leading-relaxed text-primary-foreground/60 mb-6">
               Premium swimming pool booking, coaching, and membership platform. Making aquatics accessible, modern, and delightful.
@@ -26,8 +29,8 @@ export default function PublicFooter() {
           <div>
             <h4 className="font-display text-lg font-semibold text-primary-foreground mb-4">Quick Links</h4>
             <div className="flex flex-col gap-2.5">
-              {["About", "Programs", "Memberships", "Book a Slot", "Contact"].map((l) => (
-                <Link key={l} to={`/${l.toLowerCase().replace(/ /g, "-").replace("book-a-slot","book")}`} className="text-sm hover:text-primary-foreground transition-colors">
+              {["About", "Programs", "Memberships", "Contact"].map((l) => (
+                <Link key={l} to={`/${l.toLowerCase().replace(/ /g, "-")}`} className="text-sm hover:text-primary-foreground transition-colors">
                   {l}
                 </Link>
               ))}
@@ -63,7 +66,7 @@ export default function PublicFooter() {
         </div>
 
         <div className="border-t border-primary-foreground/10 mt-12 pt-8 text-center text-sm text-primary-foreground/40">
-          © 2025 Scooled Aquatics. All rights reserved.
+          © 2025 Scooled. All rights reserved.
         </div>
       </div>
     </footer>
