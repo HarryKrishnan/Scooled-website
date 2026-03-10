@@ -34,6 +34,7 @@ import PortalProgress from "@/pages/portal/PortalProgress";
 import AdminOverview from "@/pages/admin/AdminOverview";
 import AdminCustomers from "@/pages/admin/AdminCustomers";
 import AdminCoaches from "@/pages/admin/AdminCoaches";
+import AdminPrograms from "@/pages/admin/AdminPrograms";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
 
@@ -74,7 +75,7 @@ const App = () => (
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<AdminOverview />} />
             <Route path="calendar" element={<AdminPlaceholder title="Calendar & Scheduling" />} />
-            <Route path="programs" element={<AdminPlaceholder title="Program Management" />} />
+            <Route path="programs" element={<AdminPrograms />} />
             <Route path="memberships" element={<AdminPlaceholder title="Membership Management" />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="coaches" element={<AdminCoaches />} />

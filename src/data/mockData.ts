@@ -10,12 +10,18 @@ export const coaches = [
 ];
 
 export const programs = [
-  { id: "p1", title: "Kids Learn to Swim", ageGroup: "4–8 years", level: "Beginner", coach: "Priya Sharma", schedule: "Mon, Wed, Fri", time: "4:00 PM – 5:00 PM", duration: "60 min", capacity: 12, enrolled: 8, price: 3500, image: "" },
-  { id: "p2", title: "Adult Fitness Swimming", ageGroup: "18+ years", level: "All Levels", coach: "Rahul Das", schedule: "Tue, Thu, Sat", time: "6:00 AM – 7:00 AM", duration: "60 min", capacity: 15, enrolled: 11, price: 4500, image: "" },
-  { id: "p3", title: "Competitive Coaching", ageGroup: "10–18 years", level: "Advanced", coach: "Arjun Menon", schedule: "Mon–Sat", time: "5:30 AM – 7:30 AM", duration: "120 min", capacity: 10, enrolled: 7, price: 8000, image: "" },
-  { id: "p4", title: "Weekend Training", ageGroup: "All Ages", level: "Intermediate", coach: "Rahul Das", schedule: "Sat, Sun", time: "8:00 AM – 10:00 AM", duration: "120 min", capacity: 20, enrolled: 14, price: 3000, image: "" },
-  { id: "p5", title: "Water Safety & Survival", ageGroup: "6–14 years", level: "Beginner", coach: "Priya Sharma", schedule: "Wed, Fri", time: "3:00 PM – 4:00 PM", duration: "60 min", capacity: 15, enrolled: 9, price: 2500, image: "" },
-  { id: "p6", title: "Master's Swimming", ageGroup: "30+ years", level: "Intermediate", coach: "Arjun Menon", schedule: "Mon, Wed, Fri", time: "7:00 PM – 8:00 PM", duration: "60 min", capacity: 12, enrolled: 6, price: 5000, image: "" },
+  { id: "p1", title: "Kids Learn to Swim", ageGroup: "4–8 years", level: "Beginner", coach: "Priya Sharma", schedule: "Mon, Wed, Fri", time: "4:00 PM – 5:00 PM", duration: "60 min", capacity: 12, enrolled: 8, price: 3500, image: "", totalSessions: 24, status: "Active", description: "A comprehensive beginner program for kids aged 4-8 to learn basic swimming skills and water safety." },
+  { id: "p2", title: "Adult Fitness Swimming", ageGroup: "18+ years", level: "All Levels", coach: "Rahul Das", schedule: "Tue, Thu, Sat", time: "6:00 AM – 7:00 AM", duration: "60 min", capacity: 15, enrolled: 11, price: 4500, image: "", totalSessions: 36, status: "Active", description: "Fitness-focused swimming program for adults of all levels. Improve cardiovascular health and endurance." },
+  { id: "p3", title: "Competitive Coaching", ageGroup: "10–18 years", level: "Advanced", coach: "Arjun Menon", schedule: "Mon–Sat", time: "5:30 AM – 7:30 AM", duration: "120 min", capacity: 10, enrolled: 7, price: 8000, image: "", totalSessions: 72, status: "Active", description: "Intensive training program for competitive swimmers preparing for state and national level competitions." },
+  { id: "p4", title: "Weekend Training", ageGroup: "All Ages", level: "Intermediate", coach: "Rahul Das", schedule: "Sat, Sun", time: "8:00 AM – 10:00 AM", duration: "120 min", capacity: 20, enrolled: 14, price: 3000, image: "", totalSessions: 16, status: "Active", description: "Perfect for busy professionals and students. Weekend-focused intermediate training program." },
+  { id: "p5", title: "Water Safety & Survival", ageGroup: "6–14 years", level: "Beginner", coach: "Priya Sharma", schedule: "Wed, Fri", time: "3:00 PM – 4:00 PM", duration: "60 min", capacity: 15, enrolled: 9, price: 2500, image: "", totalSessions: 20, status: "Active", description: "Essential water safety skills and survival techniques for children and teens." },
+  { id: "p6", title: "Master's Swimming", ageGroup: "30+ years", level: "Intermediate", coach: "Arjun Menon", schedule: "Mon, Wed, Fri", time: "7:00 PM – 8:00 PM", duration: "60 min", capacity: 12, enrolled: 6, price: 5000, image: "", totalSessions: 36, status: "Active", description: "Tailored program for adults 30+ focusing on technique refinement and fitness maintenance." },
+];
+
+export const offers = [
+  { id: "o1", title: "Summer Splash Camp", parentProgramId: "p1", coach: "Priya Sharma", schedule: "Mon-Fri", time: "9:00 AM – 12:00 PM", duration: "180 min", price: 8999, image: "", totalSessions: 15, status: "Active", description: "Special summer intensive program for kids to learn swimming in a fun, engaging environment." },
+  { id: "o2", title: "Early Bird Special", parentProgramId: "p2", coach: "Rahul Das", schedule: "Mon, Wed, Fri", time: "5:30 AM – 6:30 AM", duration: "60 min", price: 3500, image: "", totalSessions: 24, status: "Active", description: "Discounted early morning fitness sessions for dedicated swimmers." },
+  { id: "o3", title: "Weekend Warriors", parentProgramId: "p4", coach: "Arjun Menon", schedule: "Sat, Sun", time: "7:00 AM – 9:00 AM", duration: "120 min", price: 4500, image: "", totalSessions: 12, status: "Draft", description: "Intensive weekend program launching next month for intermediate to advanced swimmers." },
 ];
 
 export const membershipPlans = [
