@@ -8,6 +8,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import PublicLayout from "@/components/layout/PublicLayout";
 import PortalLayout from "@/components/layout/PortalLayout";
 import AdminLayout from "@/components/layout/AdminLayout";
+import CoachLayout from "@/components/layout/CoachLayout";
 
 // Public Pages
 import HomePage from "@/pages/HomePage";
@@ -36,6 +37,13 @@ import AdminCustomers from "@/pages/admin/AdminCustomers";
 import AdminLeads from "@/pages/admin/AdminLeads";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
+
+// Coach Pages
+import CoachDashboard from "@/pages/coach/CoachDashboard";
+import CoachTrainees from "@/pages/coach/CoachTrainees";
+import CoachSchedule from "@/pages/coach/CoachSchedule";
+import CoachAttendance from "@/pages/coach/CoachAttendance";
+import CoachProgress from "@/pages/coach/CoachProgress";
 
 const queryClient = new QueryClient();
 
@@ -85,6 +93,16 @@ const App = () => (
             <Route path="notifications" element={<AdminPlaceholder title="Notifications" />} />
             <Route path="reports" element={<AdminPlaceholder title="Reports & Analytics" />} />
             <Route path="settings" element={<AdminPlaceholder title="Settings" />} />
+          </Route>
+
+          {/* Coach / Staff Portal */}
+          <Route path="/coach" element={<CoachLayout />}>
+            <Route index element={<CoachDashboard />} />
+            <Route path="trainees" element={<CoachTrainees />} />
+            <Route path="schedule" element={<CoachSchedule />} />
+            <Route path="attendance" element={<CoachAttendance />} />
+            <Route path="progress" element={<CoachProgress />} />
+            <Route path="messages" element={<PortalPlaceholder title="Messages" />} />
           </Route>
 
           <Route path="*" element={<NotFound />} />

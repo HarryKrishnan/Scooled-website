@@ -211,13 +211,13 @@ export default function LoginPage() {
 
 
             {/* Bottom Links */}
-            <div className="mt-6 pt-5 border-t border-white/5 grid grid-cols-2 gap-3">
+            <div className="mt-6 pt-5 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 
               <Link
                 to="/portal"
                 className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
               >
-                Portal <ArrowRight size={14} />
+                Customer <ArrowRight size={14} />
               </Link>
 
               <Link
@@ -225,6 +225,13 @@ export default function LoginPage() {
                 className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
               >
                 Admin <ArrowRight size={14} />
+              </Link>
+
+              <Link
+                to="/coach"
+                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
+              >
+                Coach <ArrowRight size={14} />
               </Link>
 
             </div>
