@@ -5,8 +5,11 @@ export default function PortalProfile() {
   const [editing, setEditing] = useState(false);
 
   return (
-    <div className="max-w-2xl space-y-6">
-      <h1 className="font-display text-2xl font-bold text-foreground">My Profile</h1>
+    <div className="max-w-3xl space-y-8">
+      <div className="flex flex-col gap-1">
+        <h1 className="font-display text-3xl font-bold text-navy tracking-tight">My Profile</h1>
+        <p className="text-sm text-navy/50 font-medium">Manage your personal information and account settings.</p>
+      </div>
 
       <div className="card-premium">
         <div className="flex items-center gap-4 mb-6">
@@ -17,39 +20,39 @@ export default function PortalProfile() {
             </button>
           </div>
           <div>
-            <h2 className="font-display text-lg font-semibold text-foreground">Aarav Patel</h2>
-            <p className="text-sm text-muted-foreground">Member since January 2025</p>
+            <h2 className="font-display text-xl font-bold text-navy">Aarav Patel</h2>
+            <p className="text-sm text-navy/40 font-medium">Member since January 2025</p>
           </div>
         </div>
 
-        <form className="space-y-4" onSubmit={(e) => { e.preventDefault(); setEditing(false); }}>
-          <div className="grid sm:grid-cols-2 gap-4">
+        <form className="space-y-6" onSubmit={(e) => { e.preventDefault(); setEditing(false); }}>
+          <div className="grid sm:grid-cols-2 gap-6">
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Full Name</label>
-              <div className="relative">
-                <User size={16} className="absolute left-3 top-3 text-muted-foreground" />
-                <input defaultValue="Aarav Patel" disabled={!editing} className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm disabled:opacity-60" />
+              <label className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-2 block">Full Name</label>
+              <div className="relative group">
+                <User size={16} className="absolute left-4 top-3.5 text-navy/20 group-focus-within:text-primary transition-colors" />
+                <input defaultValue="Aarav Patel" disabled={!editing} className="w-full pl-12 pr-4 py-3 rounded-2xl border border-navy/5 bg-navy/5 text-navy text-sm focus:border-primary/50 outline-none transition-all disabled:opacity-40" />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Email</label>
-              <div className="relative">
-                <Mail size={16} className="absolute left-3 top-3 text-muted-foreground" />
-                <input defaultValue="aarav@example.com" disabled={!editing} className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm disabled:opacity-60" />
+              <label className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-2 block">Email</label>
+              <div className="relative group">
+                <Mail size={16} className="absolute left-4 top-3.5 text-navy/20 group-focus-within:text-primary transition-colors" />
+                <input defaultValue="aarav@example.com" disabled={!editing} className="w-full pl-12 pr-4 py-3 rounded-2xl border border-navy/5 bg-navy/5 text-navy text-sm focus:border-primary/50 outline-none transition-all disabled:opacity-40" />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Phone</label>
-              <div className="relative">
-                <Phone size={16} className="absolute left-3 top-3 text-muted-foreground" />
-                <input defaultValue="+91 98765 43210" disabled={!editing} className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm disabled:opacity-60" />
+              <label className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-2 block">Phone</label>
+              <div className="relative group">
+                <Phone size={16} className="absolute left-4 top-3.5 text-navy/20 group-focus-within:text-primary transition-colors" />
+                <input defaultValue="+91 98765 43210" disabled={!editing} className="w-full pl-12 pr-4 py-3 rounded-2xl border border-navy/5 bg-navy/5 text-navy text-sm focus:border-primary/50 outline-none transition-all disabled:opacity-40" />
               </div>
             </div>
             <div>
-              <label className="text-sm font-medium text-foreground mb-1.5 block">Address</label>
-              <div className="relative">
-                <MapPin size={16} className="absolute left-3 top-3 text-muted-foreground" />
-                <input defaultValue="Bandra, Mumbai" disabled={!editing} className="w-full pl-10 pr-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm disabled:opacity-60" />
+              <label className="text-[10px] font-black uppercase tracking-widest text-primary/60 mb-2 block">Address</label>
+              <div className="relative group">
+                <MapPin size={16} className="absolute left-4 top-3.5 text-navy/20 group-focus-within:text-primary transition-colors" />
+                <input defaultValue="Bandra, Mumbai" disabled={!editing} className="w-full pl-12 pr-4 py-3 rounded-2xl border border-navy/5 bg-navy/5 text-navy text-sm focus:border-primary/50 outline-none transition-all disabled:opacity-40" />
               </div>
             </div>
           </div>

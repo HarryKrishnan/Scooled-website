@@ -21,21 +21,21 @@ export default function PortalProgress() {
     <div className="space-y-8 pb-10">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-display text-2xl font-bold text-foreground">Progress & Reports</h1>
-          <p className="text-sm text-muted-foreground mt-1">Deep dive into your swimming performance and trends.</p>
+          <h1 className="font-display text-3xl font-bold text-white tracking-tight">Progress & Reports</h1>
+          <p className="text-sm text-white/50 font-medium mt-1">Deep dive into your swimming performance and trends.</p>
         </div>
-        <button className="btn-primary flex items-center gap-2 px-6 py-2.5">
-          <Download size={18} /> Download Monthly Report
+        <button className="btn-primary flex items-center gap-2 px-6 py-2.5 shadow-xl shadow-primary/20">
+          <Download size={18} /> Download Report
         </button>
       </div>
 
       {/* Overall Progress Summary */}
       <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {[
-          { label: "Programs Enrolled", value: userEnrollments.length, icon: Target, color: "text-primary", bg: "bg-primary/10" },
-          { label: "Sessions Completed", value: totalSessions, icon: CheckCircle2, color: "text-green-500", bg: "bg-green-500/10" },
-          { label: "Avg. Attendance", value: `${avgAttendance}%`, icon: Calendar, color: "text-aqua", bg: "bg-aqua/10" },
-          { label: "Total Training Hours", value: `${totalHours}h`, icon: Clock, color: "text-gold", bg: "bg-gold/10" },
+          { label: "Programs Enrolled", value: userEnrollments.length, icon: Target, color: "text-primary", bg: "bg-primary/20" },
+          { label: "Sessions Completed", value: totalSessions, icon: CheckCircle2, color: "text-green-500", bg: "bg-green-500/20" },
+          { label: "Avg. Attendance", value: `${avgAttendance}%`, icon: Calendar, color: "text-aqua", bg: "bg-aqua/20" },
+          { label: "Total Training Hours", value: `${totalHours}h`, icon: Clock, color: "text-gold", bg: "bg-gold/20" },
         ].map((stat, i) => (
           <motion.div
             key={i}
@@ -44,11 +44,11 @@ export default function PortalProgress() {
             transition={{ delay: i * 0.1 }}
             className="card-premium group"
           >
-            <div className={`w-10 h-10 rounded-xl ${stat.bg} ${stat.color} flex items-center justify-center mb-3 group-hover:scale-110 transition-transform`}>
-              <stat.icon size={20} />
+            <div className={`w-12 h-12 rounded-2xl ${stat.bg} ${stat.color} flex items-center justify-center mb-4 group-hover:scale-110 group-hover:rotate-6 transition-all duration-500`}>
+              <stat.icon size={24} />
             </div>
-            <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1 font-bold">{stat.label}</p>
-            <p className="text-2xl font-bold text-foreground">{stat.value}</p>
+            <p className="text-[10px] uppercase tracking-widest font-black text-white/30 mb-1">{stat.label}</p>
+            <p className="text-3xl font-bold text-white">{stat.value}</p>
           </motion.div>
         ))}
       </div>

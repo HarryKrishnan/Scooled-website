@@ -7,19 +7,19 @@ export default function PortalMemberships() {
   const activePlan = userActiveMembership;
   
   return (
-    <div className="space-y-6">
+    <div className="space-y-8">
       <div className="flex flex-col gap-1">
-        <h1 className="font-display text-2xl font-bold text-foreground">Memberships</h1>
-        <p className="text-sm text-muted-foreground">Manage your subscription and explore premium aquatic plans.</p>
+        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Memberships</h1>
+        <p className="text-sm text-white/50 font-medium">Manage your subscription and explore premium aquatic plans.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
+      <div className="grid lg:grid-cols-3 gap-8">
         {/* Active Membership Status */}
-        <div className="lg:col-span-2 space-y-6">
+        <div className="lg:col-span-2 space-y-8">
           <motion.div 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="card-premium bg-navy text-primary-foreground relative overflow-hidden group"
+            className="card-premium bg-gradient-to-br from-navy to-navy-light text-primary-foreground relative overflow-hidden group border-white/10"
           >
             <div className="absolute top-0 right-0 p-8 opacity-10 group-hover:rotate-12 transition-transform duration-700">
               <Crown size={120} />
@@ -35,10 +35,10 @@ export default function PortalMemberships() {
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
                 <div>
                   <h2 className="font-display text-3xl font-bold mb-1">{activePlan.name} Plan</h2>
-                  <p className="text-primary-foreground/60 text-sm">Valid until <span className="text-primary-foreground font-semibold">{activePlan.expiryDate}</span></p>
+                  <p className="text-white/60 text-sm">Valid until <span className="text-white font-semibold">{activePlan.expiryDate}</span></p>
                 </div>
                 <div className="text-left md:text-right">
-                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">Billing cycle</p>
+                  <p className="text-[10px] uppercase tracking-wider text-white/40 mb-1">Billing cycle</p>
                   <p className="font-medium">{activePlan.duration}</p>
                 </div>
               </div>

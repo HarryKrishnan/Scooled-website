@@ -1,141 +1,106 @@
 import { motion } from "framer-motion";
-import { GraduationCap, CheckCircle2, Clock, Calendar, TrendingUp, Users, ChevronRight } from "lucide-react";
+import { GraduationCap, Clock, Calendar, TrendingUp, ChevronRight, Activity } from "lucide-react";
 import { userEnrollments } from "@/data/mockData";
 
 export default function PortalPrograms() {
   return (
-    <div className="space-y-6">
+    <div className="space-y-10">
       <div className="flex flex-col gap-1">
-        <h1 className="font-display text-2xl font-bold text-foreground">My Programs</h1>
-        <p className="text-sm text-muted-foreground">Track your progress and schedule for enrolled coaching programs.</p>
+        <h1 className="font-display text-4xl font-bold text-navy tracking-tight">Active Programs</h1>
+        <p className="text-navy/50 font-medium">Manage your current enrollments and track your performance.</p>
       </div>
 
-      <div className="grid lg:grid-cols-3 gap-6">
-        {/* Analytics Overview */}
-        <div className="lg:col-span-3 grid sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="card-premium">
-            <p className="text-xs text-muted-foreground mb-1">Total Programs</p>
-            <p className="text-2xl font-bold text-foreground">{userEnrollments.length}</p>
-          </div>
-          <div className="card-premium">
-            <p className="text-xs text-muted-foreground mb-1">Sessions Completed</p>
-            <p className="text-2xl font-bold text-primary">
-              {userEnrollments.reduce((acc, curr) => acc + curr.sessionsCompleted, 0)}
-            </p>
-          </div>
-          <div className="card-premium">
-            <p className="text-xs text-muted-foreground mb-1">Average Attendance</p>
-            <p className="text-2xl font-bold text-aqua">
-              {Math.round(userEnrollments.reduce((acc, curr) => acc + curr.attendanceRate, 0) / userEnrollments.length)}%
-            </p>
-          </div>
-          <div className="card-premium">
-            <p className="text-xs text-muted-foreground mb-1">Next Session</p>
-            <p className="text-sm font-semibold text-foreground truncate">{userEnrollments[0].nextSession}</p>
-          </div>
-        </div>
-
-        {/* Program Cards */}
-        <div className="lg:col-span-2 space-y-4">
-          <h3 className="font-display text-lg font-semibold text-foreground flex items-center gap-2">
-            <GraduationCap size={18} className="text-primary" /> Enrolled Programs
-          </h3>
-          {userEnrollments.map((prog, i) => (
-            <motion.div
-              key={prog.programId}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              className="card-premium group"
-            >
-              <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
-                <div>
-                  <h4 className="font-display text-lg font-bold text-foreground group-hover:text-primary transition-colors">
-                    {prog.title}
-                  </h4>
-                  <p className="text-sm text-muted-foreground flex items-center gap-1 mt-1">
-                    <Users size={14} /> Coach: {prog.coach}
-                  </p>
-                </div>
-                <div className="flex items-center gap-2">
-                  <span className="text-xs font-semibold px-3 py-1 bg-primary/10 text-primary rounded-full">
-                    {prog.progress}% Completed
+      <div className="grid lg:grid-cols-3 gap-8">
+        {/* Program Cards Column */}
+        <div className="lg:col-span-2 space-y-8">
+          <div className="grid md:grid-cols-1 gap-6">
+            {userEnrollments.map((program, i) => (
+              <motion.div 
+                key={program.programId}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                className="card-premium flex flex-col group"
+              >
+                <div className="flex justify-between items-start mb-8">
+                  <div className="flex items-center gap-4">
+                    <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center shrink-0 group-hover:bg-primary transition-all">
+                      <Activity size={24} className="text-primary group-hover:text-white transition-all" />
+                    </div>
+                    <div>
+                      <h3 className="font-display text-xl font-bold text-navy">{program.title}</h3>
+                      <p className="text-xs text-navy/40 font-medium">{program.coach}</p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] font-black uppercase tracking-widest text-primary bg-primary/10 px-3 py-1 rounded-full">
+                    Active
                   </span>
                 </div>
-              </div>
 
-              <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-6">
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Completed</p>
-                  <p className="text-sm font-bold text-foreground">{prog.sessionsCompleted} Classes</p>
+                <div className="grid grid-cols-2 gap-4 mb-8">
+                  <div className="p-4 rounded-2xl bg-navy/5 border border-navy/5">
+                    <p className="text-[9px] font-black uppercase tracking-widest text-navy/30 mb-1">Sessions</p>
+                    <p className="text-sm font-bold text-navy">{program.sessionsCompleted}/{program.sessionsTotal}</p>
+                  </div>
+                  <div className="p-4 rounded-2xl bg-navy/5 border border-navy/5">
+                    <p className="text-[9px] font-black uppercase tracking-widest text-navy/30 mb-1">Attendance</p>
+                    <p className="text-sm font-bold text-navy">{program.attendanceRate}%</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Pending</p>
-                  <p className="text-sm font-bold text-foreground">{prog.sessionsTotal - prog.sessionsCompleted} Classes</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Attendance</p>
-                  <p className="text-sm font-bold text-foreground">{prog.attendanceRate}%</p>
-                </div>
-                <div>
-                  <p className="text-[10px] uppercase tracking-wider text-muted-foreground mb-1">Last Session</p>
-                  <p className="text-sm font-bold text-foreground">{prog.lastSession}</p>
-                </div>
-              </div>
 
-              <div className="relative h-2 w-full bg-muted rounded-full overflow-hidden mb-6">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${prog.progress}%` }}
-                  transition={{ duration: 1, delay: 0.5 }}
-                  className="absolute top-0 left-0 h-full bg-primary"
-                />
-              </div>
-
-              <div className="flex items-center justify-between pt-4 border-t border-border">
-                <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                  <Calendar size={14} /> Next: <span className="text-foreground font-medium">{prog.nextSession}</span>
+                <div className="space-y-3 mb-8">
+                  <div className="flex justify-between text-[11px] font-bold text-navy/60">
+                    <span>Progress</span>
+                    <span>{program.progress}%</span>
+                  </div>
+                  <div className="h-2 w-full bg-navy/5 rounded-full overflow-hidden">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${program.progress}%` }}
+                      transition={{ duration: 1, delay: 0.5 }}
+                      className="h-full bg-primary rounded-full"
+                    />
+                  </div>
                 </div>
-                <button className="text-sm font-medium text-primary flex items-center gap-1 hover:gap-2 transition-all">
-                  View Analytics <ChevronRight size={14} />
-                </button>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className="pt-6 border-t border-navy/5 flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Calendar size={14} className="text-primary" />
+                    <span className="text-[11px] font-bold text-navy">Next: {program.nextSession}</span>
+                  </div>
+                  <button className="text-primary font-bold text-xs hover:underline flex items-center gap-1">
+                    View Details <ChevronRight size={14} />
+                  </button>
+                </div>
+              </motion.div>
+            ))}
+          </div>
         </div>
 
-        {/* Insights & Tips */}
-        <div className="lg:col-span-1 space-y-6">
-          <div className="card-premium bg-primary/5 border-primary/20">
-            <h3 className="font-display text-base font-semibold text-foreground mb-3 flex items-center gap-2">
-              <TrendingUp size={16} className="text-primary" /> Training Insights
+        {/* Sidebar Column */}
+        <div className="space-y-6">
+          <div className="card-premium border-primary/20 bg-primary/5">
+            <h3 className="font-display text-lg font-bold text-navy mb-4 flex items-center gap-2">
+              <TrendingUp size={20} className="text-primary" /> Training Insights
             </h3>
             <div className="space-y-4">
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-lg bg-green-500/10 flex items-center justify-center shrink-0">
-                  <CheckCircle2 size={16} className="text-green-500" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">Top Performer</p>
-                  <p className="text-xs text-muted-foreground">Your attendance is 12% higher than average swimmers this month.</p>
-                </div>
+              <div className="p-4 rounded-2xl bg-white/50 border border-white">
+                <p className="text-xs font-bold text-navy mb-1">Top Performer</p>
+                <p className="text-[11px] text-navy/50 leading-relaxed">Your attendance is 12% higher than average swimmers this month.</p>
               </div>
-              <div className="flex gap-3">
-                <div className="w-8 h-8 rounded-lg bg-gold/10 flex items-center justify-center shrink-0">
-                  <Clock size={16} className="text-gold" />
-                </div>
-                <div>
-                  <p className="text-sm font-medium text-foreground">Next Milestone</p>
-                  <p className="text-xs text-muted-foreground">Complete 5 more sessions to level up your Stroke Technique badge.</p>
-                </div>
+              <div className="p-4 rounded-2xl bg-white/50 border border-white">
+                <p className="text-xs font-bold text-navy mb-1">Next Milestone</p>
+                <p className="text-[11px] text-navy/50 leading-relaxed">Complete 5 more sessions to level up your badge.</p>
               </div>
             </div>
           </div>
 
           <div className="card-premium">
-            <h3 className="font-display text-base font-semibold text-foreground mb-3">Explore Certificates</h3>
-            <p className="text-xs text-muted-foreground mb-4">Complete your current programs to earn certified aquatic excellence badges.</p>
-            <button className="btn-outline w-full text-xs py-2">View Certificate Gallery</button>
+            <h3 className="font-display text-lg font-bold text-navy mb-2">Certificates</h3>
+            <p className="text-xs text-navy/40 mb-4 font-medium">Complete programs to earn excellence badges.</p>
+            <button className="w-full py-3 rounded-xl bg-navy/5 text-navy font-bold text-xs hover:bg-navy/10 transition-all">
+              View Gallery
+            </button>
           </div>
         </div>
       </div>

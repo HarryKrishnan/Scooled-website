@@ -14,43 +14,56 @@ export default function PortalBookings() {
   const filtered = filter === "All" ? bookings : bookings.filter((b) => b.status === filter);
 
   return (
-    <div className="space-y-6">
-      <h1 className="font-display text-2xl font-bold text-foreground">My Bookings</h1>
+    <div className="space-y-8">
+      <div className="flex flex-col gap-1">
+        <h1 className="font-display text-3xl font-bold text-navy tracking-tight">My Bookings</h1>
+        <p className="text-sm text-navy/50 font-medium">Keep track of your upcoming and past swimming sessions.</p>
+      </div>
 
       <div className="flex gap-2 flex-wrap">
         {["All", "Upcoming", "Completed", "Cancelled"].map((f) => (
-          <button key={f} onClick={() => setFilter(f)} className={`px-4 py-2 rounded-full text-sm font-medium transition-all ${filter === f ? "bg-primary text-primary-foreground" : "bg-muted text-muted-foreground hover:bg-muted/80"}`}>
+          <button 
+            key={f} 
+            onClick={() => setFilter(f)} 
+            className={`px-5 py-2 rounded-full text-[10px] font-black uppercase tracking-widest transition-all ${
+              filter === f 
+                ? "bg-primary text-white shadow-lg shadow-primary/20" 
+                : "bg-navy/5 text-navy/40 hover:bg-navy/10 hover:text-navy"
+            }`}
+          >
             {f}
           </button>
         ))}
       </div>
 
-      <div className="space-y-3">
+      <div className="space-y-4">
         {filtered.map((b) => (
-          <div key={b.id} className="card-premium flex flex-col sm:flex-row sm:items-center gap-4">
+          <div key={b.id} className="card-premium flex flex-col sm:flex-row sm:items-center gap-6 group">
             <div className="flex-1">
-              <div className="flex items-center gap-2 mb-1">
-                <CalendarCheck size={16} className="text-primary" />
-                <span className="text-sm font-semibold text-foreground">{b.date}</span>
-                <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                  b.status === "Upcoming" ? "bg-primary/10 text-primary" :
-                  b.status === "Completed" ? "bg-muted text-muted-foreground" :
-                  "bg-destructive/10 text-destructive"
+              <div className="flex items-center gap-3 mb-2">
+                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center">
+                  <CalendarCheck size={16} className="text-primary" />
+                </div>
+                <span className="text-sm font-bold text-navy">{b.date}</span>
+                <span className={`text-[10px] px-3 py-1 rounded-full font-black uppercase tracking-widest border ${
+                  b.status === "Upcoming" ? "bg-primary/10 text-primary border-primary/20" :
+                  b.status === "Completed" ? "bg-navy/5 text-navy/40 border-navy/5" :
+                  "bg-destructive/10 text-destructive border-destructive/20"
                 }`}>{b.status}</span>
               </div>
-              <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                <span className="flex items-center gap-1"><Clock size={12} /> {b.time}</span>
-                <span className="flex items-center gap-1"><MapPin size={12} /> {b.centre}</span>
-                <span>{b.type}</span>
+              <div className="flex items-center gap-4 text-[11px] font-bold text-navy/40">
+                <span className="flex items-center gap-1.5"><Clock size={14} className="text-navy/20" /> {b.time}</span>
+                <span className="flex items-center gap-1.5"><MapPin size={14} className="text-navy/20" /> {b.centre} Centre</span>
+                <span className="text-primary/60 font-black uppercase tracking-widest text-[9px] px-2 py-0.5 rounded bg-navy/5">{b.type}</span>
               </div>
             </div>
             {b.status === "Upcoming" && (
-              <div className="flex gap-2">
-                <button className="px-3 py-1.5 rounded-lg border border-border text-xs font-medium text-foreground hover:bg-muted flex items-center gap-1">
-                  <RefreshCw size={12} /> Reschedule
+              <div className="flex gap-3">
+                <button className="px-5 py-2.5 rounded-2xl bg-navy/5 border border-navy/5 text-xs font-bold text-navy hover:bg-navy/10 transition-all flex items-center gap-2">
+                  <RefreshCw size={14} /> Reschedule
                 </button>
-                <button className="px-3 py-1.5 rounded-lg border border-destructive/30 text-xs font-medium text-destructive hover:bg-destructive/5 flex items-center gap-1">
-                  <X size={12} /> Cancel
+                <button className="px-5 py-2.5 rounded-2xl bg-destructive/5 border border-destructive/10 text-xs font-bold text-destructive hover:bg-destructive/10 transition-all flex items-center gap-2">
+                  <X size={14} /> Cancel
                 </button>
               </div>
             )}
