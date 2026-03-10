@@ -219,3 +219,53 @@ export const notifications = [
   { id: "n3", type: "reminder", title: "Session Reminder", message: "Your coaching session starts in 2 hours.", time: "3 hours ago", read: true },
   { id: "n4", type: "update", title: "New Program Available", message: "Master's Swimming program now open for enrollment!", time: "2 days ago", read: true },
 ];
+
+// Customer Membership Subscriptions with full lifecycle data
+export const customerMembershipSubscriptions = [
+  { id: "cms1", customerId: "cu1", customerName: "Aarav Patel", membershipPlanId: "m2", planName: "Quarterly", startDate: "2025-01-15", expiryDate: "2025-04-15", status: "Active", autoRenew: true, phone: "+91 98765 43210", email: "aarav@example.com" },
+  { id: "cms2", customerId: "cu2", customerName: "Sneha Iyer", membershipPlanId: "m4", planName: "Annual", startDate: "2024-08-20", expiryDate: "2025-08-20", status: "Active", autoRenew: true, phone: "+91 98765 43211", email: "sneha@example.com" },
+  { id: "cms3", customerId: "cu3", customerName: "Rohan Gupta", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-01", expiryDate: "2025-03-01", status: "Expired", autoRenew: false, phone: "+91 98765 43212", email: "rohan@example.com" },
+  { id: "cms4", customerId: "cu4", customerName: "Meera Nair", membershipPlanId: "m3", planName: "Half-Yearly", startDate: "2024-11-10", expiryDate: "2025-05-10", status: "Active", autoRenew: true, phone: "+91 98765 43213", email: "meera@example.com" },
+  { id: "cms5", customerId: "cu5", customerName: "Vikram Singh", membershipPlanId: "m2", planName: "Quarterly", startDate: "2024-06-15", expiryDate: "2024-09-15", status: "Expired", autoRenew: false, phone: "+91 98765 43214", email: "vikram@example.com" },
+  { id: "cms6", customerId: "cu6", customerName: "Ananya Reddy", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-20", expiryDate: "2025-03-20", status: "Active", autoRenew: true, phone: "+91 98765 43215", email: "ananya@example.com" },
+  { id: "cms7", customerId: "cu7", customerName: "Karthik Raj", membershipPlanId: "m4", planName: "Annual", startDate: "2024-03-01", expiryDate: "2025-03-01", status: "Expired", autoRenew: false, phone: "+91 98765 43216", email: "karthik@example.com" },
+  { id: "cms8", customerId: "cu8", customerName: "Divya Kapoor", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-03-05", expiryDate: "2025-04-05", status: "Active", autoRenew: false, phone: "+91 98765 43217", email: "divya@example.com" },
+  // Adding more customers to show variety
+  { id: "cms9", customerId: "cu9", customerName: "Aditya Joshi", membershipPlanId: "m2", planName: "Quarterly", startDate: "2024-12-05", expiryDate: "2025-03-05", status: "Expired", autoRenew: true, phone: "+91 98765 43218", email: "aditya@example.com" },
+  { id: "cms10", customerId: "cu10", customerName: "Priya Malhotra", membershipPlanId: "m3", planName: "Half-Yearly", startDate: "2025-01-01", expiryDate: "2025-07-01", status: "Active", autoRenew: true, phone: "+91 98765 43219", email: "priya@example.com" },
+  { id: "cms11", customerId: "cu11", customerName: "Ravi Kumar", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-15", expiryDate: "2025-03-15", status: "Active", autoRenew: true, phone: "+91 98765 43220", email: "ravi@example.com" },
+  { id: "cms12", customerId: "cu12", customerName: "Sanjana Shah", membershipPlanId: "m2", planName: "Quarterly", startDate: "2025-01-20", expiryDate: "2025-04-20", status: "Active", autoRenew: false, phone: "+91 98765 43221", email: "sanjana@example.com" },
+];
+
+// Notification History for Admin tracking
+export const notificationHistory = [
+  { id: "nh1", customerId: "cu3", customerName: "Rohan Gupta", type: "Expiration Warning", channel: "Alert", message: "Your Monthly membership expires on Mar 1, 2025", sentAt: "2025-02-25 10:30 AM", status: "Sent" },
+  { id: "nh2", customerId: "cu3", customerName: "Rohan Gupta", type: "Renewal Reminder", channel: "WhatsApp", message: "Reminder: Renew your membership to continue enjoying unlimited pool access", sentAt: "2025-02-28 09:15 AM", status: "Sent" },
+  { id: "nh3", customerId: "cu7", customerName: "Karthik Raj", type: "Expiration Warning", channel: "Alert", message: "Your Annual membership expires on Mar 1, 2025", sentAt: "2025-02-22 02:00 PM", status: "Sent" },
+  { id: "nh4", customerId: "cu5", customerName: "Vikram Singh", type: "Premium Upgrade Offer", channel: "WhatsApp", message: "Upgrade to Annual plan and save 30%! Limited time offer.", sentAt: "2025-02-10 11:00 AM", status: "Sent" },
+  { id: "nh5", customerId: "cu6", customerName: "Ananya Reddy", type: "Renewal Reminder", channel: "Alert", message: "Your membership expires in 9 days. Renew now!", sentAt: "2025-03-11 08:00 AM", status: "Sent" },
+];
+
+// Helper function to calculate days until expiry
+export const getDaysUntilExpiry = (expiryDate: string): number => {
+  const today = new Date("2026-03-11"); // Current date in the app
+  const expiry = new Date(expiryDate);
+  const diffTime = expiry.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
+// Helper function to get expiry status
+export const getExpiryStatus = (expiryDate: string): { status: string; color: string; daysRemaining: number } => {
+  const daysRemaining = getDaysUntilExpiry(expiryDate);
+  
+  if (daysRemaining < 0) {
+    return { status: "Expired", color: "text-destructive bg-destructive/10", daysRemaining };
+  } else if (daysRemaining <= 7) {
+    return { status: "Expiring Soon", color: "text-destructive bg-destructive/10", daysRemaining };
+  } else if (daysRemaining <= 30) {
+    return { status: "Expiring This Month", color: "text-gold bg-gold/10", daysRemaining };
+  } else {
+    return { status: "Active", color: "text-primary bg-primary/10", daysRemaining };
+  }
+};

@@ -38,6 +38,7 @@ import AdminPrograms from "@/pages/admin/AdminPrograms";
 import AdminPayments from "@/pages/admin/AdminPayments";
 import AdminCalendar from "@/pages/admin/AdminCalendar";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
+import AdminMemberships from "@/pages/admin/AdminMemberships";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
 
 const queryClient = new QueryClient();
@@ -78,7 +79,7 @@ const App = () => (
             <Route index element={<AdminOverview />} />
             <Route path="calendar" element={<AdminCalendar />} />
             <Route path="programs" element={<AdminPrograms />} />
-            <Route path="memberships" element={<AdminPlaceholder title="Membership Management" />} />
+            <Route path="memberships" element={<AdminMemberships />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="coaches" element={<AdminCoaches />} />
             <Route path="payments" element={<AdminPayments />} />
