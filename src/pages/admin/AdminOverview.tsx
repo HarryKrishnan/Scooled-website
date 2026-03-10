@@ -19,13 +19,13 @@ export default function AdminOverview() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="font-display text-2xl font-bold text-foreground">Overview</h1>
-        <p className="text-sm text-muted-foreground mt-1">Today's snapshot — March 10, 2025</p>
+        <h1 className="font-display text-3xl font-bold text-navy">Overview</h1>
+        <p className="text-sm text-navy/60 mt-1">Today's snapshot — March 10, 2026</p>
       </div>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4">
         {overviewCards.map((c, i) => (
-          <div key={i} className="admin-card">
+          <div key={i} className="card-premium hover:-translate-y-1 transition-all duration-300 cursor-pointer">
             <div className="flex items-center justify-between mb-3">
               <c.icon size={20} className={c.color} />
               {c.change && (
@@ -35,26 +35,26 @@ export default function AdminOverview() {
                 </span>
               )}
             </div>
-            <p className="text-2xl font-bold text-foreground">{c.value}</p>
-            <p className="text-xs text-muted-foreground mt-1">{c.label}</p>
+            <p className="text-2xl font-bold text-navy">{c.value}</p>
+            <p className="text-xs text-navy/60 mt-1">{c.label}</p>
           </div>
         ))}
       </div>
 
       {/* Recent Customers */}
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="admin-card">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Recent Customers</h3>
+        <div className="card-premium">
+          <h3 className="text-sm font-semibold text-navy mb-4">Recent Customers</h3>
           <div className="space-y-3">
             {customers.slice(0, 5).map((c) => (
-              <div key={c.id} className="flex items-center justify-between">
+              <div key={c.id} className="flex items-center justify-between hover:bg-white/50 p-2 rounded-xl transition-colors">
                 <div className="flex items-center gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold">
                     {c.name.charAt(0)}
                   </div>
                   <div>
-                    <p className="text-sm font-medium text-foreground">{c.name}</p>
-                    <p className="text-xs text-muted-foreground">{c.membership}</p>
+                    <p className="text-sm font-medium text-navy">{c.name}</p>
+                    <p className="text-xs text-navy/60">{c.membership}</p>
                   </div>
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
@@ -67,14 +67,14 @@ export default function AdminOverview() {
           </div>
         </div>
 
-        <div className="admin-card">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Recent Leads</h3>
+        <div className="card-premium">
+          <h3 className="text-sm font-semibold text-navy mb-4">Recent Leads</h3>
           <div className="space-y-3">
             {leads.map((l) => (
-              <div key={l.id} className="flex items-center justify-between">
+              <div key={l.id} className="flex items-center justify-between hover:bg-white/50 p-2 rounded-xl transition-colors">
                 <div>
-                  <p className="text-sm font-medium text-foreground">{l.name}</p>
-                  <p className="text-xs text-muted-foreground">{l.interest} • {l.source}</p>
+                  <p className="text-sm font-medium text-navy">{l.name}</p>
+                  <p className="text-xs text-navy/60">{l.interest} • {l.source}</p>
                 </div>
                 <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                   l.status === "New" ? "bg-primary/10 text-primary" :
@@ -89,23 +89,23 @@ export default function AdminOverview() {
       </div>
 
       {/* Recent Payments */}
-      <div className="admin-card overflow-x-auto">
-        <h3 className="text-sm font-semibold text-foreground mb-4">Recent Payments</h3>
+      <div className="card-premium overflow-x-auto">
+        <h3 className="text-sm font-semibold text-navy mb-4">Recent Payments</h3>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border">
+            <tr className="border-b border-navy/10">
               {["Customer", "Type", "Method", "Amount", "Status"].map((h) => (
-                <th key={h} className="text-left py-2 text-xs text-muted-foreground font-medium">{h}</th>
+                <th key={h} className="text-left py-2 text-xs text-navy/60 font-medium">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {payments.map((p) => (
-              <tr key={p.id} className="border-b border-border/50">
-                <td className="py-2.5 font-medium text-foreground">{p.customer}</td>
-                <td className="py-2.5 text-muted-foreground">{p.type}</td>
-                <td className="py-2.5 text-muted-foreground">{p.method}</td>
-                <td className="py-2.5 font-medium text-foreground">₹{p.amount.toLocaleString()}</td>
+              <tr key={p.id} className="border-b border-navy/5 hover:bg-white/40 transition-colors">
+                <td className="py-2.5 font-medium text-navy">{p.customer}</td>
+                <td className="py-2.5 text-navy/60">{p.type}</td>
+                <td className="py-2.5 text-navy/60">{p.method}</td>
+                <td className="py-2.5 font-medium text-navy">₹{p.amount.toLocaleString()}</td>
                 <td className="py-2.5">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     p.status === "Completed" ? "bg-primary/10 text-primary" :

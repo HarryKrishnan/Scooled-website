@@ -16,42 +16,42 @@ export default function AdminLeads() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="font-display text-2xl font-bold text-foreground">Leads</h1>
+        <h1 className="font-display text-3xl font-bold text-navy">Leads</h1>
         <div className="relative">
-          <Search size={16} className="absolute left-3 top-2.5 text-muted-foreground" />
-          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search leads..." className="pl-10 pr-4 py-2 rounded-xl border border-border bg-background text-sm w-64" />
+          <Search size={16} className="absolute left-3 top-2.5 text-navy/60" />
+          <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search leads..." className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" />
         </div>
       </div>
 
       <div className="grid sm:grid-cols-4 gap-4">
         {["New", "Contacted", "Qualified", "Lost"].map((s) => (
-          <div key={s} className="admin-card text-center">
-            <p className="text-2xl font-bold text-foreground">{leads.filter((l) => l.status === s).length}</p>
-            <p className="text-xs text-muted-foreground mt-1">{s}</p>
+          <div key={s} className="card-premium text-center hover:-translate-y-1 transition-all duration-300">
+            <p className="text-2xl font-bold text-navy">{leads.filter((l) => l.status === s).length}</p>
+            <p className="text-xs text-navy/60 mt-1">{s}</p>
           </div>
         ))}
       </div>
 
-      <div className="admin-card overflow-x-auto">
+      <div className="card-premium overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-border">
+            <tr className="border-b border-navy/10">
               {["Name", "Contact", "Source", "Interest", "Status", "Date", ""].map((h) => (
-                <th key={h} className="text-left py-2.5 text-xs text-muted-foreground font-medium">{h}</th>
+                <th key={h} className="text-left py-2.5 text-xs text-navy/60 font-medium">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((l) => (
-              <tr key={l.id} className="border-b border-border/50 hover:bg-muted/30">
-                <td className="py-2.5 font-medium text-foreground">{l.name}</td>
-                <td className="py-2.5 text-muted-foreground text-xs">{l.phone}<br />{l.email}</td>
-                <td className="py-2.5 text-muted-foreground">{l.source}</td>
-                <td className="py-2.5 text-muted-foreground">{l.interest}</td>
+              <tr key={l.id} className="border-b border-navy/5 hover:bg-white/40 transition-colors">
+                <td className="py-2.5 font-medium text-navy">{l.name}</td>
+                <td className="py-2.5 text-navy/60 text-xs">{l.phone}<br />{l.email}</td>
+                <td className="py-2.5 text-navy/60">{l.source}</td>
+                <td className="py-2.5 text-navy/60">{l.interest}</td>
                 <td className="py-2.5"><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[l.status] || ""}`}>{l.status}</span></td>
-                <td className="py-2.5 text-muted-foreground">{l.date}</td>
+                <td className="py-2.5 text-navy/60">{l.date}</td>
                 <td className="py-2.5">
-                  <button className="p-1.5 rounded-lg hover:bg-muted text-primary" title="Send offer">
+                  <button className="p-1.5 rounded-lg hover:bg-white/50 text-primary transition-colors" title="Send offer">
                     <Send size={14} />
                   </button>
                 </td>
