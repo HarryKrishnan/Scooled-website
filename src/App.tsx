@@ -35,6 +35,7 @@ import AdminOverview from "@/pages/admin/AdminOverview";
 import AdminCustomers from "@/pages/admin/AdminCustomers";
 import AdminCoaches from "@/pages/admin/AdminCoaches";
 import AdminPrograms from "@/pages/admin/AdminPrograms";
+import AdminPayments from "@/pages/admin/AdminPayments";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
 
@@ -79,7 +80,7 @@ const App = () => (
             <Route path="memberships" element={<AdminPlaceholder title="Membership Management" />} />
             <Route path="customers" element={<AdminCustomers />} />
             <Route path="coaches" element={<AdminCoaches />} />
-            <Route path="payments" element={<AdminPlaceholder title="Payments & Finance" />} />
+            <Route path="payments" element={<AdminPayments />} />
             <Route path="attendance" element={<AdminPlaceholder title="Attendance & Progress" />} />
             <Route path="progress" element={<AdminPlaceholder title="Progress Reports" />} />
             <Route path="complaints" element={<AdminComplaints />} />

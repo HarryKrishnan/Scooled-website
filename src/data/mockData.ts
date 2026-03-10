@@ -66,12 +66,16 @@ export const leads = [
 ];
 
 export const payments = [
-  { id: "pay1", customer: "Aarav Patel", amount: 7999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-01", invoice: "INV-2025-001" },
-  { id: "pay2", customer: "Sneha Iyer", amount: 8000, type: "Coaching", method: "Credit Card", status: "Completed", date: "2025-02-28", invoice: "INV-2025-002" },
-  { id: "pay3", customer: "Rohan Gupta", amount: 2999, type: "Membership", method: "Net Banking", status: "Completed", date: "2025-03-01", invoice: "INV-2025-003" },
-  { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", invoice: "INV-2025-004" },
-  { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", invoice: "INV-2025-005" },
-  { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", invoice: "INV-2025-006" },
+  { id: "pay1", customer: "Aarav Patel", amount: 7999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-01", time: "10:45 AM", invoice: "INV-2025-001" },
+  { id: "pay2", customer: "Sneha Iyer", amount: 8000, type: "Coaching", method: "Credit Card", status: "Completed", date: "2025-02-28", time: "02:30 PM", invoice: "INV-2025-002" },
+  { id: "pay3", customer: "Rohan Gupta", amount: 2999, type: "Membership", method: "Net Banking", status: "Completed", date: "2025-03-01", time: "09:15 AM", invoice: "INV-2025-003" },
+  { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", time: "11:20 AM", invoice: "INV-2025-004" },
+  { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", time: "03:55 PM", invoice: "INV-2025-005" },
+  { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", time: "08:30 AM", invoice: "INV-2025-006" },
+  { id: "pay7", customer: "Karthik Raj", amount: 24999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-10", time: "04:12 PM", invoice: "INV-2025-007" },
+  { id: "pay8", customer: "Divya Kapoor", amount: 1500, type: "Trial Session", method: "Cash", status: "Completed", date: "2025-03-09", time: "06:00 PM", invoice: "INV-2025-008" },
+  { id: "pay9", customer: "Aarav Patel", amount: 3500, type: "Coaching", method: "UPI", status: "Completed", date: "2025-03-08", time: "01:25 PM", invoice: "INV-2025-009" },
+  { id: "pay10", customer: "Sneha Iyer", amount: 2500, type: "Guest Pass", method: "UPI", status: "Completed", date: "2025-03-07", time: "10:10 AM", invoice: "INV-2025-010" },
 ];
 
 export const userEnrollments = [
