@@ -12,7 +12,7 @@ import bgImage from "@/assets/portal-dash.jpg";
 const primaryNavItems = [
   { label: "Overview", path: "/admin", icon: LayoutDashboard },
   { label: "Customers", path: "/admin/customers", icon: Users },
-  { label: "Leads", path: "/admin/leads", icon: UserPlus },
+  { label: "Coaches", path: "/admin/coaches", icon: UserPlus },
   { label: "Programs", path: "/admin/programs", icon: GraduationCap },
   { label: "Payments", path: "/admin/payments", icon: Wallet },
   { label: "Complaints", path: "/admin/complaints", icon: MessageSquare },
