@@ -16,59 +16,109 @@ const navItems = [
 
 export default function CoachLayout() {
   const location = useLocation();
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <div className="min-h-screen flex bg-muted/30">
-      {/* Mobile overlay */}
-      {sidebarOpen && <div className="fixed inset-0 bg-foreground/20 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} />}
+    <div className="min-h-screen flex flex-col bg-[#0a0f16] text-slate-200 font-sans selection:bg-cyan-500/30">
+      {/* Top Navigation Bar */}
+      <header className="sticky top-0 z-50 bg-[#0a0f16]/90 backdrop-blur-xl border-b border-white/5">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-center justify-between h-20">
+            {/* Logo area */}
+            <div className="flex items-center gap-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-cyan-500 to-blue-600 flex items-center justify-center shadow-[0_0_15px_rgba(6,182,212,0.4)]">
+                <Waves size={24} className="text-white" />
+              </div>
+              <div>
+                <span className="font-display text-xl font-bold text-white tracking-wide">Scooled</span>
+                <span className="text-xs font-semibold tracking-widest text-cyan-400 uppercase block -mt-1">Coach Portal</span>
+              </div>
+            </div>
 
-      {/* Sidebar */}
-      <aside className={`fixed lg:sticky top-0 left-0 h-screen w-64 bg-navy text-primary-foreground flex flex-col z-50 transition-transform lg:translate-x-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="p-5 flex items-center gap-2 border-b border-primary-foreground/10">
-          <Waves size={24} className="text-cyan" />
-          <span className="font-display text-lg font-bold">Coach</span>
-          <button className="lg:hidden ml-auto" onClick={() => setSidebarOpen(false)}><X size={20} /></button>
-        </div>
-        <nav className="flex-1 py-4 overflow-y-auto">
-          {navItems.map((item) => {
-            const active = location.pathname === item.path;
-            return (
-              <Link
-                key={item.path}
-                to={item.path}
-                onClick={() => setSidebarOpen(false)}
-                className={`flex items-center gap-3 px-5 py-2.5 text-sm font-medium transition-colors ${
-                  active ? "bg-sidebar-accent text-primary-foreground" : "text-primary-foreground/60 hover:text-primary-foreground hover:bg-sidebar-accent/50"
-                }`}
+            {/* Desktop Navigation */}
+            <nav className="hidden lg:flex items-center gap-2">
+              {navItems.map((item) => {
+                const active = location.pathname === item.path;
+                return (
+                  <Link
+                    key={item.path}
+                    to={item.path}
+                    className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-sm font-semibold transition-all duration-300 ${
+                      active
+                        ? "bg-amber-500 text-slate-900 shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                        : "text-slate-400 hover:text-white hover:bg-white/5"
+                    }`}
+                  >
+                    <item.icon size={18} className={active ? "text-slate-900" : "text-slate-500"} />
+                    {item.label}
+                  </Link>
+                );
+              })}
+            </nav>
+
+            {/* Right actions */}
+            <div className="flex items-center gap-4">
+              <button className="relative p-2 text-slate-400 hover:text-white transition-colors rounded-full hover:bg-white/5 hidden sm:block">
+                <Bell size={20} />
+                <span className="absolute top-1.5 right-1.5 w-2 h-2 bg-amber-500 rounded-full animate-pulse"></span>
+              </button>
+
+              <div className="flex items-center gap-3 pl-4 border-l border-white/10 hidden sm:flex">
+                <div className="w-9 h-9 rounded-full bg-slate-800 border border-white/10 flex items-center justify-center text-cyan-400 font-bold shadow-inner">
+                  CR
+                </div>
+                <Link to="/" className="text-sm font-medium text-slate-400 hover:text-white transition-colors flex items-center gap-2">
+                  <LogOut size={16} /> Exit
+                </Link>
+              </div>
+
+              {/* Mobile menu button */}
+              <button
+                className="lg:hidden p-2 text-slate-400 hover:text-white"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
               >
-                <item.icon size={18} />
-                {item.label}
-              </Link>
-            );
-          })}
-        </nav>
-        <div className="p-4 border-t border-primary-foreground/10">
-          <Link to="/" className="flex items-center gap-2 text-sm text-primary-foreground/60 hover:text-primary-foreground transition-colors">
-            <LogOut size={16} /> Back to Website
-          </Link>
-        </div>
-      </aside>
-
-      {/* Main */}
-      <div className="flex-1 flex flex-col min-h-screen">
-        <header className="sticky top-0 z-30 bg-card/95 backdrop-blur-lg border-b border-border h-14 flex items-center px-4 lg:px-6">
-          <button className="lg:hidden mr-3" onClick={() => setSidebarOpen(true)}><Menu size={20} /></button>
-          <h2 className="font-display text-lg font-semibold text-foreground">Coach Dashboard</h2>
-          <div className="ml-auto flex items-center gap-3">
-            <Bell size={18} className="text-muted-foreground cursor-pointer" />
-            <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center text-primary text-sm font-bold">C</div>
+                {mobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+              </button>
+            </div>
           </div>
-        </header>
-        <main className="flex-1 p-4 lg:p-6">
-          <Outlet />
-        </main>
-      </div>
+        </div>
+      </header>
+
+      {/* Mobile Navigation Menu */}
+      {mobileMenuOpen && (
+        <div className="lg:hidden fixed inset-0 z-40 bg-[#0a0f16]/95 backdrop-blur-3xl pt-24 px-4 pb-6 overflow-y-auto">
+          <div className="flex flex-col gap-2">
+            {navItems.map((item) => {
+              const active = location.pathname === item.path;
+              return (
+                <Link
+                  key={item.path}
+                  to={item.path}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className={`flex items-center gap-3 px-5 py-3.5 rounded-2xl text-base font-medium transition-all ${
+                    active
+                      ? "bg-amber-500 text-slate-900 shadow-[0_0_15px_rgba(245,158,11,0.4)]"
+                      : "text-slate-300 hover:bg-white/5"
+                  }`}
+                >
+                  <item.icon size={20} className={active ? "text-slate-900" : "text-slate-500"} />
+                  {item.label}
+                </Link>
+              );
+            })}
+            <div className="mt-8 pt-6 border-t border-white/10">
+              <Link to="/" className="flex items-center gap-3 px-5 py-3 text-slate-400 hover:text-white">
+                <LogOut size={20} /> Back to Website
+              </Link>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Main Content Area */}
+      <main className="flex-1 w-full max-w-7xl mx-auto p-4 sm:p-6 lg:p-8">
+        <Outlet />
+      </main>
     </div>
   );
 }

@@ -8,14 +8,22 @@ export interface Trainee {
   batch: string;
   attendance: number; // percentage
   lastUpdate: string;
+  // additional profile details for the modal
+  membershipType?: string;
+  coachName?: string;
+  emergencyContact?: string;
+  trainingGoals?: string[];
+  recentAttendance?: { date: string; status: string }[];
+  progressSummary?: string;
+  remarks?: string;
 }
 
 export const coachTrainees: Trainee[] = [
-  { id: "t1", name: "Riya Patel", ageGroup: "10–12", level: "Intermediate", batch: "Batch A", attendance: 92, lastUpdate: "2025-03-08" },
-  { id: "t2", name: "Vikram Singh", ageGroup: "13–15", level: "Advanced", batch: "Batch B", attendance: 85, lastUpdate: "2025-03-09" },
-  { id: "t3", name: "Anjali Rao", ageGroup: "8–10", level: "Beginner", batch: "Batch C", attendance: 100, lastUpdate: "2025-03-07" },
-  { id: "t4", name: "Karan Mehta", ageGroup: "16–18", level: "Advanced", batch: "Batch B", attendance: 78, lastUpdate: "2025-03-05" },
-  { id: "t5", name: "Sahana Iyer", ageGroup: "6–8", level: "Beginner", batch: "Batch A", attendance: 95, lastUpdate: "2025-03-10" },
+  { id: "t1", name: "Riya Patel", ageGroup: "10–12", level: "Intermediate", batch: "Batch A", attendance: 92, lastUpdate: "2025-03-08", membershipType: "Quarterly", coachName: "Coach Rahul", emergencyContact: "+91 98765 43210", trainingGoals: ["Master butterfly stroke"], recentAttendance: [{ date: "2025-03-08", status: "Present" }, { date: "2025-03-07", status: "Present" }], progressSummary: "Strong technique, maintain consistency.", remarks: "Excellent attitude." },
+  { id: "t2", name: "Vikram Singh", ageGroup: "13–15", level: "Advanced", batch: "Batch B", attendance: 85, lastUpdate: "2025-03-09", membershipType: "Monthly", coachName: "Coach Rahul", emergencyContact: "+91 91234 56789", trainingGoals: ["Increase lap consistency"], recentAttendance: [{ date: "2025-03-09", status: "Present" }, { date: "2025-03-08", status: "Late" }], progressSummary: "Needs to work on stamina.", remarks: "Keep pushing." },
+  { id: "t3", name: "Anjali Rao", ageGroup: "8–10", level: "Beginner", batch: "Batch C", attendance: 100, lastUpdate: "2025-03-07", membershipType: "Half-Yearly", coachName: "Coach Neha", emergencyContact: "+91 99887 66554", trainingGoals: ["Learn basic strokes"], recentAttendance: [{ date: "2025-03-07", status: "Present" }, { date: "2025-03-06", status: "Present" }], progressSummary: "Very attentive.", remarks: "Has potential." },
+  { id: "t4", name: "Karan Mehta", ageGroup: "16–18", level: "Advanced", batch: "Batch B", attendance: 78, lastUpdate: "2025-03-05", membershipType: "Annual", coachName: "Coach Rahul", emergencyContact: "+91 90000 12345", trainingGoals: ["Prepare for competition"], recentAttendance: [{ date: "2025-03-05", status: "Absent" }, { date: "2025-03-04", status: "Present" }], progressSummary: "Should work on endurance.", remarks: "Bring extra energy." },
+  { id: "t5", name: "Sahana Iyer", ageGroup: "6–8", level: "Beginner", batch: "Batch A", attendance: 95, lastUpdate: "2025-03-10", membershipType: "Monthly", coachName: "Coach Rahul", emergencyContact: "+91 91234 56789", trainingGoals: ["Improve freestyle", "Build endurance"], recentAttendance: [{ date: "2025-03-08", status: "Present" }, { date: "2025-03-06", status: "Absent" }], progressSummary: "Consistent improvements on lap times.", remarks: "Needs to work on flip turns." },
 ];
 
 export interface CoachSession {
@@ -97,6 +105,18 @@ export const coachProgress: ProgressRecord[] = [
     confidence: 75,
     note: "Strong starts but stamina dips mid-session.",
     lastUpdated: "2025-03-09",
+  },
+  {
+    id: "p3",
+    trainee: "Aarav Patel",
+    level: "Beginner",
+    stamina: 50,
+    breathing: 55,
+    consistency: 60,
+    technique: 50,
+    confidence: 45,
+    note: "Just joined, needs orientation on breathing.",
+    lastUpdated: "2025-03-10",
   },
 ];
 

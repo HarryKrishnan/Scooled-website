@@ -2,6 +2,7 @@ import { CalendarCheck, CreditCard, GraduationCap, Bell, ArrowRight, Clock, MapP
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
 import { notifications, userActiveMembership, userEnrollments } from "@/data/mockData";
+import { useProgressStore } from "@/store/progressStore";
 
 const upcomingBooking = {
   date: "Today, March 10",
@@ -9,6 +10,9 @@ const upcomingBooking = {
   centre: "Downtown",
   type: "Open Swim",
 };
+
+// demo user name should match a progress record
+const portalUser = "Aarav Patel";
 
 const quickActions = [
   { label: "Book a Slot", path: "/portal/book", icon: CalendarCheck, color: "bg-primary/10 text-primary" },
@@ -18,6 +22,9 @@ const quickActions = [
 ];
 
 export default function PortalDashboard() {
+  // get record via hook at top level
+  const record = useProgressStore((s) => s.records.find((r) => r.trainee === portalUser));
+
   return (
     <div className="space-y-6">
       <div>
@@ -53,6 +60,18 @@ export default function PortalDashboard() {
         </div>
 
         {/* Membership */}
+
+      {/* latest coach feedback snippet */}
+      {record && (
+        <div className="card-premium">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Coach Feedback</h3>
+          <div className="space-y-2">
+            <p className="text-xs text-muted-foreground">Level: {record.level}</p>
+            <p className="text-xs text-muted-foreground">"{record.note}"</p>
+            <p className="text-[10px] text-muted-foreground">Last updated: {record.lastUpdated}</p>
+          </div>
+        </div>
+      )}
         <div className="card-premium">
           <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
             <CreditCard size={16} className="text-primary" /> Membership
