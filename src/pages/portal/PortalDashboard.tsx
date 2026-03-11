@@ -11,6 +11,7 @@ import summerSplashImg from "@/assets/summer_splash_offer_bg_1773151662663.png";
 import proCoachingImg from "@/assets/pro_coaching_bundle_bg_1773151684239.png";
 import aquaFitnessImg from "@/assets/aqua_fitness_masterclass_bg_1773152099078.png";
 import familyWeekendImg from "@/assets/family_weekend_special_bg_1773152117111.png";
+import { useProgressStore } from "@/store/progressStore";
 
 const campaigns = [
   {
@@ -53,6 +54,15 @@ const upcomingBooking = {
   centre: "Downtown",
   type: "Open Swim",
 };
+
+const portalUser = "Aarav Patel";
+
+const quickActions = [
+  { label: "Book a Slot", path: "/portal/book", icon: CalendarCheck, color: "bg-primary/10 text-primary" },
+  { label: "My Bookings", path: "/portal/bookings", icon: Clock, color: "bg-cyan/10 text-cyan" },
+  { label: "View Programs", path: "/portal/programs", icon: GraduationCap, color: "bg-aqua/10 text-aqua" },
+  { label: "Make Payment", path: "/portal/payments", icon: CreditCard, color: "bg-gold/10 text-gold" },
+];
 
 export default function PortalDashboard() {
   const [selectedCamp, setSelectedCamp] = useState<typeof campaigns[0] | null>(null);
@@ -108,6 +118,10 @@ export default function PortalDashboard() {
     }, 1500);
   };
 
+  // get record via hook at top level
+    const record = useProgressStore((s) => s.records.find((r) => r.trainee === portalUser));
+
+
   return (
     <div className="space-y-10">
       <div className="card-premium border-blue-tile flex flex-col md:flex-row md:items-center justify-between gap-6">
@@ -128,6 +142,31 @@ export default function PortalDashboard() {
           </div>
         </div>
       </div>
+
+
+      {/* Membership & Coach Feedback */}
+      {record && (
+        <div className="card-premium">
+          <h3 className="text-sm font-semibold text-foreground mb-4">Coach Feedback</h3>
+          <div className="space-y-2">
+            <p className="text-xs text-muted-foreground">Level: {record.level}</p>
+            <p className="text-xs text-muted-foreground">\"{record.note}\"</p>
+            <p className="text-[10px] text-muted-foreground">Last updated: {record.lastUpdated}</p>
+          </div>
+        </div>
+      )}
+      <div className="card-premium">
+        <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
+          <CreditCard size={16} className="text-primary" /> Membership
+        </h3>
+        <div className="space-y-2">
+          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Plan</span><span className="font-medium text-foreground">{userActiveMembership.name}</span></div>
+          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Status</span><span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{userActiveMembership.status}</span></div>
+          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Expires</span><span className="font-medium text-foreground">{userActiveMembership.expiryDate}</span></div>
+        </div>
+        <Link to="/portal/memberships" className="text-xs text-primary font-medium mt-4 block">Manage Membership</Link>
+      </div>
+
 
       {/* Campaigns & Offers Section - Floating Marquee Style */}
       <div className="relative overflow-hidden -mx-4 px-4 py-4">
@@ -157,6 +196,7 @@ export default function PortalDashboard() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity group-hover:opacity-80" />
                 </div>
+
 
                 <div className="relative z-10 h-full p-8 flex flex-col justify-end whitespace-normal">
                   <div className="flex items-center justify-between mb-4">
