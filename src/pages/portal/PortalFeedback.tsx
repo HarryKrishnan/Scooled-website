@@ -2,7 +2,7 @@ import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { 
   Star, MessageSquare, AlertCircle, Send, CheckCircle2, 
-  User, Waves, ShieldAlert, History, ThumbsUp, HelpCircle
+  User, Waves, ShieldAlert, History, ThumbsUp, HelpCircle, ShieldCheck
 } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
@@ -263,7 +263,28 @@ export default function PortalFeedback() {
 
                   <form onSubmit={handleSubmitComplaint} className="space-y-6">
                     <div className="grid sm:grid-cols-2 gap-6">
-                      <div className="space-y-2">
+                      <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Issue Category</label>
+                        <div className="grid grid-cols-2 gap-2">
+                          {COMPLAINT_CATEGORIES.map(cat => (
+                            <button
+                              key={cat}
+                              type="button"
+                              onClick={() => setComplaintCategory(cat)}
+                              className={`py-3 px-2 rounded-xl text-[9px] font-black uppercase tracking-widest transition-all border ${
+                                complaintCategory === cat 
+                                ? "bg-primary text-white border-primary shadow-lg shadow-primary/20"
+                                : "bg-white/5 text-white/40 border-white/10 hover:border-white/20"
+                              }`}
+                            >
+                              {cat}
+                            </button>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="space-y-4">
+                        <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Urgency Level</label>
                         <div className="flex gap-2">
                           {(["Low", "Medium", "High"] as const).map(p => (
                             <button
@@ -275,7 +296,7 @@ export default function PortalFeedback() {
                                 ? p === "High" ? "bg-destructive text-white border-destructive" :
                                   p === "Medium" ? "bg-amber-500 text-white border-amber-500" :
                                   "bg-emerald-500 text-white border-emerald-500"
-                                : "bg-navy/5 text-navy/40 border-navy/5 hover:bg-navy/10"
+                                : "bg-white/5 text-white/40 border-white/10 hover:border-white/20"
                               }`}
                             >
                               {p}
@@ -286,12 +307,12 @@ export default function PortalFeedback() {
                     </div>
 
                     <div className="space-y-2">
-                      <label className="text-[10px] font-black uppercase tracking-widest text-navy/40 ml-4">Detailed Concern Description</label>
+                      <label className="text-[10px] font-black uppercase tracking-widest text-white/40 ml-4">Detailed Concern Description</label>
                       <textarea
                         value={complaintMessage}
                         onChange={(e) => setComplaintMessage(e.target.value)}
                         placeholder="Please provide specific details about the issue. Include dates, times, or personnel involved if applicable..."
-                        className="w-full min-h-[200px] p-6 rounded-[2rem] bg-navy/5 border border-navy/5 focus:outline-none focus:ring-2 focus:ring-destructive/20 text-sm font-medium transition-all"
+                        className="w-full min-h-[200px] p-6 rounded-[2rem] bg-white/5 border border-white/10 focus:outline-none focus:ring-2 focus:ring-destructive/20 text-sm font-medium transition-all text-white placeholder:text-white/10"
                       />
                     </div>
 
