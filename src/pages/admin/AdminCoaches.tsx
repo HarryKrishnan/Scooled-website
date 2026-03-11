@@ -1,83 +1,93 @@
-import { customers } from "@/data/mockData";
-import { Search, Plus, Trash2, X, Check } from "lucide-react";
+import { coaches } from "@/data/mockData";
+import { Search, Plus, Trash2, X, Check, Award } from "lucide-react";
 import { useState } from "react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 
-type Customer = {
+type Coach = {
   id: string;
   name: string;
-  email: string;
-  phone: string;
-  membership: string;
-  status: string;
-  joinDate: string;
+  specialization: string;
+  avatar: string;
+  certifications: string[];
+  email?: string;
+  phone?: string;
 };
 
-export default function AdminCustomers() {
+export default function AdminCoaches() {
   const [search, setSearch] = useState("");
-  const [customerList, setCustomerList] = useState<Customer[]>(customers);
+  const [coachList, setCoachList] = useState<Coach[]>(coaches);
   const [deleteMode, setDeleteMode] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
   const [dialogOpen, setDialogOpen] = useState(false);
-  const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
+  const [editingCoach, setEditingCoach] = useState<Coach | null>(null);
   const [formData, setFormData] = useState({
     name: "",
+    specialization: "",
     email: "",
     phone: "",
-    membership: "Monthly",
-    status: "Active",
-    joinDate: new Date().toISOString().split("T")[0],
+    certifications: "",
   });
 
-  const filtered = customerList.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = coachList.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
 
   const handleAddNew = () => {
-    setEditingCustomer(null);
+    setEditingCoach(null);
     setFormData({
       name: "",
+      specialization: "",
       email: "",
       phone: "",
-      membership: "Monthly",
-      status: "Active",
-      joinDate: new Date().toISOString().split("T")[0],
+      certifications: "",
     });
     setDialogOpen(true);
   };
 
-  const handleEdit = (customer: Customer) => {
-    setEditingCustomer(customer);
+  const handleEdit = (coach: Coach) => {
+    setEditingCoach(coach);
     setFormData({
-      name: customer.name,
-      email: customer.email,
-      phone: customer.phone,
-      membership: customer.membership,
-      status: customer.status,
-      joinDate: customer.joinDate,
+      name: coach.name,
+      specialization: coach.specialization,
+      email: coach.email || "",
+      phone: coach.phone || "",
+      certifications: coach.certifications.join(", "),
     });
     setDialogOpen(true);
   };
 
   const handleSave = () => {
-    if (editingCustomer) {
-      setCustomerList(customerList.map(c => 
-        c.id === editingCustomer.id ? { ...c, ...formData } : c
+    const certArray = formData.certifications.split(",").map(c => c.trim()).filter(Boolean);
+    
+    if (editingCoach) {
+      setCoachList(coachList.map(c => 
+        c.id === editingCoach.id ? { 
+          ...c, 
+          name: formData.name,
+          specialization: formData.specialization,
+          email: formData.email,
+          phone: formData.phone,
+          certifications: certArray 
+        } : c
       ));
     } else {
-      const newCustomer: Customer = {
-        id: `cu${Date.now()}`,
-        ...formData,
+      const newCoach: Coach = {
+        id: `co${Date.now()}`,
+        name: formData.name,
+        specialization: formData.specialization,
+        avatar: "",
+        certifications: certArray,
+        email: formData.email,
+        phone: formData.phone,
       };
-      setCustomerList([...customerList, newCustomer]);
+      setCoachList([...coachList, newCoach]);
     }
     setDialogOpen(false);
   };
 
   const handleDelete = () => {
-    setCustomerList(customerList.filter(c => !selected.includes(c.id)));
+    setCoachList(coachList.filter(c => !selected.includes(c.id)));
     setSelected([]);
     setDeleteMode(false);
   };
@@ -94,11 +104,11 @@ export default function AdminCustomers() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="font-display text-3xl font-bold text-navy">Customers</h1>
+        <h1 className="font-display text-3xl font-bold text-navy">Coaches</h1>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
             <Search size={16} className="absolute left-3 top-2.5 text-navy/60" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search customers..." className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search coaches..." className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" />
           </div>
           <button
             onClick={handleAddNew}
@@ -130,12 +140,23 @@ export default function AdminCustomers() {
         </div>
       </div>
 
+      <div className="grid sm:grid-cols-3 gap-4">
+        {["All", "Competitive Swimming", "Kids Learn to Swim", "Adult Fitness"].map((spec) => (
+          <div key={spec} className="card-premium text-center hover:-translate-y-1 transition-all duration-300">
+            <p className="text-2xl font-bold text-navy">
+              {spec === "All" ? coachList.length : coachList.filter(c => c.specialization === spec).length}
+            </p>
+            <p className="text-xs text-navy/60 mt-1">{spec}</p>
+          </div>
+        ))}
+      </div>
+
       <div className="card-premium overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-navy/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
-              {["Name", "Email", "Phone", "Membership", "Status", "Joined", ""].map((h) => (
+              {["Name", "Specialization", "Contact", "Certifications", ""].map((h) => (
                 <th key={h} className="text-left py-2.5 text-xs text-navy/60 font-medium">{h}</th>
               ))}
             </tr>
@@ -159,17 +180,22 @@ export default function AdminCustomers() {
                     <span className="font-medium text-navy">{c.name}</span>
                   </div>
                 </td>
-                <td className="py-2.5 text-navy/60">{c.email}</td>
-                <td className="py-2.5 text-navy/60">{c.phone}</td>
-                <td className="py-2.5 text-navy/60">{c.membership}</td>
-                <td className="py-2.5">
-                  <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
-                    c.status === "Active" ? "bg-primary/10 text-primary" :
-                    c.status === "Expired" ? "bg-destructive/10 text-destructive" :
-                    "bg-gold/10 text-gold"
-                  }`}>{c.status}</span>
+                <td className="py-2.5 text-navy/60">{c.specialization}</td>
+                <td className="py-2.5 text-navy/60 text-xs">
+                  {c.email && <div>{c.email}</div>}
+                  {c.phone && <div>{c.phone}</div>}
+                  {!c.email && !c.phone && <span className="text-navy/40">Not provided</span>}
                 </td>
-                <td className="py-2.5 text-navy/60">{c.joinDate}</td>
+                <td className="py-2.5">
+                  <div className="flex flex-wrap gap-1">
+                    {c.certifications.map((cert, idx) => (
+                      <span key={idx} className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-aqua/10 text-aqua font-medium">
+                        <Award size={10} />
+                        {cert}
+                      </span>
+                    ))}
+                  </div>
+                </td>
                 <td className="py-2.5">
                   {!deleteMode && (
                     <button
@@ -191,7 +217,7 @@ export default function AdminCustomers() {
         <DialogContent className="sm:max-w-[500px] bg-white/95 backdrop-blur-xl border-navy/10">
           <DialogHeader>
             <DialogTitle className="font-display text-xl text-navy">
-              {editingCustomer ? "Edit Customer" : "Add New Customer"}
+              {editingCoach ? "Edit Coach" : "Add New Coach"}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
@@ -202,6 +228,16 @@ export default function AdminCustomers() {
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Enter full name"
+                className="rounded-xl border-navy/10 bg-white/60"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="specialization" className="text-navy/80 text-sm font-medium">Specialization</Label>
+              <Input
+                id="specialization"
+                value={formData.specialization}
+                onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
+                placeholder="e.g., Competitive Swimming"
                 className="rounded-xl border-navy/10 bg-white/60"
               />
             </div>
@@ -226,43 +262,15 @@ export default function AdminCustomers() {
                 className="rounded-xl border-navy/10 bg-white/60"
               />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label htmlFor="membership" className="text-navy/80 text-sm font-medium">Membership</Label>
-                <Select value={formData.membership} onValueChange={(v) => setFormData({ ...formData, membership: v })}>
-                  <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Monthly">Monthly</SelectItem>
-                    <SelectItem value="Quarterly">Quarterly</SelectItem>
-                    <SelectItem value="Half-Yearly">Half-Yearly</SelectItem>
-                    <SelectItem value="Annual">Annual</SelectItem>
-                    <SelectItem value="None">None</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="status" className="text-navy/80 text-sm font-medium">Status</Label>
-                <Select value={formData.status} onValueChange={(v) => setFormData({ ...formData, status: v })}>
-                  <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
-                    <SelectValue />
-                  </SelectTrigger>
-                  <SelectContent>
-                    <SelectItem value="Active">Active</SelectItem>
-                    <SelectItem value="Expired">Expired</SelectItem>
-                    <SelectItem value="Trial">Trial</SelectItem>
-                  </SelectContent>
-                </Select>
-              </div>
-            </div>
             <div className="space-y-2">
-              <Label htmlFor="joinDate" className="text-navy/80 text-sm font-medium">Join Date</Label>
+              <Label htmlFor="certifications" className="text-navy/80 text-sm font-medium">
+                Certifications <span className="text-navy/40 text-xs">(comma-separated)</span>
+              </Label>
               <Input
-                id="joinDate"
-                type="date"
-                value={formData.joinDate}
-                onChange={(e) => setFormData({ ...formData, joinDate: e.target.value })}
+                id="certifications"
+                value={formData.certifications}
+                onChange={(e) => setFormData({ ...formData, certifications: e.target.value })}
+                placeholder="e.g., FINA Level 2, CPR Certified"
                 className="rounded-xl border-navy/10 bg-white/60"
               />
             </div>
@@ -272,7 +280,7 @@ export default function AdminCustomers() {
               Cancel
             </Button>
             <Button onClick={handleSave} className="rounded-xl bg-primary text-white hover:bg-primary/90">
-              {editingCustomer ? "Save Changes" : "Add Customer"}
+              {editingCoach ? "Save Changes" : "Add Coach"}
             </Button>
           </DialogFooter>
         </DialogContent>

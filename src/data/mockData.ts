@@ -10,12 +10,18 @@ export const coaches = [
 ];
 
 export const programs = [
-  { id: "p1", title: "Kids Learn to Swim", ageGroup: "4–8 years", level: "Beginner", coach: "Priya Sharma", schedule: "Mon, Wed, Fri", time: "4:00 PM – 5:00 PM", duration: "60 min", capacity: 12, enrolled: 8, price: 3500, image: "" },
-  { id: "p2", title: "Adult Fitness Swimming", ageGroup: "18+ years", level: "All Levels", coach: "Rahul Das", schedule: "Tue, Thu, Sat", time: "6:00 AM – 7:00 AM", duration: "60 min", capacity: 15, enrolled: 11, price: 4500, image: "" },
-  { id: "p3", title: "Competitive Coaching", ageGroup: "10–18 years", level: "Advanced", coach: "Arjun Menon", schedule: "Mon–Sat", time: "5:30 AM – 7:30 AM", duration: "120 min", capacity: 10, enrolled: 7, price: 8000, image: "" },
-  { id: "p4", title: "Weekend Training", ageGroup: "All Ages", level: "Intermediate", coach: "Rahul Das", schedule: "Sat, Sun", time: "8:00 AM – 10:00 AM", duration: "120 min", capacity: 20, enrolled: 14, price: 3000, image: "" },
-  { id: "p5", title: "Water Safety & Survival", ageGroup: "6–14 years", level: "Beginner", coach: "Priya Sharma", schedule: "Wed, Fri", time: "3:00 PM – 4:00 PM", duration: "60 min", capacity: 15, enrolled: 9, price: 2500, image: "" },
-  { id: "p6", title: "Master's Swimming", ageGroup: "30+ years", level: "Intermediate", coach: "Arjun Menon", schedule: "Mon, Wed, Fri", time: "7:00 PM – 8:00 PM", duration: "60 min", capacity: 12, enrolled: 6, price: 5000, image: "" },
+  { id: "p1", title: "Kids Learn to Swim", ageGroup: "4–8 years", level: "Beginner", coach: "Priya Sharma", schedule: "Mon, Wed, Fri", time: "4:00 PM – 5:00 PM", duration: "60 min", capacity: 12, enrolled: 8, price: 3500, image: "", totalSessions: 24, status: "Active", description: "A comprehensive beginner program for kids aged 4-8 to learn basic swimming skills and water safety." },
+  { id: "p2", title: "Adult Fitness Swimming", ageGroup: "18+ years", level: "All Levels", coach: "Rahul Das", schedule: "Tue, Thu, Sat", time: "6:00 AM – 7:00 AM", duration: "60 min", capacity: 15, enrolled: 11, price: 4500, image: "", totalSessions: 36, status: "Active", description: "Fitness-focused swimming program for adults of all levels. Improve cardiovascular health and endurance." },
+  { id: "p3", title: "Competitive Coaching", ageGroup: "10–18 years", level: "Advanced", coach: "Arjun Menon", schedule: "Mon–Sat", time: "5:30 AM – 7:30 AM", duration: "120 min", capacity: 10, enrolled: 7, price: 8000, image: "", totalSessions: 72, status: "Active", description: "Intensive training program for competitive swimmers preparing for state and national level competitions." },
+  { id: "p4", title: "Weekend Training", ageGroup: "All Ages", level: "Intermediate", coach: "Rahul Das", schedule: "Sat, Sun", time: "8:00 AM – 10:00 AM", duration: "120 min", capacity: 20, enrolled: 14, price: 3000, image: "", totalSessions: 16, status: "Active", description: "Perfect for busy professionals and students. Weekend-focused intermediate training program." },
+  { id: "p5", title: "Water Safety & Survival", ageGroup: "6–14 years", level: "Beginner", coach: "Priya Sharma", schedule: "Wed, Fri", time: "3:00 PM – 4:00 PM", duration: "60 min", capacity: 15, enrolled: 9, price: 2500, image: "", totalSessions: 20, status: "Active", description: "Essential water safety skills and survival techniques for children and teens." },
+  { id: "p6", title: "Master's Swimming", ageGroup: "30+ years", level: "Intermediate", coach: "Arjun Menon", schedule: "Mon, Wed, Fri", time: "7:00 PM – 8:00 PM", duration: "60 min", capacity: 12, enrolled: 6, price: 5000, image: "", totalSessions: 36, status: "Active", description: "Tailored program for adults 30+ focusing on technique refinement and fitness maintenance." },
+];
+
+export const offers = [
+  { id: "o1", title: "Summer Splash Camp", parentProgramId: "p1", coach: "Priya Sharma", schedule: "Mon-Fri", time: "9:00 AM – 12:00 PM", duration: "180 min", price: 8999, image: "", totalSessions: 15, status: "Active", description: "Special summer intensive program for kids to learn swimming in a fun, engaging environment." },
+  { id: "o2", title: "Early Bird Special", parentProgramId: "p2", coach: "Rahul Das", schedule: "Mon, Wed, Fri", time: "5:30 AM – 6:30 AM", duration: "60 min", price: 3500, image: "", totalSessions: 24, status: "Active", description: "Discounted early morning fitness sessions for dedicated swimmers." },
+  { id: "o3", title: "Weekend Warriors", parentProgramId: "p4", coach: "Arjun Menon", schedule: "Sat, Sun", time: "7:00 AM – 9:00 AM", duration: "120 min", price: 4500, image: "", totalSessions: 12, status: "Draft", description: "Intensive weekend program launching next month for intermediate to advanced swimmers." },
 ];
 
 export const membershipPlans = [
@@ -60,12 +66,53 @@ export const leads = [
 ];
 
 export const payments = [
-  { id: "pay1", customer: "Aarav Patel", amount: 7999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-01", invoice: "INV-2025-001" },
-  { id: "pay2", customer: "Sneha Iyer", amount: 8000, type: "Coaching", method: "Credit Card", status: "Completed", date: "2025-02-28", invoice: "INV-2025-002" },
-  { id: "pay3", customer: "Rohan Gupta", amount: 2999, type: "Membership", method: "Net Banking", status: "Completed", date: "2025-03-01", invoice: "INV-2025-003" },
-  { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", invoice: "INV-2025-004" },
-  { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", invoice: "INV-2025-005" },
-  { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", invoice: "INV-2025-006" },
+  { id: "pay1", customer: "Aarav Patel", amount: 7999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-01", time: "10:45 AM", invoice: "INV-2025-001" },
+  { id: "pay2", customer: "Sneha Iyer", amount: 8000, type: "Coaching", method: "Credit Card", status: "Completed", date: "2025-02-28", time: "02:30 PM", invoice: "INV-2025-002" },
+  { id: "pay3", customer: "Rohan Gupta", amount: 2999, type: "Membership", method: "Net Banking", status: "Completed", date: "2025-03-01", time: "09:15 AM", invoice: "INV-2025-003" },
+  { id: "pay4", customer: "Meera Nair", amount: 3500, type: "Coaching", method: "UPI", status: "Pending", date: "2025-03-05", time: "11:20 AM", invoice: "INV-2025-004" },
+  { id: "pay5", customer: "Vikram Singh", amount: 7999, type: "Membership", method: "Credit Card", status: "Failed", date: "2025-03-02", time: "03:55 PM", invoice: "INV-2025-005" },
+  { id: "pay6", customer: "Ananya Reddy", amount: 4500, type: "Coaching", method: "Debit Card", status: "Completed", date: "2025-03-03", time: "08:30 AM", invoice: "INV-2025-006" },
+  { id: "pay7", customer: "Karthik Raj", amount: 24999, type: "Membership", method: "UPI", status: "Completed", date: "2025-03-10", time: "04:12 PM", invoice: "INV-2025-007" },
+  { id: "pay8", customer: "Divya Kapoor", amount: 1500, type: "Trial Session", method: "Cash", status: "Completed", date: "2025-03-09", time: "06:00 PM", invoice: "INV-2025-008" },
+  { id: "pay9", customer: "Aarav Patel", amount: 3500, type: "Coaching", method: "UPI", status: "Completed", date: "2025-03-08", time: "01:25 PM", invoice: "INV-2025-009" },
+  { id: "pay10", customer: "Sneha Iyer", amount: 2500, type: "Guest Pass", method: "UPI", status: "Completed", date: "2025-03-07", time: "10:10 AM", invoice: "INV-2025-010" },
+];
+
+export const slotBookings = [
+  // March 11, 2025 (Today) - Downtown
+  { id: "sb1", slotId: "s1", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb2", slotId: "s1", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb3", slotId: "s1", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb4", slotId: "s2", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb5", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb6", slotId: "s3", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb7", slotId: "s5", customerId: "cu8", customerName: "Divya Kapoor", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb8", slotId: "s6", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb9", slotId: "s7", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  { id: "sb10", slotId: "s7", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-11", centreId: "c1", status: "confirmed" },
+  
+  // March 11, 2025 (Today) - Westside
+  { id: "sb11", slotId: "s1", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  { id: "sb12", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  { id: "sb13", slotId: "s6", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-11", centreId: "c2", status: "confirmed" },
+  
+  // March 12, 2025 (Tomorrow) - Downtown
+  { id: "sb14", slotId: "s1", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb15", slotId: "s2", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb16", slotId: "s4", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb17", slotId: "s5", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  { id: "sb18", slotId: "s6", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-12", centreId: "c1", status: "confirmed" },
+  
+  // March 10, 2025 (Yesterday) - Downtown
+  { id: "sb19", slotId: "s1", customerId: "cu7", customerName: "Karthik Raj", date: "2025-03-10", centreId: "c1", status: "completed" },
+  { id: "sb20", slotId: "s2", customerId: "cu8", customerName: "Divya Kapoor", date: "2025-03-10", centreId: "c1", status: "completed" },
+  { id: "sb21", slotId: "s6", customerId: "cu1", customerName: "Aarav Patel", date: "2025-03-10", centreId: "c1", status: "completed" },
+  
+  // March 13-15, 2025 (Rest of week) - Downtown
+  { id: "sb22", slotId: "s1", customerId: "cu2", customerName: "Sneha Iyer", date: "2025-03-13", centreId: "c1", status: "confirmed" },
+  { id: "sb23", slotId: "s3", customerId: "cu3", customerName: "Rohan Gupta", date: "2025-03-13", centreId: "c1", status: "confirmed" },
+  { id: "sb24", slotId: "s7", customerId: "cu4", customerName: "Meera Nair", date: "2025-03-14", centreId: "c1", status: "confirmed" },
+  { id: "sb25", slotId: "s2", customerId: "cu6", customerName: "Ananya Reddy", date: "2025-03-15", centreId: "c1", status: "confirmed" },
 ];
 
 export const userEnrollments = [
@@ -172,3 +219,53 @@ export const notifications = [
   { id: "n3", type: "reminder", title: "Session Reminder", message: "Your coaching session starts in 2 hours.", time: "3 hours ago", read: true },
   { id: "n4", type: "update", title: "New Program Available", message: "Master's Swimming program now open for enrollment!", time: "2 days ago", read: true },
 ];
+
+// Customer Membership Subscriptions with full lifecycle data
+export const customerMembershipSubscriptions = [
+  { id: "cms1", customerId: "cu1", customerName: "Aarav Patel", membershipPlanId: "m2", planName: "Quarterly", startDate: "2025-01-15", expiryDate: "2025-04-15", status: "Active", autoRenew: true, phone: "+91 98765 43210", email: "aarav@example.com" },
+  { id: "cms2", customerId: "cu2", customerName: "Sneha Iyer", membershipPlanId: "m4", planName: "Annual", startDate: "2024-08-20", expiryDate: "2025-08-20", status: "Active", autoRenew: true, phone: "+91 98765 43211", email: "sneha@example.com" },
+  { id: "cms3", customerId: "cu3", customerName: "Rohan Gupta", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-01", expiryDate: "2025-03-01", status: "Expired", autoRenew: false, phone: "+91 98765 43212", email: "rohan@example.com" },
+  { id: "cms4", customerId: "cu4", customerName: "Meera Nair", membershipPlanId: "m3", planName: "Half-Yearly", startDate: "2024-11-10", expiryDate: "2025-05-10", status: "Active", autoRenew: true, phone: "+91 98765 43213", email: "meera@example.com" },
+  { id: "cms5", customerId: "cu5", customerName: "Vikram Singh", membershipPlanId: "m2", planName: "Quarterly", startDate: "2024-06-15", expiryDate: "2024-09-15", status: "Expired", autoRenew: false, phone: "+91 98765 43214", email: "vikram@example.com" },
+  { id: "cms6", customerId: "cu6", customerName: "Ananya Reddy", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-20", expiryDate: "2025-03-20", status: "Active", autoRenew: true, phone: "+91 98765 43215", email: "ananya@example.com" },
+  { id: "cms7", customerId: "cu7", customerName: "Karthik Raj", membershipPlanId: "m4", planName: "Annual", startDate: "2024-03-01", expiryDate: "2025-03-01", status: "Expired", autoRenew: false, phone: "+91 98765 43216", email: "karthik@example.com" },
+  { id: "cms8", customerId: "cu8", customerName: "Divya Kapoor", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-03-05", expiryDate: "2025-04-05", status: "Active", autoRenew: false, phone: "+91 98765 43217", email: "divya@example.com" },
+  // Adding more customers to show variety
+  { id: "cms9", customerId: "cu9", customerName: "Aditya Joshi", membershipPlanId: "m2", planName: "Quarterly", startDate: "2024-12-05", expiryDate: "2025-03-05", status: "Expired", autoRenew: true, phone: "+91 98765 43218", email: "aditya@example.com" },
+  { id: "cms10", customerId: "cu10", customerName: "Priya Malhotra", membershipPlanId: "m3", planName: "Half-Yearly", startDate: "2025-01-01", expiryDate: "2025-07-01", status: "Active", autoRenew: true, phone: "+91 98765 43219", email: "priya@example.com" },
+  { id: "cms11", customerId: "cu11", customerName: "Ravi Kumar", membershipPlanId: "m1", planName: "Monthly", startDate: "2025-02-15", expiryDate: "2025-03-15", status: "Active", autoRenew: true, phone: "+91 98765 43220", email: "ravi@example.com" },
+  { id: "cms12", customerId: "cu12", customerName: "Sanjana Shah", membershipPlanId: "m2", planName: "Quarterly", startDate: "2025-01-20", expiryDate: "2025-04-20", status: "Active", autoRenew: false, phone: "+91 98765 43221", email: "sanjana@example.com" },
+];
+
+// Notification History for Admin tracking
+export const notificationHistory = [
+  { id: "nh1", customerId: "cu3", customerName: "Rohan Gupta", type: "Expiration Warning", channel: "Alert", message: "Your Monthly membership expires on Mar 1, 2025", sentAt: "2025-02-25 10:30 AM", status: "Sent" },
+  { id: "nh2", customerId: "cu3", customerName: "Rohan Gupta", type: "Renewal Reminder", channel: "WhatsApp", message: "Reminder: Renew your membership to continue enjoying unlimited pool access", sentAt: "2025-02-28 09:15 AM", status: "Sent" },
+  { id: "nh3", customerId: "cu7", customerName: "Karthik Raj", type: "Expiration Warning", channel: "Alert", message: "Your Annual membership expires on Mar 1, 2025", sentAt: "2025-02-22 02:00 PM", status: "Sent" },
+  { id: "nh4", customerId: "cu5", customerName: "Vikram Singh", type: "Premium Upgrade Offer", channel: "WhatsApp", message: "Upgrade to Annual plan and save 30%! Limited time offer.", sentAt: "2025-02-10 11:00 AM", status: "Sent" },
+  { id: "nh5", customerId: "cu6", customerName: "Ananya Reddy", type: "Renewal Reminder", channel: "Alert", message: "Your membership expires in 9 days. Renew now!", sentAt: "2025-03-11 08:00 AM", status: "Sent" },
+];
+
+// Helper function to calculate days until expiry
+export const getDaysUntilExpiry = (expiryDate: string): number => {
+  const today = new Date("2026-03-11"); // Current date in the app
+  const expiry = new Date(expiryDate);
+  const diffTime = expiry.getTime() - today.getTime();
+  const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+  return diffDays;
+};
+
+// Helper function to get expiry status
+export const getExpiryStatus = (expiryDate: string): { status: string; color: string; daysRemaining: number } => {
+  const daysRemaining = getDaysUntilExpiry(expiryDate);
+  
+  if (daysRemaining < 0) {
+    return { status: "Expired", color: "text-destructive bg-destructive/10", daysRemaining };
+  } else if (daysRemaining <= 7) {
+    return { status: "Expiring Soon", color: "text-destructive bg-destructive/10", daysRemaining };
+  } else if (daysRemaining <= 30) {
+    return { status: "Expiring This Month", color: "text-gold bg-gold/10", daysRemaining };
+  } else {
+    return { status: "Active", color: "text-primary bg-primary/10", daysRemaining };
+  }
+};
