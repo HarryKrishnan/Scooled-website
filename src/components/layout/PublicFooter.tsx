@@ -12,7 +12,7 @@ export default function PublicFooter() {
               <img src={logo} alt="Scooled Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-110" />
               <div className="flex flex-col">
                 <span className="font-display text-lg font-black tracking-tight leading-none text-white">SCOOLED</span>
-                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan">Aquatics Hub</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan"></span>
               </div>
             </div>
             <p className="text-sm leading-relaxed text-primary-foreground/60 mb-6">

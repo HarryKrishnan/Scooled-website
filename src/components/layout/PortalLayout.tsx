@@ -47,13 +47,15 @@ export default function PortalLayout() {
         <header className="fixed top-0 left-0 right-0 z-50">
           <div className="mx-4 mt-4 glass-panel rounded-3xl px-4 h-16 flex items-center justify-between border-white/10 bg-black/95 shadow-xl shadow-black/20 backdrop-blur-md">
             <div className="flex items-center gap-8">
-              <Link to="/portal" className="flex items-center gap-3 group">
-                <div className="w-10 h-10 rounded-xl bg-white/10 border border-white/10 flex items-center justify-center group-hover:bg-primary/20 transition-all shadow-sm overflow-hidden p-1">
-                  <img src={logo} alt="Scooled" className="w-full h-full object-contain brightness-0 invert" />
-                </div>
+              <Link to="/" className="flex items-center gap-2.5 group" title="Back to website">
+                <img
+                  src={logo}
+                  alt="Scooled"
+                  className="w-9 h-9 object-contain"
+                />
                 <div className="flex flex-col">
-                  <span className="font-display font-bold text-sm tracking-tight text-white leading-none">SCOOLED</span>
-                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-primary mt-1">Aquatics Hub</span>
+                  <span className="font-display font-bold text-sm tracking-tight text-white leading-none group-hover:text-primary transition-colors">SCOOLED</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-primary mt-1"></span>
                 </div>
               </Link>
 
@@ -66,8 +68,8 @@ export default function PortalLayout() {
                       key={item.path}
                       to={item.path}
                       className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${active
-                          ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
-                          : "text-white/60 hover:bg-white/10 hover:text-white"
+                        ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
+                        : "text-white/60 hover:bg-white/10 hover:text-white"
                         }`}
                     >
                       <Icon size={14} />
@@ -78,12 +80,12 @@ export default function PortalLayout() {
               </nav>
             </div>
 
-            <div className="flex items-center gap-4">
+            <div className="flex items-center gap-2">
               <button className="relative w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-amber-500/20 hover:text-amber-500 transition-all">
                 <Bell size={18} />
                 <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-amber-500 rounded-full border-2 border-black" />
               </button>
-              <div className="hidden sm:flex items-center gap-3 pl-2 border-l border-white/10">
+              <div className="hidden sm:flex items-center gap-3 px-3 border-l border-white/10 ml-1">
                 <div className="text-right">
                   <p className="text-xs font-bold text-white">Aarav Patel</p>
                   <p className="text-[10px] font-black uppercase text-amber-500">Pro Member</p>
@@ -92,7 +94,14 @@ export default function PortalLayout() {
                   A
                 </div>
               </div>
-
+              {/* Logout */}
+              <Link
+                to="/"
+                title="Sign out & return to website"
+                className="hidden sm:flex w-10 h-10 rounded-xl bg-white/5 border border-white/10 items-center justify-center text-white/40 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30 transition-all ml-1"
+              >
+                <LogOut size={17} />
+              </Link>
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-white hover:bg-white/10 rounded-xl transition-colors"
@@ -126,8 +135,8 @@ export default function PortalLayout() {
                       to={item.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
-                          ? "bg-amber-500/10 text-amber-600"
-                          : "text-navy/60 hover:bg-navy/5"
+                        ? "bg-amber-500/10 text-amber-600"
+                        : "text-navy/60 hover:bg-navy/5"
                         }`}
                     >
                       <item.icon size={20} />

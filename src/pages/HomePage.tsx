@@ -230,11 +230,11 @@ export default function HomePage() {
                 custom={i}
                 className="stat-card card-premium"
               >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-3">
+                <div className="w-12 h-12 rounded-xl bg-primary/20 flex items-center justify-center mb-3">
                   <s.icon className="text-primary" size={24} />
                 </div>
-                <span className="text-2xl md:text-3xl font-bold text-foreground font-display">{s.value}</span>
-                <span className="text-sm text-muted-foreground mt-1">{s.label}</span>
+                <span className="text-2xl md:text-3xl font-black text-white font-display">{s.value}</span>
+                <span className="text-sm text-white/50 font-bold mt-1">{s.label}</span>
               </motion.div>
             ))}
           </div>
@@ -455,16 +455,16 @@ export default function HomePage() {
           <SectionHeading badge="FAQ" title="Frequently Asked Questions" />
           <div className="space-y-3">
             {faqs.map((faq, i) => (
-              <div key={i} className="card-premium cursor-pointer" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
-                <div className="flex justify-between items-center">
-                  <h3 className="font-medium text-foreground text-sm">{faq.q}</h3>
-                  <ChevronRight size={18} className={`text-muted-foreground transition-transform ${openFaq === i ? "rotate-90" : ""}`} />
+              <div key={i} className="card-premium cursor-pointer border-white/5 hover:border-white/20 transition-all" onClick={() => setOpenFaq(openFaq === i ? null : i)}>
+                <div className="flex justify-between items-center gap-4">
+                  <h3 className="font-bold text-white text-sm leading-relaxed">{faq.q}</h3>
+                  <ChevronRight size={18} className={`text-primary shrink-0 transition-transform ${openFaq === i ? "rotate-90" : ""}`} />
                 </div>
                 {openFaq === i && (
                   <motion.p
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
-                    className="text-sm text-muted-foreground mt-3 leading-relaxed"
+                    className="text-sm text-white/60 mt-4 leading-relaxed"
                   >
                     {faq.a}
                   </motion.p>

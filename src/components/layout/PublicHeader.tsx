@@ -40,9 +40,7 @@ export default function PublicHeader() {
             <span className={`font-display text-lg font-black tracking-tight leading-none ${textColor}`}>
               SCOOLED
             </span>
-            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
-              Aquatics Hub
-            </span>
+
           </div>
         </Link>
 
@@ -51,9 +49,8 @@ export default function PublicHeader() {
             <Link
               key={l.path}
               to={l.path}
-              className={`text-sm font-medium transition-colors hover:text-primary ${
-                location.pathname === l.path ? "text-primary" : textColor
-              }`}
+              className={`text-sm font-medium transition-colors hover:text-primary ${location.pathname === l.path ? "text-primary" : textColor
+                }`}
             >
               {l.label}
             </Link>
@@ -87,9 +84,8 @@ export default function PublicHeader() {
                 <Link
                   key={l.path}
                   to={l.path}
-                  className={`py-2 text-sm font-medium ${
-                    location.pathname === l.path ? "text-primary" : "text-foreground"
-                  }`}
+                  className={`py-2 text-sm font-medium ${location.pathname === l.path ? "text-primary" : "text-foreground"
+                    }`}
                 >
                   {l.label}
                 </Link>

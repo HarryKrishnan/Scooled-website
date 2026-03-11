@@ -92,8 +92,8 @@ export default function PortalFeedback() {
         <div className="w-20 h-20 rounded-full bg-emerald-500/10 flex items-center justify-center mb-6">
           <CheckCircle2 size={40} className="text-emerald-500" />
         </div>
-        <h2 className="font-display text-3xl font-bold text-navy mb-2">Thank You!</h2>
-        <p className="text-navy/60 font-medium mb-8">Your submission has been recorded and will be reviewed shortly.</p>
+        <h2 className="font-display text-3xl font-bold text-white mb-2">Thank You!</h2>
+        <p className="text-white/60 font-medium mb-8">Your submission has been recorded and will be reviewed shortly.</p>
         <button 
           onClick={() => { setSubmitted(false); setCoachRating(0); setPoolRating(0); setPoolComment(""); setComplaintMessage(""); }}
           className="btn-primary"
