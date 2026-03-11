@@ -5,7 +5,7 @@ import {
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo_new.png";
 import bgImage from "@/assets/portal-dash.jpg";
 
 const navItems = [
@@ -52,13 +52,13 @@ export default function PortalLayout() {
         <header className="sticky top-4 z-50 mx-4">
           <div className="glass-panel rounded-3xl px-4 h-16 flex items-center justify-between border-white/40 bg-white/70 shadow-xl shadow-black/5">
             <div className="flex items-center gap-8">
-              <Link to="/portal" className="flex items-center gap-2 group">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
-                  <img src={logo} alt="Scooled" className="w-5 h-5 brightness-0" />
+              <Link to="/portal" className="flex items-center gap-3 group">
+                <div className="w-10 h-10 rounded-xl bg-white flex items-center justify-center group-hover:bg-primary/5 transition-all shadow-sm border border-navy/5 overflow-hidden p-1">
+                  <img src={logo} alt="Scooled" className="w-full h-full object-contain" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-display font-bold text-sm tracking-tight text-navy">Scooled</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary leading-none">Portal</span>
+                  <span className="font-display font-bold text-sm tracking-tight text-navy leading-none">SCOOLED</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-primary mt-1">Aquatics Hub</span>
                 </div>
               </Link>
 

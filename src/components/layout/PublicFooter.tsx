@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo_new.png";
 
 export default function PublicFooter() {
   return (
@@ -8,11 +8,12 @@ export default function PublicFooter() {
       <div className="container-custom py-16">
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-10">
           <div>
-            <div className="flex items-center gap-2 mb-4">
-              <img src={logo} alt="Scooled Logo" className="h-8 w-auto object-contain" />
-              <span className="font-body text-xl font-black tracking-tighter text-primary-foreground">
-                SCOOLED <span className="text-cyan font-display font-semibold">Aquatics</span>
-              </span>
+            <div className="flex items-center gap-3 mb-6 group">
+              <img src={logo} alt="Scooled Logo" className="h-10 w-auto object-contain transition-transform group-hover:scale-110" />
+              <div className="flex flex-col">
+                <span className="font-display text-lg font-black tracking-tight leading-none text-white">SCOOLED</span>
+                <span className="text-[9px] font-black uppercase tracking-[0.2em] text-cyan">Aquatics Hub</span>
+              </div>
             </div>
             <p className="text-sm leading-relaxed text-primary-foreground/60 mb-6">
               Premium swimming pool booking, coaching, and membership platform. Making aquatics accessible, modern, and delightful.

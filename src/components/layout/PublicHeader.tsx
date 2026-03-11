@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
+import logo from "@/assets/logo_new.png";
 
 const navLinks = [
   { label: "Home", path: "/" },
@@ -34,11 +34,16 @@ export default function PublicHeader() {
   return (
     <header className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${headerBg}`}>
       <div className="container-custom flex items-center justify-between h-16 md:h-20">
-        <Link to="/" className="flex items-center gap-2">
-          <img src={logo} alt="Scooled Logo" className="h-10 w-auto object-contain" />
-          <span className={`font-body text-xl font-black tracking-tighter ${textColor}`}>
-            SCOOLED <span className="gradient-text font-display font-bold tracking-normal">Aquatics</span>
-          </span>
+        <Link to="/" className="flex items-center gap-3 group">
+          <img src={logo} alt="Scooled Logo" className="h-12 w-auto object-contain transition-transform group-hover:scale-105" />
+          <div className="flex flex-col">
+            <span className={`font-display text-lg font-black tracking-tight leading-none ${textColor}`}>
+              SCOOLED
+            </span>
+            <span className="text-[10px] font-black uppercase tracking-[0.2em] text-primary">
+              Aquatics Hub
+            </span>
+          </div>
         </Link>
 
         <nav className="hidden lg:flex items-center gap-8">
