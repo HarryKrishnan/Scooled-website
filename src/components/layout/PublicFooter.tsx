@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 import { Mail, Phone, MapPin, Facebook, Instagram, Youtube, Twitter } from "lucide-react";
-import logo from "@/assets/logo_new.png";
+import logo from "@/assets/logo-new.png";
 
 export default function PublicFooter() {
   return (

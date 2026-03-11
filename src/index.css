@@ -108,15 +108,25 @@
     @apply bg-muted border-primary/30;
   }
   .card-premium {
-    @apply bg-white/95 backdrop-blur-3xl rounded-[2.5rem] p-8 transition-all duration-500 border border-white/80 shadow-2xl shadow-black/5;
+    @apply bg-black/95 backdrop-blur-3xl rounded-[2.5rem] p-8 transition-all duration-500 border border-white/20 shadow-2xl;
   }
   .card-premium:hover {
-    @apply -translate-y-2 bg-white border-white;
-    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.1);
+    @apply -translate-y-2 bg-black border-white/40;
+    box-shadow: 0 40px 80px -20px rgba(0, 0, 0, 0.5);
   }
   .glass-panel {
-    @apply bg-white/90 backdrop-blur-md border border-white/10 shadow-lg;
+    @apply bg-black/80 backdrop-blur-md border border-white/10 shadow-lg;
   }
+  .portal-bg-pattern {
+    background-color: #0a0a0a;
+    background-image: linear-gradient(90deg, transparent 50%, rgba(255, 255, 255, 0.03) 50%);
+    background-size: 200px 100%;
+    background-position: center;
+  }
+  .border-blue-tile { @apply border-[#3b82f6] border-2; }
+  .border-green-tile { @apply border-[#84cc16] border-2; }
+  .border-red-tile { @apply border-[#ef4444] border-2; }
+  .border-gold-tile { @apply border-[#eab308] border-2; }
   .portal-bg {
     @apply bg-transparent;
     min-height: 100vh;

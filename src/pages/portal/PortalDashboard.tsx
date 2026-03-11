@@ -110,21 +110,21 @@ export default function PortalDashboard() {
 
   return (
     <div className="space-y-10">
-      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className="card-premium border-blue-tile flex flex-col md:flex-row md:items-center justify-between gap-6">
         <div className="flex flex-col gap-1">
-          <h1 className="font-display text-4xl font-bold text-primary tracking-tight">
+          <h1 className="font-display text-4xl font-bold text-white tracking-tight">
             Welcome back, Aarav! 👋
           </h1>
-          <p className="text-navy/70 font-semibold text-lg italic">You have 2 sessions scheduled for this week.</p>
+          <p className="text-white/70 font-semibold text-lg italic">You have 2 sessions scheduled for this week.</p>
         </div>
         <div className="flex items-center gap-4">
-          <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex flex-col items-center">
+          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center">
             <span className="text-[10px] uppercase font-black tracking-widest text-primary mb-1">Status</span>
-            <span className="text-sm font-bold text-primary">Member</span>
+            <span className="text-sm font-bold text-white">Member</span>
           </div>
-          <div className="p-4 rounded-2xl bg-gold/10 border border-gold/20 flex flex-col items-center">
-            <span className="text-[10px] uppercase font-black tracking-widest text-gold mb-1">Points</span>
-            <span className="text-sm font-bold text-gold">1,250</span>
+          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-col items-center">
+            <span className="text-[10px] uppercase font-black tracking-widest text-amber-500 mb-1">Points</span>
+            <span className="text-sm font-bold text-amber-500">1,250</span>
           </div>
         </div>
       </div>
@@ -204,7 +204,7 @@ export default function PortalDashboard() {
               initial={{ opacity: 0, scale: 0.9, y: 20 }}
               animate={{ opacity: 1, scale: 1, y: 0 }}
               exit={{ opacity: 0, scale: 0.9, y: 20 }}
-              className="relative w-full max-w-2xl bg-white rounded-[3rem] overflow-hidden shadow-2xl border border-white/20"
+              className="relative w-full max-w-2xl bg-[#0a0a0a] rounded-[3rem] overflow-hidden shadow-2xl border border-white/20"
             >
               <div className="grid md:grid-cols-2">
                 <div className="relative h-64 md:h-auto overflow-hidden">
@@ -224,10 +224,10 @@ export default function PortalDashboard() {
                   </div>
                 </div>
 
-                <div className="p-10 flex flex-col justify-between bg-white/80 backdrop-blur-3xl min-h-[500px]">
+                <div className="p-10 flex flex-col justify-between bg-black/40 backdrop-blur-3xl min-h-[500px]">
                   <button
                     onClick={resetModal}
-                    className="absolute top-6 right-6 p-2 rounded-full hover:bg-navy/5 text-navy/40 transition-colors z-20"
+                    className="absolute top-6 right-6 p-2 rounded-full hover:bg-white/5 text-white/40 transition-colors z-20"
                   >
                     <X size={20} />
                   </button>
@@ -243,15 +243,15 @@ export default function PortalDashboard() {
                       >
                         <div className="space-y-3">
                           <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">About this offer</h4>
-                          <p className="text-navy text-base font-semibold leading-relaxed">
+                          <p className="text-white text-base font-semibold leading-relaxed">
                             {selectedCamp.desc} Buy this exclusive aquatic add-on and boost your swimming experience today!
                           </p>
                         </div>
 
                         <div className="space-y-4">
-                          <div className="p-5 rounded-[2rem] bg-navy/5 border border-navy/5 space-y-4">
+                          <div className="p-5 rounded-[2rem] bg-white/5 border border-white/10 space-y-4">
                             <div className="flex justify-between items-center">
-                              <p className="text-[10px] font-black uppercase tracking-widest text-navy/40">Pricing Details</p>
+                              <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Pricing Details</p>
                               {discountAmount > 0 && (
                                 <span className="px-2 py-0.5 bg-emerald-500 text-white text-[8px] font-black uppercase tracking-widest rounded-full animate-pulse">
                                   Discount Applied
@@ -262,12 +262,12 @@ export default function PortalDashboard() {
                             <div className="flex items-end justify-between">
                               <div className="space-y-1">
                                 {discountAmount > 0 && (
-                                  <p className="text-sm font-bold text-navy/30 line-through leading-none">₹{selectedCamp.basePrice}</p>
+                                  <p className="text-sm font-bold text-white/30 line-through leading-none">₹{selectedCamp.basePrice}</p>
                                 )}
                                 <p className="text-3xl font-black text-primary leading-none">₹{finalPrice}</p>
                               </div>
                               <div className="text-right">
-                                <p className="text-[9px] font-black uppercase tracking-widest text-navy/40 mb-1">Promo Code</p>
+                                <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Promo Code</p>
                                 <input
                                   type="text"
                                   placeholder="Enter..."
@@ -277,7 +277,7 @@ export default function PortalDashboard() {
                                     const d = calculateDiscount(e.target.value);
                                     setDiscountAmount(d);
                                   }}
-                                  className="w-24 px-3 py-1.5 rounded-xl bg-white border border-navy/10 text-navy font-bold text-[10px] uppercase focus:outline-none focus:ring-2 focus:ring-primary/20"
+                                  className="w-24 px-3 py-1.5 rounded-xl bg-black border border-white/10 text-white font-bold text-[10px] uppercase focus:outline-none focus:ring-2 focus:ring-primary/20"
                                 />
                               </div>
                             </div>
@@ -327,7 +327,7 @@ export default function PortalDashboard() {
                                 <div className={`w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center`}>
                                   <method.icon size={20} />
                                 </div>
-                                <span className="font-bold text-navy text-sm">{method.name}</span>
+                                <span className="font-bold text-white text-sm">{method.name}</span>
                               </div>
                               {selectedMethod === method.id && <Check className="text-primary" size={20} />}
                             </button>
@@ -362,8 +362,8 @@ export default function PortalDashboard() {
                           <Check size={40} strokeWidth={3} />
                         </div>
                         <div className="space-y-2">
-                          <h3 className="text-2xl font-display font-bold text-navy uppercase tracking-tight">Payment Successful!</h3>
-                          <p className="text-sm font-bold text-navy/60">
+                          <h3 className="text-2xl font-display font-bold text-white uppercase tracking-tight">Payment Successful!</h3>
+                          <p className="text-sm font-bold text-white/60">
                             The <span className="text-primary">{selectedCamp.title}</span> has been added to your membership benefits.
                           </p>
                         </div>
@@ -391,7 +391,7 @@ export default function PortalDashboard() {
       </AnimatePresence>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="card-premium relative overflow-hidden group">
+        <div className="card-premium border-green-tile relative overflow-hidden group">
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all" />
           <h3 className="text-sm font-black uppercase tracking-widest text-primary mb-6 flex items-center gap-2">
             <CalendarCheck size={16} /> Booking
@@ -401,7 +401,7 @@ export default function PortalDashboard() {
               <span className="text-2xl font-bold text-primary">{upcomingBooking.date}</span>
               <span className="text-sm font-bold text-aqua">{upcomingBooking.time}</span>
             </div>
-            <div className="flex items-center gap-3 pt-4 border-t border-navy/10">
+            <div className="flex items-center gap-3 pt-4 border-t border-white/10">
               <div className="p-2 rounded-lg bg-primary/10">
                 <MapPin size={16} className="text-primary" />
               </div>
@@ -413,18 +413,18 @@ export default function PortalDashboard() {
           </div>
         </div>
 
-        <div className="card-premium relative overflow-hidden group">
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-gold/10 rounded-full blur-3xl group-hover:bg-gold/20 transition-all" />
-          <h3 className="text-sm font-black uppercase tracking-widest text-gold/60 mb-6 flex items-center gap-2">
+        <div className="card-premium border-gold-tile relative overflow-hidden group">
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all" />
+          <h3 className="text-sm font-black uppercase tracking-widest text-amber-500/60 mb-6 flex items-center gap-2">
             <CreditCard size={16} /> Subscription
           </h3>
           <div className="space-y-5">
             <div>
-              <p className="text-2xl font-bold text-gold leading-none mb-1">{userActiveMembership.name} Plan</p>
-              <p className="text-xs text-navy/60 font-bold">Auto-renews on {userActiveMembership.expiryDate}</p>
+              <p className="text-2xl font-bold text-amber-500 leading-none mb-1">{userActiveMembership.name} Plan</p>
+              <p className="text-xs text-white/60 font-bold">Auto-renews on {userActiveMembership.expiryDate}</p>
             </div>
             <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-600 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
+              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
                 {userActiveMembership.status}
               </span>
             </div>
@@ -436,9 +436,9 @@ export default function PortalDashboard() {
       </div>
 
       <div className="grid lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 card-premium">
+        <div className="lg:col-span-3 card-premium border-red-tile">
           <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display text-2xl font-bold text-navy flex items-center gap-2">
+            <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
               <GraduationCap size={24} className="text-primary" /> Training Performance
             </h2>
             <Link to="/portal/programs" className="text-xs font-bold text-primary hover:underline">Full Analytics</Link>
@@ -447,13 +447,13 @@ export default function PortalDashboard() {
             {userEnrollments.map((prog) => (
               <div key={prog.programId} className="space-y-3">
                 <div className="flex justify-between items-end">
-                  <p className="text-sm font-bold text-navy">{prog.title}</p>
+                  <p className="text-sm font-bold text-white">{prog.title}</p>
                   <div className="flex items-center gap-1">
-                    <Star size={10} className="fill-gold text-gold" />
-                    <p className="text-xs font-black text-navy">{prog.progress}%</p>
+                    <Star size={10} className="fill-amber-500 text-amber-500" />
+                    <p className="text-xs font-black text-white">{prog.progress}%</p>
                   </div>
                 </div>
-                <div className="h-2 w-full bg-navy/5 rounded-full overflow-hidden border border-navy/5">
+                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
                   <motion.div
                     initial={{ width: 0 }}
                     animate={{ width: `${prog.progress}%` }}
@@ -463,7 +463,7 @@ export default function PortalDashboard() {
                     <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
                   </motion.div>
                 </div>
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-navy/30">
+                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30">
                   <span>{prog.sessionsCompleted} Sessions</span>
                   <span>{prog.sessionsTotal - prog.sessionsCompleted} Left</span>
                 </div>
@@ -473,14 +473,14 @@ export default function PortalDashboard() {
         </div>
 
         <div className="lg:col-span-1 space-y-6">
-          <div className="card-premium bg-white border-primary/20 hover:border-primary/40 transition-colors">
-            <h3 className="text-sm font-bold text-navy mb-4">Need Help?</h3>
-            <p className="text-xs text-navy/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
+          <div className="card-premium border-white/20 hover:border-primary/40 transition-colors">
+            <h3 className="text-sm font-bold text-white mb-4">Need Help?</h3>
+            <p className="text-xs text-white/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
             <div className="space-y-3">
-              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
+              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
                 Chat Support <MessageSquare size={14} />
               </button>
-              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/50 hover:bg-white/80 text-xs font-bold text-navy transition-all border border-navy/5">
+              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
                 Call Manager <Clock size={14} />
               </button>
             </div>

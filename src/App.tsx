@@ -29,6 +29,7 @@ import PortalBookSlot from "@/pages/portal/PortalBookSlot";
 import PortalPrograms from "@/pages/portal/PortalPrograms";
 import PortalMemberships from "@/pages/portal/PortalMemberships";
 import PortalProgress from "@/pages/portal/PortalProgress";
+import PortalFeedback from "@/pages/portal/PortalFeedback";
 
 // Admin Pages
 import AdminOverview from "@/pages/admin/AdminOverview";
@@ -70,7 +71,7 @@ const App = () => (
             <Route path="memberships" element={<PortalMemberships />} />
             <Route path="payments" element={<PortalPayments />} />
             <Route path="progress" element={<PortalProgress />} />
-            <Route path="feedback" element={<PortalPlaceholder title="Feedback & Complaints" />} />
+            <Route path="feedback" element={<PortalFeedback />} />
             <Route path="notifications" element={<PortalNotifications />} />
           </Route>
 

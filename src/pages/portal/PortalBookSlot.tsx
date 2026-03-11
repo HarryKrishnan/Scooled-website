@@ -14,56 +14,62 @@ export default function PortalBookSlot() {
 
   return (
     <div className="space-y-8">
-      <div className="card-premium bg-white/95 border-white/40 shadow-xl shadow-navy/5 mb-8">
-        <h1 className="font-display text-3xl font-bold text-primary tracking-tight">Book Slots</h1>
-        <p className="text-sm text-navy/70 font-bold mt-1">Select your centre, date, and preferred time to reserve a session.</p>
+      <div className="card-premium border-blue-tile bg-black/95 mb-8">
+        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Book Slots</h1>
+        <p className="text-sm text-white/70 font-bold mt-1">Select your centre, date, and preferred time to reserve a session.</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           {/* Centre Selection */}
-          <div className="card-premium">
-            <h3 className="text-sm font-black uppercase tracking-widest text-primary/60 mb-6 flex items-center gap-2">
-              <MapPin size={18} /> Select Centre
+          <div className="card-premium border-white/5 bg-black/95">
+            <h3 className="text-[10px] font-black uppercase tracking-widest text-primary mb-8 flex items-center gap-3">
+              <MapPin size={18} /> Select Training Centre
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {centres.map((c) => (
                 <button
                   key={c.id}
                   onClick={() => setSelectedCentre(c.id)}
-                  className={`p-4 rounded-2xl border-2 text-left transition-all duration-300 ${
+                  className={`p-6 rounded-[2rem] border-2 text-left transition-all duration-300 group ${
                     selectedCentre === c.id 
-                      ? "border-primary bg-primary/10 shadow-lg shadow-primary/10" 
-                      : "border-navy/5 bg-navy/5 hover:border-primary/20"
+                      ? "border-primary bg-primary/10 shadow-glow shadow-primary/10 translate-x-1" 
+                      : "border-white/5 bg-white/5 hover:border-primary/20"
                   }`}
                 >
-                  <p className={`font-bold text-sm ${selectedCentre === c.id ? "text-primary" : "text-navy"}`}>{c.name}</p>
-                  <p className={`text-xs mt-1 ${selectedCentre === c.id ? "text-primary/70" : "text-navy/40"}`}>{c.address}</p>
-                  <p className="text-xs text-primary font-black uppercase tracking-widest mt-2">{c.pools} pools</p>
+                  <p className={`font-bold text-base transition-colors ${selectedCentre === c.id ? "text-white" : "text-white/60"}`}>{c.name.replace("Scooled — ", "")}</p>
+                  <p className={`text-xs mt-2 font-medium leading-relaxed ${selectedCentre === c.id ? "text-white/60" : "text-white/30"}`}>{c.address}</p>
+                  <div className="flex items-center gap-2 mt-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    <p className="text-[9px] text-primary font-black uppercase tracking-widest">{c.pools} premium pools</p>
+                  </div>
                 </button>
               ))}
             </div>
           </div>
 
           {/* Date Selection */}
-          <div className="card-premium">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+          <div className="card-premium border-white/5 bg-black/95">
+            <h3 className="font-display text-lg font-bold text-white mb-6 flex items-center gap-3 uppercase tracking-tight">
               <CalendarIcon size={18} className="text-primary" /> Select Date
             </h3>
-            <input
-              type="date"
-              value={selectedDate}
-              onChange={(e) => setSelectedDate(e.target.value)}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl border border-border bg-background text-foreground text-sm"
-            />
+            <div className="relative inline-block w-full sm:w-auto">
+              <input
+                type="date"
+                value={selectedDate}
+                onChange={(e) => setSelectedDate(e.target.value)}
+                className="w-full sm:w-80 px-6 py-4 rounded-2xl border border-white/10 bg-white/5 text-white font-bold text-sm focus:border-primary outline-none transition-all appearance-none"
+              />
+              <CalendarIcon size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-white/20 pointer-events-none" />
+            </div>
           </div>
 
           {/* Slots */}
-          <div className="card-premium">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4 flex items-center gap-2">
+          <div className="card-premium border-white/5 bg-black/95">
+            <h3 className="font-display text-lg font-bold text-white mb-8 flex items-center gap-3 uppercase tracking-tight">
               <Clock size={18} className="text-primary" /> Available Slots
             </h3>
-            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-2">
+            <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
               {slots.map((s) => {
                 const full = s.booked >= s.capacity;
                 const avail = s.capacity - s.booked;
@@ -72,27 +78,35 @@ export default function PortalBookSlot() {
                     key={s.id}
                     disabled={full}
                     onClick={() => { setSelectedSlot(s.id); setShowSummary(true); }}
-                    className={`p-3 rounded-xl border-2 text-left transition-all ${
+                    className={`p-5 rounded-2xl border-2 text-left transition-all group ${
                       full
-                        ? "border-border/50 opacity-50 cursor-not-allowed"
+                        ? "border-white/5 opacity-30 cursor-not-allowed grayscale"
                         : selectedSlot === s.id
-                        ? "border-primary bg-primary/5"
-                        : "border-border hover:border-primary/30"
+                        ? "border-primary bg-primary/10 shadow-glow shadow-primary/10"
+                        : "border-white/10 bg-white/5 hover:border-primary/40"
                     }`}
                   >
-                    <p className="font-semibold text-foreground text-sm">{s.time}</p>
-                    <p className="text-xs text-muted-foreground mt-1">{s.type}</p>
-                    <div className="flex items-center gap-1 mt-2">
-                      <Users size={12} className={full ? "text-destructive" : "text-primary"} />
-                      <span className={`text-xs font-medium ${full ? "text-destructive" : "text-primary"}`}>
-                        {full ? "Full" : `${avail} spots left`}
-                      </span>
+                    <div className="flex justify-between items-start mb-4">
+                      <p className={`font-black text-sm ${selectedSlot === s.id ? "text-white" : "text-white/80"}`}>{s.time}</p>
+                      {selectedSlot === s.id && <CheckCircle2 size={14} className="text-primary" />}
                     </div>
-                    <div className="w-full bg-muted rounded-full h-1.5 mt-1.5">
-                      <div
-                        className={`h-1.5 rounded-full ${full ? "bg-destructive" : avail <= 3 ? "bg-gold" : "bg-primary"}`}
-                        style={{ width: `${(s.booked / s.capacity) * 100}%` }}
-                      />
+                    <p className="text-[10px] text-white/40 font-black uppercase tracking-widest mb-4">{s.type}</p>
+                    
+                    <div className="space-y-3">
+                      <div className="flex items-center justify-between">
+                        <div className="flex items-center gap-2">
+                          <Users size={12} className={full ? "text-destructive" : "text-primary"} />
+                          <span className={`text-[10px] font-black uppercase tracking-tight ${full ? "text-destructive" : "text-primary"}`}>
+                            {full ? "Sold Out" : `${avail} spots left`}
+                          </span>
+                        </div>
+                      </div>
+                      <div className="w-full bg-white/5 rounded-full h-1.5 overflow-hidden border border-white/5">
+                        <div
+                          className={`h-full rounded-full transition-all duration-1000 ${full ? "bg-destructive" : avail <= 3 ? "bg-amber-500" : "bg-primary"}`}
+                          style={{ width: `${(s.booked / s.capacity) * 100}%` }}
+                        />
+                      </div>
                     </div>
                   </button>
                 );
@@ -103,29 +117,49 @@ export default function PortalBookSlot() {
 
         {/* Summary Panel */}
         <div className="lg:col-span-1">
-          <div className="card-premium sticky top-20">
-            <h3 className="font-display text-lg font-semibold text-foreground mb-4">Booking Summary</h3>
+          <div className="card-premium border-gold-tile bg-black/95 sticky top-24 shadow-2xl shadow-primary/5">
+            <h3 className="font-display text-lg font-bold text-white mb-8 uppercase tracking-tight">Booking Summary</h3>
             {showSummary && slot ? (
-              <div className="space-y-6">
-                <div className="space-y-4 text-sm">
-                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Centre</span><span className="font-bold text-navy">{centre.name.replace("Scooled — ", "")}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Date</span><span className="font-bold text-navy">{selectedDate}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Time</span><span className="font-bold text-primary">{slot.time}</span></div>
-                  <div className="flex justify-between items-center"><span className="text-navy/40 font-bold uppercase tracking-widest text-[10px]">Type</span><span className="font-bold text-navy">{slot.type}</span></div>
+              <div className="space-y-8">
+                <div className="space-y-5">
+                  {[
+                    { label: "Centre", val: centre.name.replace("Scooled — ", ""), icon: MapPin },
+                    { label: "Date", val: selectedDate, icon: CalendarIcon },
+                    { label: "Time", val: slot.time, icon: Clock, color: "text-primary" },
+                    { label: "Type", val: slot.type, icon: Users },
+                  ].map((item, id) => (
+                    <div key={id} className="flex justify-between items-center group">
+                      <div className="flex items-center gap-3">
+                        <item.icon size={14} className="text-white/20 group-hover:text-primary transition-colors" />
+                        <span className="text-[10px] text-white/30 font-black uppercase tracking-[0.2em]">{item.label}</span>
+                      </div>
+                      <span className={`text-sm font-black tracking-tight ${item.color || "text-white"}`}>{item.val}</span>
+                    </div>
+                  ))}
                 </div>
-                <hr className="border-navy/5" />
-                <div className="flex justify-between items-center">
-                  <span className="text-navy/60 text-sm font-medium">Amount</span>
-                  <span className="text-2xl font-black text-primary">₹299</span>
+                
+                <div className="pt-8 border-t border-white/10">
+                  <div className="flex justify-between items-center mb-8">
+                    <span className="text-white/40 text-[10px] font-black uppercase tracking-widest">Grand Total</span>
+                    <span className="text-4xl font-black text-white tracking-tighter">₹299</span>
+                  </div>
+                  <button 
+                    className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-aqua text-white text-[11px] font-black uppercase tracking-[0.25em] shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all" 
+                    onClick={() => alert("Demo: Booking initiated!")}
+                  >
+                    Confirm Booking
+                  </button>
+                  <p className="text-[9px] text-white/20 text-center mt-6 font-bold flex items-center justify-center gap-2">
+                    <CheckCircle2 size={10} /> Secure Encryption Enabled
+                  </p>
                 </div>
-                <button className="btn-primary w-full flex items-center justify-center gap-2 py-4 shadow-xl shadow-primary/20" onClick={() => alert("Demo: Booking confirmed!")}>
-                  <CheckCircle2 size={18} /> Confirm Booking
-                </button>
               </div>
             ) : (
-              <div className="text-center py-8">
-                <AlertCircle size={32} className="text-muted-foreground/30 mx-auto mb-3" />
-                <p className="text-sm text-muted-foreground">Select a slot to see your booking summary</p>
+              <div className="text-center py-16 px-6">
+                <div className="w-16 h-16 rounded-3xl bg-white/5 flex items-center justify-center mx-auto mb-6">
+                  <AlertCircle size={32} className="text-white/10" />
+                </div>
+                <p className="text-sm text-white/40 font-medium leading-relaxed">Please select a time slot to view your reservation summary.</p>
               </div>
             )}
           </div>
