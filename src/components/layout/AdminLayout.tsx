@@ -2,24 +2,20 @@ import { Outlet, Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, Calendar, GraduationCap, CreditCard as CardIcon, Users,
   UserPlus, Wallet, ClipboardCheck, TrendingUp, MessageSquare, Bell,
-  BarChart3, Settings, LogOut, Menu, X, Waves, ChevronDown
+  BarChart3, Settings, LogOut, Menu, X, Home
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import logo from "@/assets/logo.png";
-import bgImage from "@/assets/portal-dash.jpg";
+import logo from "@/assets/logo-new.png";
 
-const primaryNavItems = [
+const navItems = [
   { label: "Overview", path: "/admin", icon: LayoutDashboard },
   { label: "Customers", path: "/admin/customers", icon: Users },
   { label: "Coaches", path: "/admin/coaches", icon: UserPlus },
   { label: "Programs", path: "/admin/programs", icon: GraduationCap },
   { label: "Payments", path: "/admin/payments", icon: Wallet },
-  { label: "Complaints", path: "/admin/complaints", icon: MessageSquare },
-];
-
-const moreNavItems = [
   { label: "Calendar", path: "/admin/calendar", icon: Calendar },
+  { label: "Complaints", path: "/admin/complaints", icon: MessageSquare },
   { label: "Memberships", path: "/admin/memberships", icon: CardIcon },
   { label: "Attendance", path: "/admin/attendance", icon: ClipboardCheck },
   { label: "Progress", path: "/admin/progress", icon: TrendingUp },
@@ -28,12 +24,9 @@ const moreNavItems = [
   { label: "Settings", path: "/admin/settings", icon: Settings },
 ];
 
-const allNavItems = [...primaryNavItems, ...moreNavItems];
-
 export default function AdminLayout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [moreMenuOpen, setMoreMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
@@ -44,126 +37,83 @@ export default function AdminLayout() {
 
   useEffect(() => setMobileMenuOpen(false), [location]);
 
-  const isMoreItemActive = moreNavItems.some(item => item.path === location.pathname);
-
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden selection:bg-primary/20">
-      {/* Background Image Layer */}
-      <div className="fixed inset-0 z-0 pointer-events-none">
-        <img
-          src={bgImage}
-          alt=""
-          className="w-full h-full object-cover"
-        />
-        {/* Frost Overlay for Readability */}
-        <div className="absolute inset-0 bg-white/10 backdrop-blur-[1px]" />
+      {/* Dark Background Layer */}
+      <div className="fixed inset-0 z-0 bg-[#0c0c0c]">
+        {/* Vertical Stripe Pattern */}
+        <div className="absolute left-1/2 -translate-x-1/2 w-48 h-full bg-[#1a1a1a] opacity-50" />
       </div>
 
       {/* UI Layer */}
       <div className="relative z-10 flex flex-col min-h-screen">
         {/* Top Navigation */}
-        <header className="sticky top-4 z-50 mx-4">
-          <div className="glass-panel rounded-3xl px-4 h-16 flex items-center justify-between border-white/40 bg-white/70 shadow-xl shadow-black/5">
-            <div className="flex items-center gap-8">
-              <Link to="/admin" className="flex items-center gap-2 group">
-                <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center group-hover:bg-primary transition-colors">
-                  <img src={logo} alt="Scooled" className="w-5 h-5 brightness-0" />
+        <header className="fixed top-0 left-0 right-0 z-50">
+          <div className="mx-4 mt-4 glass-panel rounded-3xl px-6 py-4 border-white/10 bg-black/95 shadow-xl shadow-black/20 backdrop-blur-md">
+            <div className="flex items-center gap-6">
+              <Link to="/" className="flex items-center gap-2.5 group shrink-0" title="Back to website">
+                <div className="w-9 h-9 rounded-xl bg-amber-500/20 flex items-center justify-center group-hover:bg-amber-500 transition-colors">
+                  <Home size={18} className="text-amber-500 group-hover:text-navy" />
                 </div>
                 <div className="flex flex-col">
-                  <span className="font-display font-bold text-sm tracking-tight text-navy">Scooled</span>
-                  <span className="text-[10px] font-black uppercase tracking-widest text-primary leading-none">Admin</span>
+                  <span className="font-display font-bold text-sm tracking-tight text-white leading-none group-hover:text-amber-500 transition-colors">SCOOLED</span>
+                  <span className="text-[9px] font-black uppercase tracking-[0.15em] text-amber-500 mt-1">ADMIN</span>
                 </div>
               </Link>
 
-              <nav className="hidden xl:flex items-center gap-1">
-                {primaryNavItems.map((item) => {
-                  const Icon = item.icon;
-                  const active = location.pathname === item.path;
-                  return (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                        active
-                          ? "bg-primary text-white shadow-lg shadow-primary/20"
-                          : "text-navy/60 hover:bg-white/50 hover:text-navy"
-                      }`}
-                    >
-                      <Icon size={14} />
-                      {item.label}
-                    </Link>
-                  );
-                })}
+              {/* Horizontal Scrollable Navigation */}
+              <div className="relative flex-1 hidden lg:block">
+                {/* Left Fade Gradient */}
+                <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black/95 to-transparent z-10" />
                 
-                {/* More Dropdown */}
-                <div className="relative">
-                  <button
-                    onClick={() => setMoreMenuOpen(!moreMenuOpen)}
-                    className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${
-                      isMoreItemActive
-                        ? "bg-primary text-white shadow-lg shadow-primary/20"
-                        : "text-navy/60 hover:bg-white/50 hover:text-navy"
-                    }`}
-                  >
-                    More
-                    <ChevronDown size={14} className={`transition-transform ${moreMenuOpen ? "rotate-180" : ""}`} />
-                  </button>
-                  
-                  <AnimatePresence>
-                    {moreMenuOpen && (
-                      <motion.div
-                        initial={{ opacity: 0, y: -10 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0, y: -10 }}
-                        className="absolute top-full mt-2 right-0 w-56 glass-panel rounded-2xl p-2 shadow-xl border-white/40 bg-white/95"
+                {/* Navigation Items */}
+                <nav className="flex items-center gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2">
+                  {navItems.map((item) => {
+                    const Icon = item.icon;
+                    const active = location.pathname === item.path;
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all whitespace-nowrap ${
+                          active
+                            ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
+                            : "text-white/70 hover:bg-white/10 hover:text-white"
+                        }`}
                       >
-                        {moreNavItems.map((item) => {
-                          const Icon = item.icon;
-                          const active = location.pathname === item.path;
-                          return (
-                            <Link
-                              key={item.path}
-                              to={item.path}
-                              onClick={() => setMoreMenuOpen(false)}
-                              className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-xs font-bold transition-all ${
-                                active
-                                  ? "bg-primary/10 text-primary"
-                                  : "text-navy/60 hover:bg-white/50 hover:text-navy"
-                              }`}
-                            >
-                              <Icon size={14} />
-                              {item.label}
-                            </Link>
-                          );
-                        })}
-                      </motion.div>
-                    )}
-                  </AnimatePresence>
-                </div>
-              </nav>
-            </div>
+                        <Icon size={14} />
+                        {item.label}
+                      </Link>
+                    );
+                  })}
+                </nav>
 
-            <div className="flex items-center gap-4">
-              <button className="relative w-10 h-10 rounded-xl bg-navy/5 flex items-center justify-center text-navy/60 hover:bg-primary/10 hover:text-primary transition-all">
-                <Bell size={18} />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-primary rounded-full border-2 border-white" />
-              </button>
-              <div className="hidden sm:flex items-center gap-3 pl-2 border-l border-navy/5">
-                <div className="text-right">
-                  <p className="text-xs font-bold text-navy">Admin User</p>
-                  <p className="text-[10px] font-black uppercase text-primary">System Admin</p>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-primary text-white flex items-center justify-center font-bold text-sm shadow-lg shadow-primary/20">
-                  SA
-                </div>
+                {/* Right Fade Gradient */}
+                <div className="pointer-events-none absolute right-0 top-0 bottom-0 w-20 bg-gradient-to-l from-black/95 to-transparent z-10" />
               </div>
 
-              <button
-                onClick={() => setMobileMenuOpen(true)}
-                className="xl:hidden p-2 text-navy hover:bg-navy/5 rounded-xl transition-colors"
-              >
-                <Menu size={24} />
-              </button>
+              <div className="flex items-center gap-2 shrink-0">
+                <button className="relative w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-amber-500/20 hover:text-amber-500 transition-all">
+                  <Bell size={18} />
+                  <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-amber-500 rounded-full border-2 border-black" />
+                </button>
+                <div className="hidden sm:flex items-center gap-3 pl-2 border-l border-white/10">
+                  <div className="text-right">
+                    <p className="text-xs font-bold text-white">Admin User</p>
+                    <p className="text-[10px] font-black uppercase text-amber-500">System Admin</p>
+                  </div>
+                  <div className="w-10 h-10 rounded-xl bg-amber-500 text-navy flex items-center justify-center font-bold text-sm shadow-lg shadow-amber-500/20">
+                    SA
+                  </div>
+                </div>
+
+                <button
+                  onClick={() => setMobileMenuOpen(true)}
+                  className="lg:hidden p-2 text-white hover:bg-white/10 rounded-xl transition-colors"
+                >
+                  <Menu size={24} />
+                </button>
+              </div>
             </div>
           </div>
         </header>
@@ -175,25 +125,25 @@ export default function AdminLayout() {
               initial={{ opacity: 0, x: "100%" }}
               animate={{ opacity: 1, x: 0 }}
               exit={{ opacity: 0, x: "100%" }}
-              className="fixed inset-0 z-[100] bg-white xl:hidden"
+              className="fixed inset-0 z-[100] bg-black lg:hidden"
             >
               <div className="p-6 h-full flex flex-col">
                 <div className="flex items-center justify-between mb-8">
-                  <h2 className="font-display font-bold text-xl text-navy">Admin Menu</h2>
-                  <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-navy">
+                  <h2 className="font-display font-bold text-xl text-white">Admin Menu</h2>
+                  <button onClick={() => setMobileMenuOpen(false)} className="p-2 text-white">
                     <X size={24} />
                   </button>
                 </div>
                 <div className="flex-1 flex flex-col gap-2 overflow-y-auto">
-                  {allNavItems.map((item) => (
+                  {navItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
                       onClick={() => setMobileMenuOpen(false)}
                       className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${
                         location.pathname === item.path
-                          ? "bg-primary/10 text-primary"
-                          : "text-navy/60 hover:bg-navy/5"
+                          ? "bg-amber-500/20 text-amber-500"
+                          : "text-white/70 hover:bg-white/10"
                       }`}
                     >
                       <item.icon size={20} />
@@ -203,7 +153,7 @@ export default function AdminLayout() {
                 </div>
                 <Link
                   to="/"
-                  className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-navy/60 hover:bg-navy/5 mt-auto"
+                  className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-white/70 hover:bg-white/10 mt-auto"
                 >
                   <LogOut size={20} />
                   Back to Website
@@ -213,12 +163,13 @@ export default function AdminLayout() {
           )}
         </AnimatePresence>
 
-        <main className="flex-1 pt-12 pb-12">
+        <main className="flex-1 pt-24 pb-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -20 }}
-            className="container-custom"
+            transition={{ duration: 0.5 }}
+            className="max-w-7xl mx-auto px-4 space-y-6"
           >
             <Outlet />
           </motion.div>

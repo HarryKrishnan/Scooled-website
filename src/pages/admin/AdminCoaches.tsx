@@ -104,15 +104,15 @@ export default function AdminCoaches() {
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="font-display text-3xl font-bold text-navy">Coaches</h1>
+        <h1 className="font-display text-4xl font-bold text-white">Coaches</h1>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-2.5 text-navy/60" />
-            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search coaches..." className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" />
+            <Search size={16} className="absolute left-3 top-2.5 text-white/60" />
+            <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search coaches..." className="pl-10 pr-4 py-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-white placeholder:text-white/40" />
           </div>
           <button
             onClick={handleAddNew}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-primary text-white hover:bg-primary/90 transition-colors text-sm font-bold shadow-lg shadow-primary/20"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-amber-500 text-navy hover:bg-amber-600 transition-colors text-sm font-bold shadow-lg shadow-amber-500/20"
           >
             <Plus size={16} />
             Add
@@ -121,8 +121,8 @@ export default function AdminCoaches() {
             onClick={toggleDeleteMode}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors text-sm font-bold ${
               deleteMode
-                ? "bg-destructive text-white hover:bg-destructive/90"
-                : "bg-white/60 text-navy border border-navy/10 hover:bg-white/80"
+                ? "bg-red-500 text-white hover:bg-red-600"
+                : "bg-white/10 text-white border border-white/10 hover:bg-white/20"
             }`}
           >
             {deleteMode ? <X size={16} /> : <Trash2 size={16} />}
@@ -131,7 +131,7 @@ export default function AdminCoaches() {
           {deleteMode && selected.length > 0 && (
             <button
               onClick={handleDelete}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-destructive text-white hover:bg-destructive/90 transition-colors text-sm font-bold"
+              className="flex items-center gap-2 px-4 py-2 rounded-xl bg-red-500 text-white hover:bg-red-600 transition-colors text-sm font-bold"
             >
               <Check size={16} />
               Delete ({selected.length})
@@ -141,55 +141,55 @@ export default function AdminCoaches() {
       </div>
 
       <div className="grid sm:grid-cols-3 gap-4">
-        {["All", "Competitive Swimming", "Kids Learn to Swim", "Adult Fitness"].map((spec) => (
-          <div key={spec} className="card-premium text-center hover:-translate-y-1 transition-all duration-300">
-            <p className="text-2xl font-bold text-navy">
+        {["All", "Competitive Swimming", "Kids Learn to Swim", "Adult Fitness"].map((spec, idx) => (
+          <div key={spec} className={`card-premium text-center hover:${['border-orange-tile', 'border-teal-tile', 'border-yellow-tile'][idx % 3]} hover:-translate-y-2 transition-all duration-500`}>
+            <p className="text-2xl font-bold text-white">
               {spec === "All" ? coachList.length : coachList.filter(c => c.specialization === spec).length}
             </p>
-            <p className="text-xs text-navy/60 mt-1">{spec}</p>
+            <p className="text-xs text-white/60 mt-1">{spec}</p>
           </div>
         ))}
       </div>
 
-      <div className="card-premium overflow-x-auto">
+      <div className="card-premium overflow-x-auto hover:border-teal-tile hover:-translate-y-2 transition-all duration-500">
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy/10">
+            <tr className="border-b border-white/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
               {["Name", "Specialization", "Contact", "Certifications", ""].map((h) => (
-                <th key={h} className="text-left py-2.5 text-xs text-navy/60 font-medium">{h}</th>
+                <th key={h} className="text-left py-2.5 text-xs text-white/40 font-semibold uppercase tracking-wider">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filtered.map((c) => (
-              <tr key={c.id} className="border-b border-navy/5 hover:bg-white/40 transition-colors">
+              <tr key={c.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                 {deleteMode && (
                   <td className="py-2.5">
                     <input
                       type="checkbox"
                       checked={selected.includes(c.id)}
                       onChange={() => toggleSelect(c.id)}
-                      className="w-4 h-4 rounded border-navy/20 text-primary focus:ring-primary/20"
+                      className="w-4 h-4 rounded border-white/20 text-amber-500 focus:ring-amber-500/20"
                     />
                   </td>
                 )}
                 <td className="py-2.5">
                   <div className="flex items-center gap-2">
-                    <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold">{c.name.charAt(0)}</div>
-                    <span className="font-medium text-navy">{c.name}</span>
+                    <div className="w-7 h-7 rounded-full bg-cyan-500/20 flex items-center justify-center text-cyan-400 text-xs font-bold">{c.name.charAt(0)}</div>
+                    <span className="font-medium text-white">{c.name}</span>
                   </div>
                 </td>
-                <td className="py-2.5 text-navy/60">{c.specialization}</td>
-                <td className="py-2.5 text-navy/60 text-xs">
+                <td className="py-2.5 text-white/70">{c.specialization}</td>
+                <td className="py-2.5 text-white/70 text-xs">
                   {c.email && <div>{c.email}</div>}
                   {c.phone && <div>{c.phone}</div>}
-                  {!c.email && !c.phone && <span className="text-navy/40">Not provided</span>}
+                  {!c.email && !c.phone && <span className="text-white/40">Not provided</span>}
                 </td>
                 <td className="py-2.5">
                   <div className="flex flex-wrap gap-1">
                     {c.certifications.map((cert, idx) => (
-                      <span key={idx} className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-aqua/10 text-aqua font-medium">
+                      <span key={idx} className="inline-flex items-center gap-1 text-xs px-2 py-0.5 rounded-full bg-teal-500/20 text-teal-400 border border-teal-500/30 font-semibold">
                         <Award size={10} />
                         {cert}
                       </span>
@@ -200,7 +200,7 @@ export default function AdminCoaches() {
                   {!deleteMode && (
                     <button
                       onClick={() => handleEdit(c)}
-                      className="text-xs px-3 py-1 rounded-lg bg-primary/10 text-primary hover:bg-primary/20 transition-colors font-medium"
+                      className="text-xs px-3 py-1 rounded-lg bg-amber-500/20 text-amber-400 hover:bg-amber-500/30 transition-colors font-medium"
                     >
                       Edit
                     </button>
@@ -214,72 +214,72 @@ export default function AdminCoaches() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-[500px] bg-white/95 backdrop-blur-xl border-navy/10">
+        <DialogContent className="sm:max-w-[500px] bg-black/95 backdrop-blur-xl border-white/10">
           <DialogHeader>
-            <DialogTitle className="font-display text-xl text-navy">
+            <DialogTitle className="font-display text-xl text-white">
               {editingCoach ? "Edit Coach" : "Add New Coach"}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="name" className="text-navy/80 text-sm font-medium">Name</Label>
+              <Label htmlFor="name" className="text-white/80 text-sm font-medium">Name</Label>
               <Input
                 id="name"
                 value={formData.name}
                 onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                 placeholder="Enter full name"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="specialization" className="text-navy/80 text-sm font-medium">Specialization</Label>
+              <Label htmlFor="specialization" className="text-white/80 text-sm font-medium">Specialization</Label>
               <Input
                 id="specialization"
                 value={formData.specialization}
                 onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
                 placeholder="e.g., Competitive Swimming"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="email" className="text-navy/80 text-sm font-medium">Email</Label>
+              <Label htmlFor="email" className="text-white/80 text-sm font-medium">Email</Label>
               <Input
                 id="email"
                 type="email"
                 value={formData.email}
                 onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 placeholder="email@example.com"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="phone" className="text-navy/80 text-sm font-medium">Phone</Label>
+              <Label htmlFor="phone" className="text-white/80 text-sm font-medium">Phone</Label>
               <Input
                 id="phone"
                 value={formData.phone}
                 onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                 placeholder="+91 XXXXX XXXXX"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="certifications" className="text-navy/80 text-sm font-medium">
-                Certifications <span className="text-navy/40 text-xs">(comma-separated)</span>
+              <Label htmlFor="certifications" className="text-white/80 text-sm font-medium">
+                Certifications <span className="text-white/40 text-xs">(comma-separated)</span>
               </Label>
               <Input
                 id="certifications"
                 value={formData.certifications}
                 onChange={(e) => setFormData({ ...formData, certifications: e.target.value })}
                 placeholder="e.g., FINA Level 2, CPR Certified"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-xl">
+            <Button variant="outline" onClick={() => setDialogOpen(false)} className="rounded-xl border-white/10 text-white hover:bg-white/10">
               Cancel
             </Button>
-            <Button onClick={handleSave} className="rounded-xl bg-primary text-white hover:bg-primary/90">
+            <Button onClick={handleSave} className="rounded-xl bg-amber-500 text-navy hover:bg-amber-600">
               {editingCoach ? "Save Changes" : "Add Coach"}
             </Button>
           </DialogFooter>

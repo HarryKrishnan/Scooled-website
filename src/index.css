@@ -127,6 +127,16 @@
   .border-green-tile { @apply border-[#84cc16] border-2; }
   .border-red-tile { @apply border-[#ef4444] border-2; }
   .border-gold-tile { @apply border-[#eab308] border-2; }
+  .border-orange-tile { @apply border-orange-500 border-2; }
+  .border-teal-tile { @apply border-teal-500 border-2; }
+  .border-yellow-tile { @apply border-yellow-500 border-2; }
+  .scrollbar-hide {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .scrollbar-hide::-webkit-scrollbar {
+    display: none;
+  }
   .portal-bg {
     @apply bg-transparent;
     min-height: 100vh;

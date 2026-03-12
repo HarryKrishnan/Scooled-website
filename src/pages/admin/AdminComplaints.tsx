@@ -2,28 +2,28 @@ import { complaints } from "@/data/mockData";
 import { AlertCircle, CheckCircle2, Clock, User } from "lucide-react";
 
 const statusConfig: Record<string, { icon: typeof Clock; color: string }> = {
-  Open: { icon: AlertCircle, color: "text-destructive bg-destructive/10" },
-  "In Progress": { icon: Clock, color: "text-gold bg-gold/10" },
-  Resolved: { icon: CheckCircle2, color: "text-primary bg-primary/10" },
+  Open: { icon: AlertCircle, color: "text-red-400 bg-red-500/20" },
+  "In Progress": { icon: Clock, color: "text-yellow-400 bg-yellow-500/20" },
+  Resolved: { icon: CheckCircle2, color: "text-green-400 bg-green-500/20" },
 };
 
 export default function AdminComplaints() {
   return (
     <div className="space-y-6">
-      <h1 className="font-display text-3xl font-bold text-navy">Complaints</h1>
+      <h1 className="font-display text-4xl font-bold text-white">Complaints</h1>
 
       <div className="grid sm:grid-cols-3 gap-4">
-        {["Open", "In Progress", "Resolved"].map((s) => {
+        {["Open", "In Progress", "Resolved"].map((s, idx) => {
           const cfg = statusConfig[s];
           const Icon = cfg.icon;
           return (
-            <div key={s} className="card-premium flex items-center gap-3 hover:-translate-y-1 transition-all duration-300">
+            <div key={s} className={`card-premium flex items-center gap-3 hover:${['border-orange-tile', 'border-teal-tile', 'border-yellow-tile'][idx]} hover:-translate-y-2 transition-all duration-500`}>
               <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${cfg.color}`}>
                 <Icon size={18} />
               </div>
               <div>
-                <p className="text-xl font-bold text-navy">{complaints.filter((c) => c.status === s).length}</p>
-                <p className="text-xs text-navy/60">{s}</p>
+                <p className="text-xl font-bold text-white">{complaints.filter((c) => c.status === s).length}</p>
+                <p className="text-xs text-white/60">{s}</p>
               </div>
             </div>
           );
@@ -46,8 +46,8 @@ export default function AdminComplaints() {
                       "bg-muted text-muted-foreground"
                     }`}>{c.priority}</span>
                   </div>
-                  <h3 className="text-sm font-semibold text-navy">{c.subject}</h3>
-                  <p className="text-xs text-navy/60 mt-1">
+                  <h3 className="text-sm font-semibold text-white">{c.subject}</h3>
+                  <p className="text-xs text-white/60 mt-1">
                     <span className="flex items-center gap-1"><User size={12} /> {c.customer} • {c.category} • {c.date}</span>
                   </p>
                 </div>
