@@ -27,29 +27,6 @@ export default function PortalProgress() {
   return (
     <div className="space-y-8 pb-10">
 
-      {/* show synced progress if available */}
-      {record && (
-        <div className="card-premium">
-          <h3 className="font-display text-lg font-semibold text-foreground mb-4">Latest Coach Update</h3>
-          <p className="text-sm text-muted-foreground mb-2">Level: {record.level}</p>
-          <div className="space-y-3">
-            {(["stamina", "breathing", "consistency", "technique", "confidence"] as const).map((field) => (
-              <div key={field} className="flex items-center gap-2">
-                <span className="text-xs w-20 capitalize">{field}</span>
-                <div className="h-1.5 flex-1 bg-muted rounded-full overflow-hidden">
-                  <div
-                    className="h-full bg-primary"
-                    style={{ width: `${record[field]}%` }}
-                  />
-                </div>
-                <span className="text-xs w-8 text-right">{record[field]}%</span>
-              </div>
-            ))}
-            <p className="text-xs text-muted-foreground mt-2">Coach note: {record.note}</p>
-            <p className="text-xs text-muted-foreground">Last updated: {record.lastUpdated}</p>
-          </div>
-        </div>
-      )}
       <div className="card-premium border-blue-tile bg-black/95 mb-8 flex flex-col sm:flex-row sm:items-center justify-between gap-6">
         <div>
           <h1 className="font-display text-3xl font-bold text-white tracking-tight">Progress & Reports</h1>

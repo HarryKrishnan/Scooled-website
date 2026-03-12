@@ -267,63 +267,63 @@ const allSportPrograms: Record<string, SportProgram[]> = {
 };
 
 const sportTabs = [
-  { key: "Swimming", label: "Swimming" },
-  { key: "Futsal", label: "Futsal" },
-  { key: "Pickleball", label: "Pickleball" },
-  { key: "Table Tennis", label: "Table Tennis" },
+  { key: "Swimming", label: "Swimming", emoji: "🏊" },
+  { key: "Futsal", label: "Futsal", emoji: "⚽" },
+  { key: "Pickleball", label: "Pickleball", emoji: "🏓" },
+  { key: "Table Tennis", label: "Table Tennis", emoji: "🏓" },
 ];
 
 const allSportMemberships: Record<string, { id: string; name: string; duration: string; price: number; features: string[]; popular: boolean }[]> = {
   Swimming: [
-    { id: "sm1", name: "Monthly",     duration: "1 Month",   price: 2999,  features: ["Unlimited pool access", "Locker facility", "1 Guest pass", "Basic progress report"], popular: false },
-    { id: "sm2", name: "Quarterly",   duration: "3 Months",  price: 7999,  features: ["Unlimited pool access", "Locker facility", "3 Guest passes", "Detailed progress reports", "10% coaching discount"], popular: true },
-    { id: "sm3", name: "Half-Yearly", duration: "6 Months",  price: 13999, features: ["Unlimited pool access", "Premium locker", "6 Guest passes", "Detailed progress reports", "15% coaching discount", "Free towel service"], popular: false },
-    { id: "sm4", name: "Annual",      duration: "12 Months", price: 24999, features: ["Unlimited pool access", "Premium locker", "12 Guest passes", "All progress reports", "20% coaching discount", "Free towel service", "Priority slot booking"], popular: false },
+    { id: "sm1", name: "Monthly", duration: "1 Month", price: 2999, features: ["Unlimited pool access", "Locker facility", "1 Guest pass", "Basic progress report"], popular: false },
+    { id: "sm2", name: "Quarterly", duration: "3 Months", price: 7999, features: ["Unlimited pool access", "Locker facility", "3 Guest passes", "Detailed progress reports", "10% coaching discount"], popular: true },
+    { id: "sm3", name: "Half-Yearly", duration: "6 Months", price: 13999, features: ["Unlimited pool access", "Premium locker", "6 Guest passes", "Detailed progress reports", "15% coaching discount", "Free towel service"], popular: false },
+    { id: "sm4", name: "Annual", duration: "12 Months", price: 24999, features: ["Unlimited pool access", "Premium locker", "12 Guest passes", "All progress reports", "20% coaching discount", "Free towel service", "Priority slot booking"], popular: false },
   ],
   Futsal: [
-    { id: "fm1", name: "Monthly",     duration: "1 Month",   price: 2499,  features: ["Unlimited court access", "Locker facility", "1 Guest pass", "Basic stats report"], popular: false },
-    { id: "fm2", name: "Quarterly",   duration: "3 Months",  price: 6499,  features: ["Unlimited court access", "Locker facility", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
-    { id: "fm3", name: "Half-Yearly", duration: "6 Months",  price: 11999, features: ["Unlimited court access", "Premium locker", "6 Guest passes", "Performance reports", "15% coaching discount", "Free jersey"], popular: false },
-    { id: "fm4", name: "Annual",      duration: "12 Months", price: 21999, features: ["Unlimited court access", "Premium locker", "12 Guest passes", "All performance reports", "20% coaching discount", "Free jersey", "Priority booking"], popular: false },
+    { id: "fm1", name: "Monthly", duration: "1 Month", price: 2499, features: ["Unlimited court access", "Locker facility", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "fm2", name: "Quarterly", duration: "3 Months", price: 6499, features: ["Unlimited court access", "Locker facility", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "fm3", name: "Half-Yearly", duration: "6 Months", price: 11999, features: ["Unlimited court access", "Premium locker", "6 Guest passes", "Performance reports", "15% coaching discount", "Free jersey"], popular: false },
+    { id: "fm4", name: "Annual", duration: "12 Months", price: 21999, features: ["Unlimited court access", "Premium locker", "12 Guest passes", "All performance reports", "20% coaching discount", "Free jersey", "Priority booking"], popular: false },
   ],
   Pickleball: [
-    { id: "pm1", name: "Monthly",     duration: "1 Month",   price: 1999,  features: ["Unlimited court access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
-    { id: "pm2", name: "Quarterly",   duration: "3 Months",  price: 5499,  features: ["Unlimited court access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
-    { id: "pm3", name: "Half-Yearly", duration: "6 Months",  price: 9999,  features: ["Unlimited court access", "Own paddle storage", "6 Guest passes", "Performance reports", "15% coaching discount", "Free grip tape"], popular: false },
-    { id: "pm4", name: "Annual",      duration: "12 Months", price: 17999, features: ["Unlimited court access", "Own paddle storage", "12 Guest passes", "All performance reports", "20% coaching discount", "Free grip tape", "Priority booking"], popular: false },
+    { id: "pm1", name: "Monthly", duration: "1 Month", price: 1999, features: ["Unlimited court access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "pm2", name: "Quarterly", duration: "3 Months", price: 5499, features: ["Unlimited court access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "pm3", name: "Half-Yearly", duration: "6 Months", price: 9999, features: ["Unlimited court access", "Own paddle storage", "6 Guest passes", "Performance reports", "15% coaching discount", "Free grip tape"], popular: false },
+    { id: "pm4", name: "Annual", duration: "12 Months", price: 17999, features: ["Unlimited court access", "Own paddle storage", "12 Guest passes", "All performance reports", "20% coaching discount", "Free grip tape", "Priority booking"], popular: false },
   ],
   "Table Tennis": [
-    { id: "tm1", name: "Monthly",     duration: "1 Month",   price: 1499,  features: ["Unlimited table access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
-    { id: "tm2", name: "Quarterly",   duration: "3 Months",  price: 3999,  features: ["Unlimited table access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
-    { id: "tm3", name: "Half-Yearly", duration: "6 Months",  price: 7499,  features: ["Unlimited table access", "Own paddle rack", "6 Guest passes", "Performance reports", "15% coaching discount", "Free rubber sheet"], popular: false },
-    { id: "tm4", name: "Annual",      duration: "12 Months", price: 13499, features: ["Unlimited table access", "Own paddle rack", "12 Guest passes", "All performance reports", "20% coaching discount", "Free rubber sheet", "Priority booking"], popular: false },
+    { id: "tm1", name: "Monthly", duration: "1 Month", price: 1499, features: ["Unlimited table access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "tm2", name: "Quarterly", duration: "3 Months", price: 3999, features: ["Unlimited table access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "tm3", name: "Half-Yearly", duration: "6 Months", price: 7499, features: ["Unlimited table access", "Own paddle rack", "6 Guest passes", "Performance reports", "15% coaching discount", "Free rubber sheet"], popular: false },
+    { id: "tm4", name: "Annual", duration: "12 Months", price: 13499, features: ["Unlimited table access", "Own paddle rack", "12 Guest passes", "All performance reports", "20% coaching discount", "Free rubber sheet", "Priority booking"], popular: false },
   ],
 };
 
 const memberSportTabs = [
-  { key: "Swimming",     label: "Swimming" },
-  { key: "Futsal",       label: "Futsal" },
-  { key: "Pickleball",   label: "Pickleball" },
-  { key: "Table Tennis", label: "Table Tennis" },
+  { key: "Swimming", label: "Swimming", emoji: "🏊" },
+  { key: "Futsal", label: "Futsal", emoji: "⚽" },
+  { key: "Pickleball", label: "Pickleball", emoji: "🏓" },
+  { key: "Table Tennis", label: "Table Tennis", emoji: "🏓" },
 ];
 
 const multiSportTestimonials = [
   // Swimming
-  { name: "Priya Sharma",   initials: "PS", role: "Swimming · Parent",           sport: "🏊 Swimming",     accent: "from-cyan-600/30 to-blue-500/10",   text: "Our kids have transformed completely. The coaches are incredibly patient and the pool facilities are world-class!" },
-  { name: "Rahul Verma",    initials: "RV", role: "Swimming · Competitive",       sport: "🏊 Swimming",     accent: "from-blue-700/30 to-cyan-400/10",   text: "I cut 8 seconds off my 100m freestyle in just 3 months. The data-driven tracking is unlike anything I've experienced." },
-  { name: "Anita Krishnan", initials: "AK", role: "Swimming · Adult Fitness",     sport: "🏊 Swimming",     accent: "from-teal-600/30 to-emerald-400/10",text: "Started as a complete beginner at 38. Within 6 months I'm swimming 2km daily. The booking app makes everything effortless." },
+  { name: "Priya Sharma", initials: "PS", role: "Swimming · Parent", sport: "🏊 Swimming", accent: "from-cyan-600/30 to-blue-500/10", text: "Our kids have transformed completely. The coaches are incredibly patient and the pool facilities are world-class!" },
+  { name: "Rahul Verma", initials: "RV", role: "Swimming · Competitive", sport: "🏊 Swimming", accent: "from-blue-700/30 to-cyan-400/10", text: "I cut 8 seconds off my 100m freestyle in just 3 months. The data-driven tracking is unlike anything I've experienced." },
+  { name: "Anita Krishnan", initials: "AK", role: "Swimming · Adult Fitness", sport: "🏊 Swimming", accent: "from-teal-600/30 to-emerald-400/10", text: "Started as a complete beginner at 38. Within 6 months I'm swimming 2km daily. The booking app makes everything effortless." },
   // Futsal
-  { name: "Kiran Mehta",    initials: "KM", role: "Futsal · Weekend League",      sport: "⚽ Futsal",       accent: "from-emerald-600/30 to-green-400/10",text: "The weekend futsal league is the highlight of my week. Great facilities, excellent coaching and a brilliant community!" },
-  { name: "Siddharth Rao",  initials: "SR", role: "Futsal · Competitive",         sport: "⚽ Futsal",       accent: "from-lime-600/30 to-yellow-400/10", text: "Competitive futsal training at Scooled is top-notch. Our team went from district level to state finals in one season." },
-  { name: "Deepa Nair",     initials: "DN", role: "Futsal · Adult Fitness",       sport: "⚽ Futsal",       accent: "from-green-700/30 to-emerald-300/10",text: "Never thought I'd love indoor football this much. The coaches push you just right and the energy in every session is electric." },
+  { name: "Kiran Mehta", initials: "KM", role: "Futsal · Weekend League", sport: "⚽ Futsal", accent: "from-emerald-600/30 to-green-400/10", text: "The weekend futsal league is the highlight of my week. Great facilities, excellent coaching and a brilliant community!" },
+  { name: "Siddharth Rao", initials: "SR", role: "Futsal · Competitive", sport: "⚽ Futsal", accent: "from-lime-600/30 to-yellow-400/10", text: "Competitive futsal training at Scooled is top-notch. Our team went from district level to state finals in one season." },
+  { name: "Deepa Nair", initials: "DN", role: "Futsal · Adult Fitness", sport: "⚽ Futsal", accent: "from-green-700/30 to-emerald-300/10", text: "Never thought I'd love indoor football this much. The coaches push you just right and the energy in every session is electric." },
   // Pickleball
-  { name: "Arjun Pillai",   initials: "AP", role: "Pickleball · Doubles Clinic",  sport: "🏓 Pickleball",   accent: "from-violet-600/30 to-purple-400/10",text: "The doubles clinic completely transformed my game. The court quality is superb and coaches break down strategy brilliantly." },
-  { name: "Meera Joshi",    initials: "MJ", role: "Pickleball · Adult Fitness",   sport: "🏓 Pickleball",   accent: "from-indigo-600/30 to-blue-400/10", text: "Pickleball at Scooled is addictive! Perfect pace for beginners. I went from not knowing the rules to winning club matches." },
-  { name: "Rajan Thomas",   initials: "RT", role: "Pickleball · Competitive",     sport: "🏓 Pickleball",   accent: "from-purple-700/30 to-violet-300/10",text: "The competitive pickleball program is structured brilliantly. I can track every improvement session-by-session through the app." },
+  { name: "Arjun Pillai", initials: "AP", role: "Pickleball · Doubles Clinic", sport: "🏓 Pickleball", accent: "from-violet-600/30 to-purple-400/10", text: "The doubles clinic completely transformed my game. The court quality is superb and coaches break down strategy brilliantly." },
+  { name: "Meera Joshi", initials: "MJ", role: "Pickleball · Adult Fitness", sport: "🏓 Pickleball", accent: "from-indigo-600/30 to-blue-400/10", text: "Pickleball at Scooled is addictive! Perfect pace for beginners. I went from not knowing the rules to winning club matches." },
+  { name: "Rajan Thomas", initials: "RT", role: "Pickleball · Competitive", sport: "🏓 Pickleball", accent: "from-purple-700/30 to-violet-300/10", text: "The competitive pickleball program is structured brilliantly. I can track every improvement session-by-session through the app." },
   // Table Tennis
-  { name: "Sneha Iyer",     initials: "SI", role: "Table Tennis · Social League", sport: "🏓 Table Tennis",  accent: "from-rose-600/30 to-pink-400/10",   text: "The TT social league is so fun and friendly. I've made so many friends and my backhand has improved dramatically!" },
-  { name: "Vikram Bose",    initials: "VB", role: "Table Tennis · Competitive",   sport: "🏓 Table Tennis",  accent: "from-red-600/30 to-orange-400/10",  text: "Elite coaching at Scooled helped me qualify for the state juniors. The attention to technique and spin is exceptional." },
-  { name: "Lavanya Reddy",  initials: "LR", role: "Table Tennis · Kids Starter",  sport: "🏓 Table Tennis",  accent: "from-pink-600/30 to-rose-300/10",   text: "My 9-year-old daughter is obsessed with table tennis now! Patient coaches and a programme designed perfectly for young players." },
+  { name: "Sneha Iyer", initials: "SI", role: "Table Tennis · Social League", sport: "🏓 Table Tennis", accent: "from-rose-600/30 to-pink-400/10", text: "The TT social league is so fun and friendly. I've made so many friends and my backhand has improved dramatically!" },
+  { name: "Vikram Bose", initials: "VB", role: "Table Tennis · Competitive", sport: "🏓 Table Tennis", accent: "from-red-600/30 to-orange-400/10", text: "Elite coaching at Scooled helped me qualify for the state juniors. The attention to technique and spin is exceptional." },
+  { name: "Lavanya Reddy", initials: "LR", role: "Table Tennis · Kids Starter", sport: "🏓 Table Tennis", accent: "from-pink-600/30 to-rose-300/10", text: "My 9-year-old daughter is obsessed with table tennis now! Patient coaches and a programme designed perfectly for young players." },
 ];
 
 export default function HomePage() {
@@ -627,8 +627,8 @@ export default function HomePage() {
                     <Link
                       to="/memberships"
                       className={`w-11 h-11 rounded-2xl flex items-center justify-center transition-all shadow-xl shrink-0 ${plan.popular
-                          ? "bg-primary text-white shadow-primary/30"
-                          : "bg-white/5 text-white/40 hover:bg-primary hover:text-white border border-white/10"
+                        ? "bg-primary text-white shadow-primary/30"
+                        : "bg-white/5 text-white/40 hover:bg-primary hover:text-white border border-white/10"
                         }`}
                     >
                       <ArrowUpRight size={20} />
@@ -700,7 +700,7 @@ export default function HomePage() {
                     {t.sport}
                   </span>
                   <div className="flex gap-0.5">
-                    {[1,2,3,4,5].map(s => <Star key={s} size={12} className="fill-amber-400 text-amber-400" />)}
+                    {[1, 2, 3, 4, 5].map(s => <Star key={s} size={12} className="fill-amber-400 text-amber-400" />)}
                   </div>
                 </div>
                 <p className="text-sm text-white/80 leading-relaxed italic flex-1">"{t.text}"</p>
@@ -731,7 +731,7 @@ export default function HomePage() {
                     {t.sport}
                   </span>
                   <div className="flex gap-0.5">
-                    {[1,2,3,4,5].map(s => <Star key={s} size={12} className="fill-amber-400 text-amber-400" />)}
+                    {[1, 2, 3, 4, 5].map(s => <Star key={s} size={12} className="fill-amber-400 text-amber-400" />)}
                   </div>
                 </div>
                 <p className="text-sm text-white/80 leading-relaxed italic flex-1">"{t.text}"</p>

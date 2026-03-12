@@ -144,30 +144,6 @@ export default function PortalDashboard() {
       </div>
 
 
-      {/* Membership & Coach Feedback */}
-      {record && (
-        <div className="card-premium">
-          <h3 className="text-sm font-semibold text-foreground mb-4">Coach Feedback</h3>
-          <div className="space-y-2">
-            <p className="text-xs text-muted-foreground">Level: {record.level}</p>
-            <p className="text-xs text-muted-foreground">\"{record.note}\"</p>
-            <p className="text-[10px] text-muted-foreground">Last updated: {record.lastUpdated}</p>
-          </div>
-        </div>
-      )}
-      <div className="card-premium">
-        <h3 className="text-sm font-semibold text-foreground mb-4 flex items-center gap-2">
-          <CreditCard size={16} className="text-primary" /> Membership
-        </h3>
-        <div className="space-y-2">
-          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Plan</span><span className="font-medium text-foreground">{userActiveMembership.name}</span></div>
-          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Status</span><span className="text-xs px-2 py-0.5 rounded-full bg-primary/10 text-primary font-medium">{userActiveMembership.status}</span></div>
-          <div className="flex justify-between text-sm"><span className="text-muted-foreground">Expires</span><span className="font-medium text-foreground">{userActiveMembership.expiryDate}</span></div>
-        </div>
-        <Link to="/portal/memberships" className="text-xs text-primary font-medium mt-4 block">Manage Membership</Link>
-      </div>
-
-
       {/* Campaigns & Offers Section - Floating Marquee Style */}
       <div className="relative overflow-hidden -mx-4 px-4 py-4">
         <div className="flex overflow-hidden">
