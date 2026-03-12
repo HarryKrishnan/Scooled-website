@@ -6,6 +6,8 @@ import { Mail, Lock, User, Phone, Eye, EyeOff, ArrowRight, X, ChevronRight } fro
 import heroImg from "@/assets/hero-pool.jpg";
 import heroSwimming from "@/assets/hero-swimming.png";
 import heroFutsal from "@/assets/hero-futsal.png";
+import heroPickleball from "@/assets/hero-pickleball.png";
+import heroTableTennis from "@/assets/hero-table-tennis.png";
 
 export default function LoginPage() {
   const navigate = useNavigate();
@@ -16,11 +18,13 @@ export default function LoginPage() {
   const sports = [
     { name: "Swimming", image: heroSwimming, color: "from-blue-600/80" },
     { name: "Futsal", image: heroFutsal, color: "from-orange-600/80" },
+    { name: "Pickleball", image: heroPickleball, color: "from-emerald-600/80" },
+    { name: "Table-Tennis", image: heroTableTennis, color: "from-rose-600/80" },
   ];
 
   const handleSportSelect = (sport: string) => {
     setShowSportModal(false);
-    navigate("/portal");
+    navigate(`/portal/${sport.toLowerCase()}`);
   };
 
   return (
