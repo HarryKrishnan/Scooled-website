@@ -262,15 +262,15 @@ export default function AdminPrograms() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="font-display text-3xl font-bold text-navy">Programs & Offers</h1>
+        <h1 className="font-display text-3xl font-bold text-white">Programs & Offers</h1>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-2.5 text-navy/60" />
+            <Search size={16} className="absolute left-3 top-2.5 text-white/60" />
             <input 
               value={search} 
               onChange={(e) => setSearch(e.target.value)} 
               placeholder="Search programs & offers..." 
-              className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20" 
+              className="pl-10 pr-4 py-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-white placeholder:text-white/40" 
             />
           </div>
           
@@ -300,7 +300,7 @@ export default function AdminPrograms() {
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors text-sm font-bold ${
               deleteMode
                 ? "bg-destructive text-white hover:bg-destructive/90"
-                : "bg-white/60 text-navy border border-navy/10 hover:bg-white/80"
+                : "bg-white/10 text-white border border-white/10 hover:bg-white/20"
             }`}
           >
             {deleteMode ? <X size={16} /> : <Trash2 size={16} />}
@@ -332,42 +332,42 @@ export default function AdminPrograms() {
         ].map((stat) => (
           <div key={stat.label} className="card-premium text-center hover:-translate-y-1 transition-transform">
             <p className="text-2xl font-bold text-primary">{stat.count}</p>
-            <p className="text-xs text-navy/60 font-medium">{stat.label}</p>
+            <p className="text-xs text-white/60 font-medium">{stat.label}</p>
           </div>
         ))}
       </div>
 
       {/* Programs Table */}
       <div className="card-premium overflow-x-auto">
-        <div className="mb-4 pb-2 border-b border-navy/10">
-          <h2 className="font-display text-lg font-bold text-navy">Programs</h2>
+        <div className="mb-4 pb-2 border-b border-white/10">
+          <h2 className="font-display text-lg font-bold text-white">Programs</h2>
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy/10">
+            <tr className="border-b border-white/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
               {["Title", "Age Group", "Level", "Coach", "Schedule", "Capacity", "Price", "Sessions", "Status", ""].map((h) => (
-                <th key={h} className="text-left py-2.5 text-xs text-navy/60 font-medium">{h}</th>
+                <th key={h} className="text-left py-2.5 text-xs text-white/40 font-semibold uppercase tracking-wider">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filteredPrograms.map((p) => (
-              <tr key={p.id} className="border-b border-navy/5 hover:bg-white/40 transition-colors">
+              <tr key={p.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                 {deleteMode && (
                   <td className="py-2.5">
                     <input
                       type="checkbox"
                       checked={selectedPrograms.includes(p.id)}
                       onChange={() => toggleSelectProgram(p.id)}
-                      className="w-4 h-4 rounded border-navy/20 text-primary focus:ring-primary/20"
+                      className="w-4 h-4 rounded border-white/20 text-primary focus:ring-primary/20"
                     />
                   </td>
                 )}
                 <td className="py-2.5">
-                  <span className="font-medium text-navy">{p.title}</span>
+                  <span className="font-medium text-white">{p.title}</span>
                 </td>
-                <td className="py-2.5 text-navy/60 text-xs">{p.ageGroup}</td>
+                <td className="py-2.5 text-white/70 text-xs">{p.ageGroup}</td>
                 <td className="py-2.5">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     p.level === "Beginner" ? "bg-blue-500/10 text-blue-500" :
@@ -376,14 +376,14 @@ export default function AdminPrograms() {
                     "bg-primary/10 text-primary"
                   }`}>{p.level}</span>
                 </td>
-                <td className="py-2.5 text-navy/60 text-xs">{p.coach}</td>
-                <td className="py-2.5 text-navy/60 text-xs">
+                <td className="py-2.5 text-white/70 text-xs">{p.coach}</td>
+                <td className="py-2.5 text-white/70 text-xs">
                   <div>{p.schedule}</div>
-                  <div className="text-[10px] text-navy/40">{p.time}</div>
+                  <div className="text-[10px] text-white/40">{p.time}</div>
                 </td>
-                <td className="py-2.5 text-navy/60 text-xs">{p.enrolled}/{p.capacity}</td>
-                <td className="py-2.5 text-navy font-medium">₹{p.price}</td>
-                <td className="py-2.5 text-navy/60 text-xs">{p.totalSessions}</td>
+                <td className="py-2.5 text-white/70 text-xs">{p.enrolled}/{p.capacity}</td>
+                <td className="py-2.5 text-white font-medium">₹{p.price}</td>
+                <td className="py-2.5 text-white/70 text-xs">{p.totalSessions}</td>
                 <td className="py-2.5">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     p.status === "Active" ? "bg-primary/10 text-primary" :
@@ -409,43 +409,43 @@ export default function AdminPrograms() {
 
       {/* Offers Table */}
       <div className="card-premium overflow-x-auto">
-        <div className="mb-4 pb-2 border-b border-navy/10">
-          <h2 className="font-display text-lg font-bold text-navy">Special Offers</h2>
-          <p className="text-xs text-navy/60 mt-1">Independent special programs and limited-time offers</p>
+        <div className="mb-4 pb-2 border-b border-white/10">
+          <h2 className="font-display text-lg font-bold text-white">Special Offers</h2>
+          <p className="text-xs text-white/60 mt-1">Independent special programs and limited-time offers</p>
         </div>
         <table className="w-full text-sm">
           <thead>
-            <tr className="border-b border-navy/10">
+            <tr className="border-b border-white/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
               {["Title", "Parent Program", "Coach", "Schedule", "Price", "Sessions", "Status", ""].map((h) => (
-                <th key={h} className="text-left py-2.5 text-xs text-navy/60 font-medium">{h}</th>
+                <th key={h} className="text-left py-2.5 text-xs text-white/40 font-semibold uppercase tracking-wider">{h}</th>
               ))}
             </tr>
           </thead>
           <tbody>
             {filteredOffers.map((o) => (
-              <tr key={o.id} className="border-b border-navy/5 hover:bg-white/40 transition-colors">
+              <tr key={o.id} className="border-b border-white/5 hover:bg-white/5 transition-colors">
                 {deleteMode && (
                   <td className="py-2.5">
                     <input
                       type="checkbox"
                       checked={selectedOffers.includes(o.id)}
                       onChange={() => toggleSelectOffer(o.id)}
-                      className="w-4 h-4 rounded border-navy/20 text-primary focus:ring-primary/20"
+                      className="w-4 h-4 rounded border-white/20 text-primary focus:ring-primary/20"
                     />
                   </td>
                 )}
                 <td className="py-2.5">
-                  <span className="font-medium text-navy">{o.title}</span>
+                  <span className="font-medium text-white">{o.title}</span>
                 </td>
-                <td className="py-2.5 text-navy/60 text-xs">{getParentProgramName(o.parentProgramId)}</td>
-                <td className="py-2.5 text-navy/60 text-xs">{o.coach}</td>
-                <td className="py-2.5 text-navy/60 text-xs">
+                <td className="py-2.5 text-white/70 text-xs">{getParentProgramName(o.parentProgramId)}</td>
+                <td className="py-2.5 text-white/70 text-xs">{o.coach}</td>
+                <td className="py-2.5 text-white/70 text-xs">
                   <div>{o.schedule}</div>
-                  <div className="text-[10px] text-navy/40">{o.time}</div>
+                  <div className="text-[10px] text-white/40">{o.time}</div>
                 </td>
-                <td className="py-2.5 text-navy font-medium">₹{o.price}</td>
-                <td className="py-2.5 text-navy/60 text-xs">{o.totalSessions}</td>
+                <td className="py-2.5 text-white font-medium">₹{o.price}</td>
+                <td className="py-2.5 text-white/70 text-xs">{o.totalSessions}</td>
                 <td className="py-2.5">
                   <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                     o.status === "Active" ? "bg-primary/10 text-primary" :
@@ -471,29 +471,29 @@ export default function AdminPrograms() {
 
       {/* Add/Edit Dialog */}
       <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
-        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-white/95 backdrop-blur-xl border-navy/10">
+        <DialogContent className="sm:max-w-[600px] max-h-[90vh] overflow-y-auto bg-[#1a1a1a] border-white/10">
           <DialogHeader>
-            <DialogTitle className="font-display text-xl text-navy">
+            <DialogTitle className="font-display text-xl text-white">
               {editingItem ? `Edit ${entityType === "program" ? "Program" : "Offer"}` : `Create New ${entityType === "program" ? "Program" : "Offer"}`}
             </DialogTitle>
           </DialogHeader>
           <div className="space-y-4 py-4">
             <div className="space-y-2">
-              <Label htmlFor="title" className="text-navy/80 text-sm font-medium">Title</Label>
+              <Label htmlFor="title" className="text-white/80 text-sm font-medium">Title</Label>
               <Input
                 id="title"
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 placeholder="Enter program title"
-                className="rounded-xl border-navy/10 bg-white/60"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
             </div>
 
             {entityType === "offer" && (
               <div className="space-y-2">
-                <Label htmlFor="parentProgram" className="text-navy/80 text-sm font-medium">Parent Program</Label>
+                <Label htmlFor="parentProgram" className="text-white/80 text-sm font-medium">Parent Program</Label>
                 <Select value={formData.parentProgramId} onValueChange={(v) => setFormData({ ...formData, parentProgramId: v })}>
-                  <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
+                  <SelectTrigger className="rounded-xl border-white/10 bg-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -509,19 +509,19 @@ export default function AdminPrograms() {
               <>
                 <div className="grid grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="ageGroup" className="text-navy/80 text-sm font-medium">Age Group</Label>
+                    <Label htmlFor="ageGroup" className="text-white/80 text-sm font-medium">Age Group</Label>
                     <Input
                       id="ageGroup"
                       value={formData.ageGroup}
                       onChange={(e) => setFormData({ ...formData, ageGroup: e.target.value })}
                       placeholder="e.g., 4-8 years"
-                      className="rounded-xl border-navy/10 bg-white/60"
+                      className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="level" className="text-navy/80 text-sm font-medium">Level</Label>
+                    <Label htmlFor="level" className="text-white/80 text-sm font-medium">Level</Label>
                     <Select value={formData.level} onValueChange={(v) => setFormData({ ...formData, level: v })}>
-                      <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
+                      <SelectTrigger className="rounded-xl border-white/10 bg-white/10 text-white">
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
@@ -536,33 +536,33 @@ export default function AdminPrograms() {
 
                 <div className="grid grid-cols-3 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="capacity" className="text-navy/80 text-sm font-medium">Capacity</Label>
+                    <Label htmlFor="capacity" className="text-white/80 text-sm font-medium">Capacity</Label>
                     <Input
                       id="capacity"
                       type="number"
                       value={formData.capacity}
                       onChange={(e) => setFormData({ ...formData, capacity: parseInt(e.target.value) || 0 })}
-                      className="rounded-xl border-navy/10 bg-white/60"
+                      className="rounded-xl border-white/10 bg-white/10 text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="enrolled" className="text-navy/80 text-sm font-medium">Enrolled</Label>
+                    <Label htmlFor="enrolled" className="text-white/80 text-sm font-medium">Enrolled</Label>
                     <Input
                       id="enrolled"
                       type="number"
                       value={formData.enrolled}
                       onChange={(e) => setFormData({ ...formData, enrolled: parseInt(e.target.value) || 0 })}
-                      className="rounded-xl border-navy/10 bg-white/60"
+                      className="rounded-xl border-white/10 bg-white/10 text-white"
                     />
                   </div>
                   <div className="space-y-2">
-                    <Label htmlFor="totalSessions" className="text-navy/80 text-sm font-medium">Total Sessions</Label>
+                    <Label htmlFor="totalSessions" className="text-white/80 text-sm font-medium">Total Sessions</Label>
                     <Input
                       id="totalSessions"
                       type="number"
                       value={formData.totalSessions}
                       onChange={(e) => setFormData({ ...formData, totalSessions: parseInt(e.target.value) || 0 })}
-                      className="rounded-xl border-navy/10 bg-white/60"
+                      className="rounded-xl border-white/10 bg-white/10 text-white"
                     />
                   </div>
                 </div>
@@ -571,21 +571,21 @@ export default function AdminPrograms() {
 
             {entityType === "offer" && (
               <div className="space-y-2">
-                <Label htmlFor="totalSessions" className="text-navy/80 text-sm font-medium">Total Sessions</Label>
+                <Label htmlFor="totalSessions" className="text-white/80 text-sm font-medium">Total Sessions</Label>
                 <Input
                   id="totalSessions"
                   type="number"
                   value={formData.totalSessions}
                   onChange={(e) => setFormData({ ...formData, totalSessions: parseInt(e.target.value) || 0 })}
-                  className="rounded-xl border-navy/10 bg-white/60"
+                  className="rounded-xl border-white/10 bg-white/10 text-white"
                 />
               </div>
             )}
 
             <div className="space-y-2">
-              <Label htmlFor="coach" className="text-navy/80 text-sm font-medium">Coach</Label>
+              <Label htmlFor="coach" className="text-white/80 text-sm font-medium">Coach</Label>
               <Select value={formData.coach} onValueChange={(v) => setFormData({ ...formData, coach: v })}>
-                <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
+                <SelectTrigger className="rounded-xl border-white/10 bg-white/10 text-white">
                   <SelectValue />
                 </SelectTrigger>
                 <SelectContent>
@@ -598,52 +598,52 @@ export default function AdminPrograms() {
 
             <div className="grid grid-cols-3 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="schedule" className="text-navy/80 text-sm font-medium">Schedule</Label>
+                <Label htmlFor="schedule" className="text-white/80 text-sm font-medium">Schedule</Label>
                 <Input
                   id="schedule"
                   value={formData.schedule}
                   onChange={(e) => setFormData({ ...formData, schedule: e.target.value })}
                   placeholder="Mon, Wed, Fri"
-                  className="rounded-xl border-navy/10 bg-white/60"
+                  className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="time" className="text-navy/80 text-sm font-medium">Time</Label>
+                <Label htmlFor="time" className="text-white/80 text-sm font-medium">Time</Label>
                 <Input
                   id="time"
                   value={formData.time}
                   onChange={(e) => setFormData({ ...formData, time: e.target.value })}
                   placeholder="4:00 PM - 5:00 PM"
-                  className="rounded-xl border-navy/10 bg-white/60"
+                  className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="duration" className="text-navy/80 text-sm font-medium">Duration</Label>
+                <Label htmlFor="duration" className="text-white/80 text-sm font-medium">Duration</Label>
                 <Input
                   id="duration"
                   value={formData.duration}
                   onChange={(e) => setFormData({ ...formData, duration: e.target.value })}
                   placeholder="60 min"
-                  className="rounded-xl border-navy/10 bg-white/60"
+                  className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
                 />
               </div>
             </div>
 
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">
-                <Label htmlFor="price" className="text-navy/80 text-sm font-medium">Price (₹)</Label>
+                <Label htmlFor="price" className="text-white/80 text-sm font-medium">Price (₹)</Label>
                 <Input
                   id="price"
                   type="number"
                   value={formData.price}
                   onChange={(e) => setFormData({ ...formData, price: parseInt(e.target.value) || 0 })}
-                  className="rounded-xl border-navy/10 bg-white/60"
+                  className="rounded-xl border-white/10 bg-white/10 text-white"
                 />
               </div>
               <div className="space-y-2">
-                <Label htmlFor="status" className="text-navy/80 text-sm font-medium">Status</Label>
+                <Label htmlFor="status" className="text-white/80 text-sm font-medium">Status</Label>
                 <Select value={formData.status} onValueChange={(v) => setFormData({ ...formData, status: v })}>
-                  <SelectTrigger className="rounded-xl border-navy/10 bg-white/60">
+                  <SelectTrigger className="rounded-xl border-white/10 bg-white/10 text-white">
                     <SelectValue />
                   </SelectTrigger>
                   <SelectContent>
@@ -656,8 +656,8 @@ export default function AdminPrograms() {
             </div>
 
             <div className="space-y-2">
-              <Label htmlFor="description" className="text-navy/80 text-sm font-medium">
-                Description <span className="text-navy/40 text-xs">(Optional)</span>
+              <Label htmlFor="description" className="text-white/80 text-sm font-medium">
+                Description <span className="text-white/40 text-xs">(Optional)</span>
               </Label>
               <Textarea
                 id="description"
@@ -665,7 +665,7 @@ export default function AdminPrograms() {
                 onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                 placeholder="Enter program description..."
                 rows={3}
-                className="rounded-xl border-navy/10 bg-white/60 resize-none"
+                className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40 resize-none"
               />
             </div>
           </div>

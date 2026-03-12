@@ -179,23 +179,23 @@ export default function AdminMemberships() {
     <div className="space-y-6">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
-        <h1 className="font-display text-3xl font-bold text-navy">Membership Management</h1>
+        <h1 className="font-display text-3xl font-bold text-white">Membership Management</h1>
         <div className="flex items-center gap-2 flex-wrap">
           <div className="relative">
-            <Search size={16} className="absolute left-3 top-2.5 text-navy/60" />
+            <Search size={16} className="absolute left-3 top-2.5 text-white/60" />
             <input
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               placeholder="Search customers..."
-              className="pl-10 pr-4 py-2 rounded-xl border border-navy/10 bg-white/60 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-primary/20"
+              className="pl-10 pr-4 py-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-white placeholder:text-white/40"
             />
           </div>
           <button
             onClick={() => setBulkMode(!bulkMode)}
             className={`flex items-center gap-2 px-4 py-2 rounded-xl transition-colors text-sm font-bold ${
               bulkMode
-                ? "bg-primary text-white hover:bg-primary/90"
-                : "bg-white/60 text-navy border border-navy/10 hover:bg-white/80"
+                ? "bg-amber-500 text-navy hover:bg-amber-600"
+                : "bg-white/10 text-white border border-white/10 hover:bg-white/20"
             }`}
           >
             <Bell size={16} />
@@ -217,19 +217,19 @@ export default function AdminMemberships() {
       <div className="card-premium bg-gradient-to-br from-primary/5 to-gold/5 border-primary/20">
         <div className="flex items-center gap-2 mb-3">
           <Bell className="text-primary" size={20} />
-          <h3 className="font-semibold text-navy">Notification Settings</h3>
+          <h3 className="font-semibold text-white">Notification Settings</h3>
         </div>
         <div className="grid sm:grid-cols-3 gap-4">
           <div className="flex items-center justify-between gap-3">
-            <Label htmlFor="auto7" className="text-xs text-navy/70">Auto-notify 7 days before expiry</Label>
+            <Label htmlFor="auto7" className="text-xs text-white/70">Auto-notify 7 days before expiry</Label>
             <Switch id="auto7" checked={autoNotify7Days} onCheckedChange={setAutoNotify7Days} />
           </div>
           <div className="flex items-center justify-between gap-3">
-            <Label htmlFor="auto1" className="text-xs text-navy/70">Auto-notify 1 day before expiry</Label>
+            <Label htmlFor="auto1" className="text-xs text-white/70">Auto-notify 1 day before expiry</Label>
             <Switch id="auto1" checked={autoNotify1Day} onCheckedChange={setAutoNotify1Day} />
           </div>
           <div className="flex items-center justify-between gap-3">
-            <Label htmlFor="autoExp" className="text-xs text-navy/70">Auto-notify on expiry day</Label>
+            <Label htmlFor="autoExp" className="text-xs text-white/70">Auto-notify on expiry day</Label>
             <Switch id="autoExp" checked={autoNotifyExpiry} onCheckedChange={setAutoNotifyExpiry} />
           </div>
         </div>
@@ -242,8 +242,8 @@ export default function AdminMemberships() {
             <Users size={18} />
           </div>
           <div>
-            <p className="text-xl font-bold text-navy">{activeCount}</p>
-            <p className="text-xs text-navy/60">Active Members</p>
+            <p className="text-xl font-bold text-white">{activeCount}</p>
+            <p className="text-xs text-white/60">Active Members</p>
           </div>
         </div>
 
@@ -252,8 +252,8 @@ export default function AdminMemberships() {
             <AlertTriangle size={18} />
           </div>
           <div>
-            <p className="text-xl font-bold text-navy">{expiringThisWeek}</p>
-            <p className="text-xs text-navy/60">Expiring This Week</p>
+            <p className="text-xl font-bold text-white">{expiringThisWeek}</p>
+            <p className="text-xs text-white/60">Expiring This Week</p>
           </div>
         </div>
 
@@ -262,8 +262,8 @@ export default function AdminMemberships() {
             <Clock size={18} />
           </div>
           <div>
-            <p className="text-xl font-bold text-navy">{expiringThisMonth}</p>
-            <p className="text-xs text-navy/60">Expiring This Month</p>
+            <p className="text-xl font-bold text-white">{expiringThisMonth}</p>
+            <p className="text-xs text-white/60">Expiring This Month</p>
           </div>
         </div>
 
@@ -272,8 +272,8 @@ export default function AdminMemberships() {
             <XCircle size={18} />
           </div>
           <div>
-            <p className="text-xl font-bold text-navy">{expiredCount}</p>
-            <p className="text-xs text-navy/60">Expired Members</p>
+            <p className="text-xl font-bold text-white">{expiredCount}</p>
+            <p className="text-xs text-white/60">Expired Members</p>
           </div>
         </div>
       </div>
@@ -286,8 +286,8 @@ export default function AdminMemberships() {
             onClick={() => setActiveTab(tab)}
             className={`px-4 py-2 rounded-xl text-sm font-medium whitespace-nowrap transition-all ${
               activeTab === tab
-                ? "bg-primary text-white shadow-lg shadow-primary/20"
-                : "bg-white/60 text-navy/60 hover:bg-white/80 border border-navy/10"
+                ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
+                : "bg-white/10 text-white/60 hover:bg-white/20 border border-white/10"
             }`}
           >
             {tab}
@@ -304,8 +304,8 @@ export default function AdminMemberships() {
       <div className="space-y-3">
         {filteredSubscriptions.length === 0 ? (
           <div className="card-premium text-center py-12">
-            <Users className="mx-auto text-navy/20 mb-3" size={48} />
-            <p className="text-navy/60">No customers found in this category</p>
+            <Users className="mx-auto text-white/20 mb-3" size={48} />
+            <p className="text-white/60">No customers found in this category</p>
           </div>
         ) : (
           filteredSubscriptions.map((sub) => {
@@ -330,7 +330,7 @@ export default function AdminMemberships() {
                     <div className="flex-1">
                       <div className="flex items-center gap-2 mb-1 flex-wrap">
                         <Crown className="text-gold" size={14} />
-                        <span className="font-semibold text-navy">{sub.customerName}</span>
+                        <span className="font-semibold text-white">{sub.customerName}</span>
                         <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${expiryInfo.color}`}>
                           {expiryInfo.status}
                         </span>
@@ -343,7 +343,7 @@ export default function AdminMemberships() {
                           </span>
                         )}
                       </div>
-                      <div className="text-xs text-navy/60 space-y-1">
+                      <div className="text-xs text-white/60 space-y-1">
                         <p className="flex items-center gap-2 flex-wrap">
                           <span>{sub.email}</span> • <span>{sub.phone}</span>
                         </p>
@@ -375,7 +375,7 @@ export default function AdminMemberships() {
                       </button>
                       <button
                         onClick={() => setShowHistory(isExpanded ? null : sub.id)}
-                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-navy/10 text-xs font-medium text-navy hover:bg-white/50 transition-colors"
+                        className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-white/10 text-xs font-medium text-white hover:bg-white/10 transition-colors"
                       >
                         <MessageSquare size={14} />
                         History ({customerNotifications.length})
@@ -386,20 +386,20 @@ export default function AdminMemberships() {
 
                   {/* Notification History (Collapsible) */}
                   {isExpanded && customerNotifications.length > 0 && (
-                    <div className="border-t border-navy/5 pt-3 mt-2">
-                      <p className="text-xs font-semibold text-navy/70 mb-2">Notification History</p>
+                    <div className="border-t border-white/5 pt-3 mt-2">
+                      <p className="text-xs font-semibold text-white/70 mb-2">Notification History</p>
                       <div className="space-y-2">
                         {customerNotifications.map((notif) => (
-                          <div key={notif.id} className="flex items-start gap-2 text-xs bg-white/40 p-2 rounded-lg">
+                          <div key={notif.id} className="flex items-start gap-2 text-xs bg-white/10 p-2 rounded-lg">
                             <div className={`w-6 h-6 rounded-lg flex items-center justify-center flex-shrink-0 ${
                               notif.channel === "WhatsApp" ? "bg-green-500/10 text-green-600" : "bg-primary/10 text-primary"
                             }`}>
                               {notif.channel === "WhatsApp" ? <Smartphone size={12} /> : <Bell size={12} />}
                             </div>
                             <div className="flex-1">
-                              <p className="font-medium text-navy">{notif.type}</p>
-                              <p className="text-navy/60 mt-0.5">{notif.message}</p>
-                              <p className="text-navy/40 text-[10px] mt-1">{notif.sentAt} • {notif.channel}</p>
+                              <p className="font-medium text-white">{notif.type}</p>
+                              <p className="text-white/60 mt-0.5">{notif.message}</p>
+                              <p className="text-white/40 text-[10px] mt-1">{notif.sentAt} • {notif.channel}</p>
                             </div>
                           </div>
                         ))}
@@ -415,9 +415,9 @@ export default function AdminMemberships() {
 
       {/* Notification Dialog */}
       <Dialog open={notificationDialogOpen} onOpenChange={setNotificationDialogOpen}>
-        <DialogContent className="sm:max-w-[600px]">
+        <DialogContent className="sm:max-w-[600px] bg-[#1a1a1a] border-white/10">
           <DialogHeader>
-            <DialogTitle className="flex items-center gap-2">
+            <DialogTitle className="flex items-center gap-2 text-white">
               <Bell className="text-primary" size={20} />
               Send Notification
             </DialogTitle>
@@ -426,10 +426,10 @@ export default function AdminMemberships() {
           <div className="space-y-4 py-4">
             {/* Recipient Info */}
             <div className="card-premium bg-primary/5 border-primary/20">
-              <p className="text-xs text-navy/60 mb-1">Recipient</p>
-              <p className="font-semibold text-navy">{selectedCustomer?.customerName}</p>
-              <p className="text-xs text-navy/60 mt-1">{selectedCustomer?.email} • {selectedCustomer?.phone}</p>
-              <p className="text-xs text-navy/60 mt-1">
+              <p className="text-xs text-white/60 mb-1">Recipient</p>
+              <p className="font-semibold text-white">{selectedCustomer?.customerName}</p>
+              <p className="text-xs text-white/60 mt-1">{selectedCustomer?.email} • {selectedCustomer?.phone}</p>
+              <p className="text-xs text-white/60 mt-1">
                 Plan: <span className="font-medium">{selectedCustomer?.planName}</span> • 
                 Expires: <span className="font-medium">{selectedCustomer?.expiryDate}</span>
               </p>
@@ -437,7 +437,7 @@ export default function AdminMemberships() {
 
             {/* Notification Type Selector */}
             <div>
-              <Label htmlFor="notifType" className="text-sm font-medium text-navy">Notification Type</Label>
+              <Label htmlFor="notifType" className="text-sm font-medium text-white">Notification Type</Label>
               <Select value={notificationType} onValueChange={(v) => setNotificationType(v as NotificationType)}>
                 <SelectTrigger id="notifType" className="mt-1">
                   <SelectValue />
@@ -454,7 +454,7 @@ export default function AdminMemberships() {
             {/* Custom Message Input */}
             {notificationType === "Custom Message" && (
               <div>
-                <Label htmlFor="customMsg" className="text-sm font-medium text-navy">Custom Message</Label>
+                <Label htmlFor="customMsg" className="text-sm font-medium text-white">Custom Message</Label>
                 <Textarea
                   id="customMsg"
                   value={customMessage}
@@ -467,22 +467,22 @@ export default function AdminMemberships() {
 
             {/* Message Preview */}
             <div>
-              <Label className="text-sm font-medium text-navy">Message Preview</Label>
-              <div className="mt-1 p-4 rounded-lg bg-white/60 border border-navy/10 text-sm text-navy">
-                {getNotificationMessage() || <span className="text-navy/40 italic">Message preview will appear here...</span>}
+              <Label className="text-sm font-medium text-white">Message Preview</Label>
+              <div className="mt-1 p-4 rounded-lg bg-white/10 border border-white/10 text-sm text-white">
+                {getNotificationMessage() || <span className="text-white/40 italic">Message preview will appear here...</span>}
               </div>
             </div>
 
             {/* WhatsApp Preview */}
-            <div className="card-premium bg-green-50 border-green-200">
+            <div className="card-premium bg-green-500/10 border-green-500/20">
               <div className="flex items-center gap-2 mb-2">
-                <Smartphone className="text-green-600" size={16} />
-                <p className="text-xs font-semibold text-green-800">WhatsApp Message Format</p>
+                <Smartphone className="text-green-400" size={16} />
+                <p className="text-xs font-semibold text-green-400">WhatsApp Message Format</p>
               </div>
-              <div className="bg-white rounded-lg p-3 text-xs text-navy whitespace-pre-wrap">
+              <div className="bg-white/5 rounded-lg p-3 text-xs text-white whitespace-pre-wrap">
                 {getNotificationMessage()}
               </div>
-              <p className="text-[10px] text-green-700 mt-2">
+              <p className="text-[10px] text-green-400 mt-2">
                 Message will be sent to: <span className="font-medium">{selectedCustomer?.phone}</span>
               </p>
             </div>

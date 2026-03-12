@@ -49,7 +49,7 @@ export default function AdminLeads() {
                 <td className="py-2.5 text-white/70">{l.source}</td>
                 <td className="py-2.5 text-white/70">{l.interest}</td>
                 <td className="py-2.5"><span className={`text-xs px-2 py-0.5 rounded-full font-medium ${statusColors[l.status] || ""}`}>{l.status}</span></td>
-                <td className="py-2.5 text-navy/60">{l.date}</td>
+                <td className="py-2.5 text-white/60">{l.date}</td>
                 <td className="py-2.5">
                   <button className="p-1.5 rounded-lg hover:bg-white/50 text-primary transition-colors" title="Send offer">
                     <Send size={14} />

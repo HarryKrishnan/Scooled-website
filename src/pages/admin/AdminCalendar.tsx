@@ -131,8 +131,8 @@ export default function AdminCalendar() {
               <div className="flex items-start justify-between mb-3">
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-2">
-                    <Clock size={16} className="text-navy/60" />
-                    <h3 className="font-bold text-navy text-sm">{slot.time}</h3>
+                    <Clock size={16} className="text-white/60" />
+                    <h3 className="font-bold text-white text-sm">{slot.time}</h3>
                     <span className={`text-xs px-2 py-0.5 rounded-full font-medium ${
                       slot.type === "Open Swim" ? "bg-primary/10 text-primary" :
                       slot.type === "Coaching" ? "bg-orange-500/10 text-orange-500" :
@@ -146,10 +146,10 @@ export default function AdminCalendar() {
                   {/* Occupancy Bar */}
                   <div className="mb-3">
                     <div className="flex justify-between text-xs mb-1">
-                      <span className="text-navy/60 font-medium">{currentBooked}/{slot.capacity} booked</span>
+                      <span className="text-white/60 font-medium">{currentBooked}/{slot.capacity} booked</span>
                       <span className={`font-bold ${availability.text}`}>{availability.status}</span>
                     </div>
-                    <div className="h-2 w-full bg-navy/5 rounded-full overflow-hidden">
+                    <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden">
                       <div
                         className={`h-full ${availability.bg} transition-all`}
                         style={{ width: `${occupancyPercent}%` }}
@@ -160,15 +160,15 @@ export default function AdminCalendar() {
                   {/* Customer List */}
                   {slotBookingsData.length > 0 && (
                     <div className="space-y-2">
-                      <p className="text-xs font-bold text-navy/60 uppercase tracking-wider">Booked Customers</p>
+                      <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Booked Customers</p>
                       <div className="grid gap-2">
                         {slotBookingsData.map((booking) => (
-                          <div key={booking.id} className="flex items-center justify-between p-2 rounded-lg bg-white/50 border border-navy/5">
+                          <div key={booking.id} className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
                             <div className="flex items-center gap-2">
                               <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold">
                                 {booking.customerName.charAt(0)}
                               </div>
-                              <span className="text-sm font-medium text-navy">{booking.customerName}</span>
+                              <span className="text-sm font-medium text-white">{booking.customerName}</span>
                             </div>
                             <button
                               onClick={() => handleCancelBooking(booking)}
@@ -222,10 +222,10 @@ export default function AdminCalendar() {
                 className={`card-premium ${isToday ? 'border-primary border-2' : ''}`}
               >
                 <div className="text-center mb-3">
-                  <p className="text-xs font-bold text-navy/60 uppercase">
+                  <p className="text-xs font-bold text-white/60 uppercase">
                     {date.toLocaleDateString('en-US', { weekday: 'short' })}
                   </p>
-                  <p className="text-lg font-bold text-navy">
+                  <p className="text-lg font-bold text-white">
                     {date.getDate()}
                   </p>
                 </div>
@@ -233,21 +233,21 @@ export default function AdminCalendar() {
                 <div className="space-y-2">
                   <div className="flex items-center justify-between p-2 rounded-lg bg-primary/5">
                     <Users size={14} className="text-primary" />
-                    <span className="text-xs font-bold text-navy">{dayBookings.length}</span>
+                    <span className="text-xs font-bold text-white">{dayBookings.length}</span>
                   </div>
                   
                   {dayBookings.slice(0, 3).map((booking) => {
                     const slot = slots.find(s => s.id === booking.slotId);
                     return (
-                      <div key={booking.id} className="p-1.5 rounded-lg bg-white/50 border border-navy/5">
-                        <p className="text-[10px] text-navy/60 font-medium">{slot?.time.split('–')[0].trim()}</p>
-                        <p className="text-xs font-medium text-navy truncate">{booking.customerName}</p>
+                      <div key={booking.id} className="p-1.5 rounded-lg bg-white/5 border border-white/10">
+                        <p className="text-[10px] text-white/60 font-medium">{slot?.time.split('–')[0].trim()}</p>
+                        <p className="text-xs font-medium text-white truncate">{booking.customerName}</p>
                       </div>
                     );
                   })}
                   
                   {dayBookings.length > 3 && (
-                    <p className="text-xs text-navy/40 text-center font-medium">+{dayBookings.length - 3} more</p>
+                    <p className="text-xs text-white/40 text-center font-medium">+{dayBookings.length - 3} more</p>
                   )}
                 </div>
               </div>
@@ -283,14 +283,14 @@ export default function AdminCalendar() {
         {/* Monthly Stats */}
         <div className="grid sm:grid-cols-2 gap-4">
           <div className="card-premium">
-            <p className="text-xs font-bold text-navy/60 uppercase tracking-wider mb-1">Total Bookings</p>
+            <p className="text-xs font-bold text-white/60 uppercase tracking-wider mb-1">Total Bookings</p>
             <p className="text-2xl font-bold text-primary">{stats.total}</p>
-            <p className="text-xs text-navy/40 mt-1 font-medium">This month</p>
+            <p className="text-xs text-white/40 mt-1 font-medium">This month</p>
           </div>
           <div className="card-premium">
-            <p className="text-xs font-bold text-navy/60 uppercase tracking-wider mb-1">Avg Per Day</p>
-            <p className="text-2xl font-bold text-navy">{stats.average}</p>
-            <p className="text-xs text-navy/40 mt-1 font-medium">Bookings per day</p>
+            <p className="text-xs font-bold text-white/60 uppercase tracking-wider mb-1">Avg Per Day</p>
+            <p className="text-2xl font-bold text-white">{stats.average}</p>
+            <p className="text-xs text-white/40 mt-1 font-medium">Bookings per day</p>
           </div>
         </div>
 
@@ -330,21 +330,21 @@ export default function AdminCalendar() {
       <div className="flex flex-col gap-4">
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3">
           <div>
-            <h1 className="font-display text-3xl font-bold text-navy">Calendar & Scheduling</h1>
-            <p className="text-sm text-navy/60 mt-1 font-medium">Manage slots and view bookings</p>
+            <h1 className="font-display text-3xl font-bold text-white">Calendar & Scheduling</h1>
+            <p className="text-sm text-white/60 mt-1 font-medium">Manage slots and view bookings</p>
           </div>
           
           {/* View Mode Switcher */}
           <div className="flex items-center gap-2">
-            <div className="flex items-center rounded-xl bg-white/60 border border-navy/10 p-1">
+            <div className="flex items-center rounded-xl bg-white/10 border border-white/10 p-1">
               {(["daily", "weekly", "monthly"] as ViewMode[]).map((mode) => (
                 <button
                   key={mode}
                   onClick={() => setViewMode(mode)}
                   className={`px-4 py-1.5 rounded-lg text-xs font-bold transition-all capitalize ${
                     viewMode === mode
-                      ? "bg-primary text-white shadow-lg shadow-primary/20"
-                      : "text-navy/60 hover:text-navy"
+                      ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
+                      : "text-white/60 hover:text-white"
                   }`}
                 >
                   {mode}
@@ -360,18 +360,18 @@ export default function AdminCalendar() {
           <div className="flex items-center gap-2">
             <button
               onClick={() => navigateDate("prev")}
-              className="p-2 rounded-xl bg-white/60 hover:bg-white/80 border border-navy/10 transition-colors"
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-colors"
             >
-              <ChevronLeft size={16} className="text-navy" />
+              <ChevronLeft size={16} className="text-white" />
             </button>
-            <div className="px-4 py-2 rounded-xl bg-white/60 border border-navy/10 min-w-[180px] text-center">
-              <span className="text-sm font-bold text-navy">{formatDisplayDate(selectedDate)}</span>
+            <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/10 min-w-[180px] text-center">
+              <span className="text-sm font-bold text-white">{formatDisplayDate(selectedDate)}</span>
             </div>
             <button
               onClick={() => navigateDate("next")}
-              className="p-2 rounded-xl bg-white/60 hover:bg-white/80 border border-navy/10 transition-colors"
+              className="p-2 rounded-xl bg-white/10 hover:bg-white/20 border border-white/10 transition-colors"
             >
-              <ChevronRight size={16} className="text-navy" />
+              <ChevronRight size={16} className="text-white" />
             </button>
             <button
               onClick={goToToday}
@@ -383,7 +383,7 @@ export default function AdminCalendar() {
 
           {/* Centre Selector */}
           <Select value={selectedCentre} onValueChange={setSelectedCentre}>
-            <SelectTrigger className="w-full sm:w-[200px] rounded-xl border-navy/10 bg-white/60">
+            <SelectTrigger className="w-full sm:w-[200px] rounded-xl border-white/10 bg-white/10 text-white">
               <SelectValue />
             </SelectTrigger>
             <SelectContent>
@@ -402,29 +402,29 @@ export default function AdminCalendar() {
         <div className="grid sm:grid-cols-3 gap-4">
           <div className="card-premium">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-navy/60 uppercase tracking-wider">Total Bookings</p>
+              <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Total Bookings</p>
               <CalendarIcon size={16} className="text-primary" />
             </div>
             <p className="text-2xl font-bold text-primary">{totalBooked}</p>
-            <p className="text-xs text-navy/40 mt-1 font-medium">{formatDisplayDate(selectedDate)}</p>
+            <p className="text-xs text-white/40 mt-1 font-medium">{formatDisplayDate(selectedDate)}</p>
           </div>
           
           <div className="card-premium">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-navy/60 uppercase tracking-wider">Available Slots</p>
+              <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Available Slots</p>
               <CheckCircle2 size={16} className="text-primary" />
             </div>
-            <p className="text-2xl font-bold text-navy">{slots.length}</p>
-            <p className="text-xs text-navy/40 mt-1 font-medium">Time slots configured</p>
+            <p className="text-2xl font-bold text-white">{slots.length}</p>
+            <p className="text-xs text-white/40 mt-1 font-medium">Time slots configured</p>
           </div>
           
           <div className="card-premium">
             <div className="flex items-center justify-between mb-2">
-              <p className="text-xs font-bold text-navy/60 uppercase tracking-wider">Occupancy Rate</p>
+              <p className="text-xs font-bold text-white/60 uppercase tracking-wider">Occupancy Rate</p>
               <Users size={16} className="text-primary" />
             </div>
-            <p className="text-2xl font-bold text-navy">{occupancyRate}%</p>
-            <p className="text-xs text-navy/40 mt-1 font-medium">{totalBooked}/{totalCapacity} capacity</p>
+            <p className="text-2xl font-bold text-white">{occupancyRate}%</p>
+            <p className="text-xs text-white/40 mt-1 font-medium">{totalBooked}/{totalCapacity} capacity</p>
           </div>
         </div>
       )}
@@ -438,16 +438,16 @@ export default function AdminCalendar() {
 
       {/* Cancel Booking Dialog */}
       <Dialog open={cancelDialog.open} onOpenChange={(open) => setCancelDialog({ open, booking: null })}>
-        <DialogContent className="sm:max-w-[425px] bg-white/95 backdrop-blur-xl border-navy/10">
+        <DialogContent className="sm:max-w-[425px] bg-[#1a1a1a] border-white/10">
           <DialogHeader>
-            <DialogTitle className="font-display text-xl text-navy">Cancel Booking</DialogTitle>
+            <DialogTitle className="font-display text-xl text-white">Cancel Booking</DialogTitle>
           </DialogHeader>
           <div className="py-4">
-            <p className="text-sm text-navy/80">
+            <p className="text-sm text-white/80">
               Are you sure you want to cancel the booking for{" "}
               <span className="font-bold">{cancelDialog.booking?.customerName}</span>?
             </p>
-            <p className="text-xs text-navy/60 mt-2">
+            <p className="text-xs text-white/60 mt-2">
               This action cannot be undone and the customer will be notified.
             </p>
           </div>

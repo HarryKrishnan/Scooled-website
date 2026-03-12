@@ -53,7 +53,7 @@ export default function AdminComplaints() {
                 </div>
                 <div className="flex gap-2">
                   {c.status !== "Resolved" && (
-                    <button className="px-3 py-1.5 rounded-lg border border-navy/10 text-xs font-medium text-navy hover:bg-white/50 transition-colors">
+                    <button className="px-3 py-1.5 rounded-lg border border-white/10 text-xs font-medium text-white hover:bg-white/10 transition-colors">
                       {c.status === "Open" ? "Assign" : "Resolve"}
                     </button>
                   )}

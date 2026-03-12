@@ -62,12 +62,12 @@ export default function AdminLayout() {
               </Link>
 
               {/* Horizontal Scrollable Navigation */}
-              <div className="relative flex-1 hidden lg:block">
+              <div className="relative flex-1 hidden lg:block overflow-hidden">
                 {/* Left Fade Gradient */}
                 <div className="pointer-events-none absolute left-0 top-0 bottom-0 w-20 bg-gradient-to-r from-black/95 to-transparent z-10" />
                 
                 {/* Navigation Items */}
-                <nav className="flex items-center gap-2 overflow-x-auto scrollbar-hide scroll-smooth px-2">
+                <nav className="flex items-center gap-2 overflow-x-scroll scrollbar-hide scroll-smooth px-2">
                   {navItems.map((item) => {
                     const Icon = item.icon;
                     const active = location.pathname === item.path;
