@@ -1,5 +1,6 @@
-import { useState } from "react";
-import { coachSchedule } from "@/data/coachMock";
+import { useState, useMemo } from "react";
+import { coachSchedule, coachAssignedSports } from "@/data/coachMock";
+import { getSportConfig, SportID } from "@/data/sportConfig";
 import { Table } from "@/components/ui/table";
 import { Button } from "@/components/ui/button";
 import { Edit } from "lucide-react";
@@ -7,7 +8,11 @@ import SessionFormModal, { Session } from "@/components/coach/SessionFormModal";
 import DeleteSessionDialog from "@/components/coach/DeleteSessionDialog";
 
 export default function CoachSchedule() {
+  const sports = coachAssignedSports.length ? coachAssignedSports : (["swimming"] as SportID[]);
+  const [activeSport, setActiveSport] = useState<SportID>(sports[0]);
+  const sportConfig = getSportConfig(activeSport);
   const [sessions, setSessions] = useState<Session[]>([...coachSchedule]);
+  const filtered = useMemo(() => sessions.filter((s) => s.sport === activeSport), [sessions, activeSport]);
 
   const handleSave = (s: Session) => {
     setSessions((prev) => {
@@ -24,14 +29,19 @@ export default function CoachSchedule() {
   };
 
   const getStatusBadge = (status: Session["status"]) => {
+    const base = "inline-flex px-2.5 py-1 rounded-full text-xs font-bold";
     switch (status) {
       case "Ongoing":
-        return <span className="inline-flex px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-500 text-xs font-bold border border-amber-500/20 shadow-[0_0_10px_rgba(245,158,11,0.2)]">LIVE</span>;
+        return (
+          <span className={`${base} ${sportConfig.classes.accentBg} ${sportConfig.classes.accentText} border ${sportConfig.classes.accentBorder} shadow-[0_0_10px_rgba(0,0,0,0.2)]`}>LIVE</span>
+        );
       case "Upcoming":
-        return <span className="inline-flex px-2.5 py-1 rounded-full bg-cyan-500/10 text-cyan-400 text-xs font-bold border border-cyan-500/20">NEXT</span>;
+        return (
+          <span className={`${base} ${sportConfig.classes.accentBg} ${sportConfig.classes.accentText} border ${sportConfig.classes.accentBorder}`}>NEXT</span>
+        );
       case "Completed":
       default:
-        return <span className="inline-flex px-2.5 py-1 rounded-full bg-white/5 text-slate-400 text-xs font-bold border border-white/10">DONE</span>;
+        return <span className={`${base} bg-white/5 text-slate-400 border border-white/10`}>DONE</span>;
     }
   };
 
@@ -42,9 +52,31 @@ export default function CoachSchedule() {
           <h1 className="font-display text-3xl font-bold text-white mb-2">Session Schedule</h1>
           <p className="text-slate-400 text-sm">Manage your upcoming classes and batches.</p>
         </div>
+        {sports.length > 1 && (
+          <div className="flex gap-2 mb-2">
+            {sports.map((s) => {
+              const cfg = getSportConfig(s);
+              const active = s === activeSport;
+              return (
+                <button
+                  key={s}
+                  onClick={() => setActiveSport(s)}
+                  className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-sm font-semibold transition-colors ${
+                    active ? cfg.classes.badge : "bg-white/5 text-slate-400"
+                  }`}
+                >
+                  <cfg.icon size={16} className={active ? cfg.classes.accentText : "text-slate-400"} />
+                  {cfg.label}
+                </button>
+              );
+            })}
+          </div>
+        )}
         <SessionFormModal 
           onSave={handleSave} 
-          trigger={<button className="px-5 py-2.5 bg-amber-500 hover:bg-amber-400 text-slate-900 font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(245,158,11,0.3)]">+ Add Session</button>}
+          trigger={
+            <button className={`${sportConfig.classes.accentBg.replace('/10','')} px-5 py-2.5 ${sportConfig.classes.accentText} font-bold rounded-xl transition-all shadow-[0_0_15px_rgba(0,0,0,0.2)] hover:opacity-90`}>+ Add Session</button>
+          }
         />
       </div>
 
@@ -56,14 +88,16 @@ export default function CoachSchedule() {
                 <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Time</th>
                 <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Batch</th>
                 <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider text-center">Trainees</th>
-                <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Pool / Lane</th>
+                <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">
+                {sportConfig.sessionLabels.location}{sportConfig.sessionLabels.field ? ` / ${sportConfig.sessionLabels.field}` : ""}
+              </th>
                 <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Type</th>
                 <th className="text-left py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Status</th>
                 <th className="text-right py-4 px-6 text-xs text-slate-400 font-semibold uppercase tracking-wider">Actions</th>
               </tr>
             </thead>
             <tbody className="space-y-2">
-              {sessions.map((s) => (
+              {filtered.map((s) => (
                 <tr key={s.id} className="border-b border-white/5 hover:bg-white/[0.02] transition-colors group">
                   <td className="py-4 px-6">
                     <div className="flex items-center gap-3">
@@ -75,7 +109,9 @@ export default function CoachSchedule() {
                   </td>
                   <td className="py-4 px-6 font-semibold text-white">{s.batch}</td>
                   <td className="py-4 px-6 text-center text-slate-300 font-medium">{s.trainees}</td>
-                  <td className="py-4 px-6 text-slate-400 text-sm whitespace-nowrap">{s.pool}</td>
+                  <td className="py-4 px-6 text-slate-400 text-sm whitespace-nowrap">
+                    {sportConfig.sessionLabels.location}: {s.location}{s.field ? ` / ${sportConfig.sessionLabels.field}: ${s.field}` : ""}
+                  </td>
                   <td className="py-4 px-6">
                     <span className="inline-flex px-2.5 py-1 rounded-md bg-white/5 text-slate-300 border border-white/10 text-xs font-medium">
                       {s.type}
@@ -100,7 +136,7 @@ export default function CoachSchedule() {
                   </td>
                 </tr>
               ))}
-              {sessions.length === 0 && (
+              {filtered.length === 0 && (
                 <tr>
                   <td colSpan={7} className="py-12 text-center text-slate-500">
                     No sessions scheduled.

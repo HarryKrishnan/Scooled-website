@@ -1,8 +1,10 @@
 import { create } from "zustand";
 import { coachProgress } from "@/data/coachMock";
+import { SportID } from "@/data/sportConfig";
 
 export interface ProgressRecord {
   id: string;
+  sport: SportID;                         // added sport to support filtering
   trainee: string;
   level: string;
   stamina: number;
@@ -12,6 +14,8 @@ export interface ProgressRecord {
   confidence: number;
   note: string;
   lastUpdated: string;
+  // allow other metric fields (lapTime, serveConsistency, etc.)
+  [key: string]: any;
 }
 
 interface ProgressState {

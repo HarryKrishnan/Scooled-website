@@ -5,12 +5,16 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState, useEffect } from "react";
 
+import { SportID } from "@/data/sportConfig";
+
 export interface Session {
   id: string;
+  sport: SportID;
   time: string;
   batch: string;
   trainees: number;
-  pool: string;
+  location: string;
+  field?: string;
   type: string;
   status: "Upcoming" | "Ongoing" | "Completed";
 }
@@ -26,7 +30,8 @@ export default function SessionFormModal({ session, onSave, trigger }: Props) {
     time: "",
     batch: "",
     trainees: 0,
-    pool: "",
+    location: "",
+    field: "",
     type: "Regular",
     status: "Upcoming",
   });
@@ -39,7 +44,8 @@ export default function SessionFormModal({ session, onSave, trigger }: Props) {
         time: "",
         batch: "",
         trainees: 0,
-        pool: "",
+        location: "",
+        field: "",
         type: "Regular",
         status: "Upcoming",
       });
@@ -53,10 +59,12 @@ export default function SessionFormModal({ session, onSave, trigger }: Props) {
   const handleSave = () => {
     onSave({
       id: session?.id || Math.random().toString(36).substring(7),
+      sport: session?.sport || "swimming",
       time: formData.time || "00:00 AM",
       batch: formData.batch || "New Batch",
       trainees: formData.trainees || 0,
-      pool: formData.pool || "Main Pool",
+      location: formData.location || "Main Location",
+      field: formData.field,
       type: formData.type || "Regular",
       status: formData.status as Session["status"] || "Upcoming",
     });
@@ -98,13 +106,13 @@ export default function SessionFormModal({ session, onSave, trigger }: Props) {
 
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="pool" className="text-sm font-semibold text-slate-400">Pool / Lane</Label>
+              <Label htmlFor="location" className="text-sm font-semibold text-slate-400">Location</Label>
               <Input
-                id="pool"
-                value={formData.pool}
-                onChange={(e) => handleChange("pool", e.target.value)}
+                id="location"
+                value={formData.location}
+                onChange={(e) => handleChange("location", e.target.value)}
                 className="bg-slate-900/50 border-white/10 text-white placeholder:text-slate-500 focus-visible:ring-cyan-500 rounded-xl px-4 py-2"
-                placeholder="Lane 1"
+                placeholder="Court 1 / Pool 1"
               />
             </div>
             <div className="space-y-2">
