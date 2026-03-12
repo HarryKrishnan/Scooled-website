@@ -1,20 +1,79 @@
 import { motion, AnimatePresence } from "framer-motion";
 import {
-  CreditCard, CheckCircle2, Calendar, ShieldCheck, Zap,
-  ArrowUpRight, Crown, History, Gift, Loader2, AlertCircle, Check, ChevronRight, ChevronLeft
+  CheckCircle2, Crown, Zap, Gift, AlertCircle, Check, ArrowUpRight, ChevronRight, ChevronLeft, Loader2
 } from "lucide-react";
-import { userActiveMembership, membershipPlans } from "@/data/mockData";
-import { Link } from "react-router-dom";
 import { useState, useRef } from "react";
 
-// Campaign Images from Dashboard
-import summerSplashImg from "@/assets/summer_splash_offer_bg_1773151662663.png";
-import proCoachingImg from "@/assets/pro_coaching_bundle_bg_1773151684239.png";
+export interface ActivePlanUsage {
+  metric1Label: string;
+  metric1Value: string | number;
+  metric1Sub: string;
+  metric2Label: string;
+  metric2Value: string | number;
+  metric3Label: string;
+  metric3Value: string | number;
+  metric3Sub: string;
+}
 
-export default function PortalMemberships() {
-  const activePlan = userActiveMembership;
+export interface ActivePlan {
+  id: string;
+  name: string;
+  status: string;
+  expiryDate: string;
+  duration: string;
+  usage: ActivePlanUsage;
+}
+
+export interface Addon {
+  id: number;
+  name: string;
+  type: string;
+  val: string;
+  expiry: string;
+  color: string;
+  bg: string;
+  image: string;
+  desc: string;
+}
+
+export interface UpgradePlan {
+  id: string;
+  name: string;
+  price: number;
+  features: string[];
+}
+
+export interface Perk {
+  icon: any;
+  title: string;
+  desc: string;
+  color: string;
+}
+
+interface SportMembershipsProps {
+  title: string;
+  subtitle: string;
+  headerBorderClass: string;
+  activePlan: ActivePlan;
+  redeemedAddons: Addon[];
+  upgradePlans: UpgradePlan[];
+  perksTitle: string;
+  perks: Perk[];
+  promoButtonClass: string;
+}
+
+export default function SportMemberships({
+  title,
+  subtitle,
+  headerBorderClass,
+  activePlan,
+  redeemedAddons,
+  upgradePlans,
+  perksTitle,
+  perks,
+  promoButtonClass,
+}: SportMembershipsProps) {
   const addonScrollRef = useRef<HTMLDivElement>(null);
-  const upgradeScrollRef = useRef<HTMLDivElement>(null);
 
   // Redemption States
   const [promoCode, setPromoCode] = useState("");
@@ -37,7 +96,7 @@ export default function PortalMemberships() {
 
     setTimeout(() => {
       setIsValidating(false);
-      if (promoCode.toUpperCase() === "SWIMFREE") {
+      if (promoCode.toUpperCase() === "FREEPASS") {
         setPromoStatus("success");
         setPromoMessage("Applied! 1 Week added to your current plan.");
       } else if (promoCode.toUpperCase() === "UPGRADE20") {
@@ -50,48 +109,11 @@ export default function PortalMemberships() {
     }, 1500);
   };
 
-  // Mock Add-ons with Campaign Images
-  const redeemedAddons = [
-    { 
-      id: 1, 
-      name: "Summer Splash Bonus", 
-      type: "Discount", 
-      val: "20% Off Renewals", 
-      expiry: "Aug 2026", 
-      color: "text-emerald-500", 
-      bg: "bg-emerald-500/10",
-      image: summerSplashImg,
-      desc: "An exclusive summer benefit providing significant discounts on all annual plan renewals."
-    },
-    { 
-      id: 2, 
-      name: "Pro Coaching Pack", 
-      type: "Benefit", 
-      val: "+2 Free Sessions", 
-      expiry: "Apr 2026", 
-      color: "text-primary", 
-      bg: "bg-primary/10",
-      image: proCoachingImg,
-      desc: "Master your strokes with two additional expert coaching sessions included in your plan."
-    },
-    { 
-      id: 3, 
-      name: "Early Bird Access", 
-      type: "Priority", 
-      val: "Daily 5AM Entry", 
-      expiry: "Dec 2025", 
-      color: "text-gold", 
-      bg: "bg-gold/10",
-      image: summerSplashImg,
-      desc: "Get exclusive early morning access to the Olympic pool before standard hours."
-    },
-  ];
-
   return (
     <div className="space-y-8 pb-12">
-      <div className="card-premium border-blue-tile bg-black/95 mb-8">
-        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Memberships</h1>
-        <p className="text-sm text-white/70 font-bold mt-1">Manage your subscription and explore premium aquatic plans.</p>
+      <div className={`card-premium ${headerBorderClass} bg-black/95 mb-8`}>
+        <h1 className="font-display text-3xl font-bold text-white tracking-tight">{title}</h1>
+        <p className="text-sm text-white/70 font-bold mt-1">{subtitle}</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-8">
@@ -126,16 +148,16 @@ export default function PortalMemberships() {
 
               <div className="grid grid-cols-2 sm:grid-cols-3 gap-4 py-6 border-y border-primary-foreground/10">
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">Pool Visits</p>
-                  <p className="font-bold text-lg text-white">{activePlan.usage.poolAccess} <span className="text-xs font-normal opacity-40">this month</span></p>
+                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">{activePlan.usage.metric1Label}</p>
+                  <p className="font-bold text-lg text-white">{activePlan.usage.metric1Value} <span className="text-xs font-normal opacity-40">{activePlan.usage.metric1Sub}</span></p>
                 </div>
                 <div>
-                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">Guest Passes</p>
-                  <p className="font-bold text-lg text-white">{activePlan.usage.guestPassesUsed} / {activePlan.usage.guestPassesTotal}</p>
+                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">{activePlan.usage.metric2Label}</p>
+                  <p className="font-bold text-lg text-white">{activePlan.usage.metric2Value}</p>
                 </div>
                 <div className="hidden sm:block">
-                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">Discount Active</p>
-                  <p className="font-bold text-lg text-white">10% Off <span className="text-xs font-normal opacity-40">coaching</span></p>
+                  <p className="text-[10px] uppercase tracking-wider text-primary-foreground/40 mb-1">{activePlan.usage.metric3Label}</p>
+                  <p className="font-bold text-lg text-white">{activePlan.usage.metric3Value} <span className="text-xs font-normal opacity-40">{activePlan.usage.metric3Sub}</span></p>
                 </div>
               </div>
 
@@ -206,7 +228,7 @@ export default function PortalMemberships() {
           <div className="space-y-8">
             <h3 className="font-display text-2xl font-bold text-white px-2">Upgrade Opportunities</h3>
             <div className="grid md:grid-cols-2 gap-6">
-              {membershipPlans.filter(p => p.id !== activePlan.id).map((plan) => (
+              {upgradePlans.map((plan) => (
                 <motion.div
                   key={plan.id}
                   whileHover={{ y: -8 }}
@@ -249,13 +271,9 @@ export default function PortalMemberships() {
         {/* Sidebar Info */}
         <div className="lg:col-span-1 space-y-6">
           <div className="card-premium border-white/5 bg-black/95 shadow-2xl shadow-black/40">
-            <h3 className="font-display text-lg font-bold text-white mb-8 uppercase tracking-tight">Membership Perks</h3>
+            <h3 className="font-display text-lg font-bold text-white mb-8 uppercase tracking-tight">{perksTitle}</h3>
             <div className="space-y-8">
-              {[
-                { icon: ShieldCheck, title: "Priority Booking", desc: "Access slots 24h before non-members.", color: "text-emerald-500" },
-                { icon: Calendar, title: "Free Cancellations", desc: "No fees for session cancellations.", color: "text-primary" },
-                { icon: History, title: "Visit History", desc: "Detailed logs of your monthly activity.", color: "text-gold" },
-              ].map((perk, i) => (
+              {perks.map((perk, i) => (
                 <div key={i} className="flex gap-5 group">
                   <div className={`w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center shrink-0 group-hover:bg-primary transition-all shadow-lg shadow-black/40 border border-white/10`}>
                     <perk.icon size={20} className={`${perk.color} group-hover:text-white transition-all`} />
@@ -306,7 +324,7 @@ export default function PortalMemberships() {
               <button 
                 onClick={handleRedeem}
                 disabled={isValidating || !promoCode}
-                className="w-full py-5 rounded-2xl bg-gold text-white text-[11px] font-black uppercase tracking-[0.25em] hover:bg-gold-light hover:shadow-glow hover:shadow-gold/20 disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl shadow-gold/10"
+                className={`w-full py-5 rounded-2xl ${promoButtonClass} text-white text-[11px] font-black uppercase tracking-[0.25em] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl`}
               >
                 Redeem Gift
               </button>

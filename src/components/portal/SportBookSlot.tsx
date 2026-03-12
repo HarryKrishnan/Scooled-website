@@ -1,11 +1,37 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
 import { MapPin, Calendar as CalendarIcon, Clock, Users, CheckCircle2, AlertCircle } from "lucide-react";
-import { centres, slots } from "@/data/mockData";
+import { centres } from "@/data/mockData";
 
-export default function PortalBookSlot() {
+export interface Slot {
+  id: string;
+  time: string;
+  capacity: number;
+  booked: number;
+  type: string;
+}
+
+interface SportBookSlotProps {
+  title: string;
+  subtitle: string;
+  headerBorderClass: string;
+  centreSelectionLabel: string;
+  buttonGradientClass: string;
+  slots: Slot[];
+  getCapacityLabel: (avail: number, full: boolean) => string;
+}
+
+export default function SportBookSlot({
+  title,
+  subtitle,
+  headerBorderClass,
+  centreSelectionLabel,
+  buttonGradientClass,
+  slots,
+  getCapacityLabel,
+}: SportBookSlotProps) {
   const [selectedCentre, setSelectedCentre] = useState(centres[0].id);
-  const [selectedDate, setSelectedDate] = useState("2025-03-10");
+  const [selectedDate, setSelectedDate] = useState("2026-03-12");
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [showSummary, setShowSummary] = useState(false);
 
@@ -14,9 +40,9 @@ export default function PortalBookSlot() {
 
   return (
     <div className="space-y-8">
-      <div className="card-premium border-blue-tile bg-black/95 mb-8">
-        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Book Slots</h1>
-        <p className="text-sm text-white/70 font-bold mt-1">Select your centre, date, and preferred time to reserve a session.</p>
+      <div className={`card-premium ${headerBorderClass} bg-black/95 mb-8`}>
+        <h1 className="font-display text-3xl font-bold text-white tracking-tight">{title}</h1>
+        <p className="text-sm text-white/70 font-bold mt-1">{subtitle}</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -24,7 +50,7 @@ export default function PortalBookSlot() {
           {/* Centre Selection */}
           <div className="card-premium border-white/5 bg-black/95">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-primary mb-8 flex items-center gap-3">
-              <MapPin size={18} /> Select Training Centre
+              <MapPin size={18} /> {centreSelectionLabel}
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {centres.map((c) => (
@@ -41,7 +67,7 @@ export default function PortalBookSlot() {
                   <p className={`text-xs mt-2 font-medium leading-relaxed ${selectedCentre === c.id ? "text-white/60" : "text-white/30"}`}>{c.address}</p>
                   <div className="flex items-center gap-2 mt-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    <p className="text-[9px] text-primary font-black uppercase tracking-widest">{c.pools} premium pools</p>
+                    <p className="text-[9px] text-primary font-black uppercase tracking-widest">{c.pools} premium facilities</p>
                   </div>
                 </button>
               ))}
@@ -97,7 +123,7 @@ export default function PortalBookSlot() {
                         <div className="flex items-center gap-2">
                           <Users size={12} className={full ? "text-destructive" : "text-primary"} />
                           <span className={`text-[10px] font-black uppercase tracking-tight ${full ? "text-destructive" : "text-primary"}`}>
-                            {full ? "Sold Out" : `${avail} spots left`}
+                            {getCapacityLabel(avail, full)}
                           </span>
                         </div>
                       </div>
@@ -144,7 +170,7 @@ export default function PortalBookSlot() {
                     <span className="text-4xl font-black text-white tracking-tighter">₹299</span>
                   </div>
                   <button 
-                    className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-aqua text-white text-[11px] font-black uppercase tracking-[0.25em] shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all" 
+                    className={`w-full py-5 rounded-2xl ${buttonGradientClass} text-white text-[11px] font-black uppercase tracking-[0.25em] shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all`}
                     onClick={() => alert("Demo: Booking initiated!")}
                   >
                     Confirm Booking

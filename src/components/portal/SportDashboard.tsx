@@ -2,73 +2,56 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import {
-  CalendarCheck, CreditCard, GraduationCap, Bell, ArrowRight,
-  MapPin, Star, MessageSquare, Clock, Gift, Zap, X, ShieldCheck,
-  Smartphone, Wallet, ArrowLeft, Check
+  CalendarCheck, CreditCard, GraduationCap, ArrowRight,
+  MapPin, Star, MessageSquare, Clock, Gift, Zap, X, ArrowLeft, Check,
+  Smartphone, Wallet
 } from "lucide-react";
-import { notifications, userActiveMembership, userEnrollments } from "@/data/mockData";
-import summerSplashImg from "@/assets/summer_splash_offer_bg_1773151662663.png";
-import proCoachingImg from "@/assets/pro_coaching_bundle_bg_1773151684239.png";
-import aquaFitnessImg from "@/assets/aqua_fitness_masterclass_bg_1773152099078.png";
-import familyWeekendImg from "@/assets/family_weekend_special_bg_1773152117111.png";
-import { useProgressStore } from "@/store/progressStore";
 
-const campaigns = [
-  {
-    id: 1,
-    title: "Summer Splash Offer",
-    desc: "Get 20% off on Annual Memberships this week!",
-    image: summerSplashImg,
-    badge: "Limited Time",
-    basePrice: 5000,
-  },
-  {
-    id: 2,
-    title: "Pro Coaching Bundle",
-    desc: "Buy 10 sessions, get 2 free for advanced swimmers.",
-    image: proCoachingImg,
-    badge: "Popular",
-    basePrice: 3500,
-  },
-  {
-    id: 3,
-    title: "Aqua Fitness Masterclass",
-    desc: "Join our expert-led aqua aerobics for a full-body workout.",
-    image: aquaFitnessImg,
-    badge: "New",
-    basePrice: 1200,
-  },
-  {
-    id: 4,
-    title: "Family Weekend Special",
-    desc: "Kids swim for free every Saturday & Sunday morning.",
-    image: familyWeekendImg,
-    badge: "Weekend Only",
-    basePrice: 800,
-  }
-];
+interface SportDashboardProps {
+  sportName: string;
+  accentColor: string; // e.g. "text-primary"
+  accentBg: string; // e.g. "bg-primary/10"
+  accentBorder: string; // e.g. "border-primary/20"
+  accentBadge: string; // e.g. "bg-primary"
+  tileColor?: string; // e.g. "blue-tile"
+  welcomeName: string;
+  welcomeSubtitle?: string;
+  statsPoint: number;
+  campaigns: any[];
+  upcomingBooking: {
+    date: string;
+    time: string;
+    centre: string;
+    type: string;
+  };
+  quickActions: any[];
+  enrollments: any[];
+  membership: {
+    name: string;
+    status: string;
+    expiryDate: string;
+  };
+}
 
-const upcomingBooking = {
-  date: "Today, March 10",
-  time: "6:30 AM – 7:30 AM",
-  centre: "Downtown",
-  type: "Open Swim",
-};
-
-const portalUser = "Aarav Patel";
-
-const quickActions = [
-  { label: "Book a Slot", path: "/portal/book", icon: CalendarCheck, color: "bg-primary/10 text-primary" },
-  { label: "My Bookings", path: "/portal/bookings", icon: Clock, color: "bg-cyan/10 text-cyan" },
-  { label: "View Programs", path: "/portal/programs", icon: GraduationCap, color: "bg-aqua/10 text-aqua" },
-  { label: "Make Payment", path: "/portal/payments", icon: CreditCard, color: "bg-gold/10 text-gold" },
-];
-
-export default function PortalDashboard() {
-  const [selectedCamp, setSelectedCamp] = useState<typeof campaigns[0] | null>(null);
+export default function SportDashboard({
+  sportName,
+  accentColor,
+  accentBg,
+  accentBorder,
+  accentBadge,
+  tileColor = "blue-tile",
+  welcomeName,
+  welcomeSubtitle,
+  statsPoint,
+  campaigns,
+  upcomingBooking,
+  quickActions,
+  enrollments,
+  membership
+}: SportDashboardProps) {
+  const [selectedCamp, setSelectedCamp] = useState<any | null>(null);
   const [isRedeeming, setIsRedeeming] = useState(false);
   const [manualCode, setManualCode] = useState("");
-  const [redeemStatus, setRedeemStatus] = useState<"none" | "success" | "error">("none");
   const [discountAmount, setDiscountAmount] = useState(0);
   const [modalStep, setModalStep] = useState<"details" | "payment" | "success">("details");
   const [selectedMethod, setSelectedMethod] = useState<string | null>(null);
@@ -77,7 +60,6 @@ export default function PortalDashboard() {
     setSelectedCamp(null);
     setIsRedeeming(false);
     setManualCode("");
-    setRedeemStatus("none");
     setDiscountAmount(0);
     setModalStep("details");
     setSelectedMethod(null);
@@ -94,55 +76,28 @@ export default function PortalDashboard() {
   const currentPrice = selectedCamp ? selectedCamp.basePrice : 0;
   const finalPrice = Math.max(0, currentPrice - discountAmount);
 
-  const handleRedeem = (code?: string) => {
-    const finalCode = code || manualCode;
-    if (!finalCode && !selectedCamp) return;
-
-    setIsRedeeming(true);
-    setRedeemStatus("none");
-
-    setTimeout(() => {
-      setIsRedeeming(false);
-      const discount = calculateDiscount(finalCode);
-      if (discount > 0 || selectedCamp) {
-        setDiscountAmount(discount);
-        setRedeemStatus("success");
-        if (code) {
-          alert(`Success! Mid-plan benefit applied. You saved ₹${discount}! 🏊‍♂️`);
-          setManualCode("");
-        }
-      } else {
-        setRedeemStatus("error");
-        alert("Invalid code for your current plan tier.");
-      }
-    }, 1500);
-  };
-
-  // get record via hook at top level
-    const record = useProgressStore((s) => s.records.find((r) => r.trainee === portalUser));
-
-
   return (
     <div className="space-y-10">
-      <div className="card-premium border-blue-tile flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <div className={`card-premium border-${tileColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
         <div className="flex flex-col gap-1">
           <h1 className="font-display text-4xl font-bold text-white tracking-tight">
-            Welcome back, Aarav! 👋
+            Welcome back, {welcomeName}! 👋
           </h1>
-          <p className="text-white/70 font-semibold text-lg italic">You have 2 sessions scheduled for this week.</p>
+          <p className="text-white/70 font-semibold text-lg italic">
+            {welcomeSubtitle || `You have 2 ${sportName.toLowerCase()} sessions scheduled for this week.`}
+          </p>
         </div>
         <div className="flex items-center gap-4">
           <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center">
-            <span className="text-[10px] uppercase font-black tracking-widest text-primary mb-1">Status</span>
+            <span className={`text-[10px] uppercase font-black tracking-widest ${accentColor} mb-1`}>Status</span>
             <span className="text-sm font-bold text-white">Member</span>
           </div>
-          <div className="p-4 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex flex-col items-center">
-            <span className="text-[10px] uppercase font-black tracking-widest text-amber-500 mb-1">Points</span>
-            <span className="text-sm font-bold text-amber-500">1,250</span>
+          <div className={`p-4 rounded-2xl ${accentBg} border ${accentBorder} flex flex-col items-center`}>
+            <span className={`text-[10px] uppercase font-black tracking-widest ${accentColor} mb-1`}>Points</span>
+            <span className={`text-sm font-bold ${accentColor}`}>{statsPoint.toLocaleString()}</span>
           </div>
         </div>
       </div>
-
 
       {/* Campaigns & Offers Section - Floating Marquee Style */}
       <div className="relative overflow-hidden -mx-4 px-4 py-4">
@@ -173,10 +128,9 @@ export default function PortalDashboard() {
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity group-hover:opacity-80" />
                 </div>
 
-
                 <div className="relative z-10 h-full p-8 flex flex-col justify-end whitespace-normal">
                   <div className="flex items-center justify-between mb-4">
-                    <span className="px-4 py-1.5 bg-primary rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-lg shadow-primary/30">
+                    <span className={`px-4 py-1.5 ${accentBadge} rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-lg`}>
                       {camp.badge}
                     </span>
                     <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
@@ -258,9 +212,9 @@ export default function PortalDashboard() {
                         className="space-y-6"
                       >
                         <div className="space-y-3">
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">About this offer</h4>
+                          <h4 className={`text-[10px] font-black uppercase tracking-widest ${accentColor}`}>About this offer</h4>
                           <p className="text-white text-base font-semibold leading-relaxed">
-                            {selectedCamp.desc} Buy this exclusive aquatic add-on and boost your swimming experience today!
+                            {selectedCamp.desc} Buy this exclusive {sportName.toLowerCase()} add-on and boost your experience today!
                           </p>
                         </div>
 
@@ -280,7 +234,7 @@ export default function PortalDashboard() {
                                 {discountAmount > 0 && (
                                   <p className="text-sm font-bold text-white/30 line-through leading-none">₹{selectedCamp.basePrice}</p>
                                 )}
-                                <p className="text-3xl font-black text-primary leading-none">₹{finalPrice}</p>
+                                <p className={`text-3xl font-black ${accentColor} leading-none`}>₹{finalPrice}</p>
                               </div>
                               <div className="text-right">
                                 <p className="text-[9px] font-black uppercase tracking-widest text-white/40 mb-1">Promo Code</p>
@@ -303,6 +257,7 @@ export default function PortalDashboard() {
                         <button
                           onClick={() => setModalStep("payment")}
                           className="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/20 flex items-center justify-center gap-3 hover:scale-[1.02] transition-all"
+                          style={{ background: sportName === "Futsal" ? "linear-gradient(135deg, #ea580c, #f97316)" : "" }}
                         >
                           Redeem & Continue to Payment
                           <ArrowRight size={16} />
@@ -322,7 +277,7 @@ export default function PortalDashboard() {
                           <button onClick={() => setModalStep("details")} className="p-2 -ml-2 rounded-full hover:bg-navy/5 text-navy/40">
                             <ArrowLeft size={20} />
                           </button>
-                          <h4 className="text-[10px] font-black uppercase tracking-widest text-primary">Select Payment Method</h4>
+                          <h4 className={`text-[10px] font-black uppercase tracking-widest ${accentColor}`}>Select Payment Method</h4>
                         </div>
 
                         <div className="space-y-3">
@@ -335,17 +290,17 @@ export default function PortalDashboard() {
                               key={method.id}
                               onClick={() => setSelectedMethod(method.id)}
                               className={`w-full p-4 rounded-2xl border-2 flex items-center justify-between transition-all ${selectedMethod === method.id
-                                ? "border-primary bg-primary/5 shadow-lg shadow-primary/5 scale-[1.02]"
-                                : "border-navy/5 hover:border-primary/20"
+                                ? `${accentBorder.replace('/20', '/40')} ${accentBg.replace('/10', '/5')} shadow-lg`
+                                : `border-navy/5 hover:${accentBorder}`
                                 }`}
                             >
                               <div className="flex items-center gap-4">
-                                <div className={`w-10 h-10 rounded-xl bg-primary/10 text-primary flex items-center justify-center`}>
+                                <div className={`w-10 h-10 rounded-xl ${accentBg} ${accentColor} flex items-center justify-center`}>
                                   <method.icon size={20} />
                                 </div>
                                 <span className="font-bold text-white text-sm">{method.name}</span>
                               </div>
-                              {selectedMethod === method.id && <Check className="text-primary" size={20} />}
+                              {selectedMethod === method.id && <Check className={`${accentColor}`} size={20} />}
                             </button>
                           ))}
                         </div>
@@ -360,6 +315,7 @@ export default function PortalDashboard() {
                           }}
                           disabled={!selectedMethod || isRedeeming}
                           className="btn-primary w-full py-5 text-xs font-black uppercase tracking-[0.2em] shadow-2xl shadow-primary/20 flex items-center justify-center gap-3 hover:scale-[1.02] transition-all disabled:opacity-50"
+                          style={{ background: sportName === "Futsal" ? "linear-gradient(135deg, #ea580c, #f97316)" : "" }}
                         >
                           {isRedeeming ? "Processing..." : `Pay ₹${finalPrice} Now`}
                           {!isRedeeming && <Gift size={16} />}
@@ -380,7 +336,7 @@ export default function PortalDashboard() {
                         <div className="space-y-2">
                           <h3 className="text-2xl font-display font-bold text-white uppercase tracking-tight">Payment Successful!</h3>
                           <p className="text-sm font-bold text-white/60">
-                            The <span className="text-primary">{selectedCamp.title}</span> has been added to your membership benefits.
+                            The <span className={`${accentColor}`}>{selectedCamp.title}</span> has been added to your membership benefits.
                           </p>
                         </div>
                         <button
@@ -407,60 +363,76 @@ export default function PortalDashboard() {
       </AnimatePresence>
 
       <div className="grid lg:grid-cols-2 gap-6">
-        <div className="card-premium border-green-tile relative overflow-hidden group">
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-primary/10 rounded-full blur-3xl group-hover:bg-primary/20 transition-all" />
-          <h3 className="text-sm font-black uppercase tracking-widest text-primary mb-6 flex items-center gap-2">
+        <div className={`card-premium border-${tileColor === 'blue-tile' ? 'green-tile' : tileColor} relative overflow-hidden group`}>
+          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all" />
+          <h3 className={`text-sm font-black uppercase tracking-widest ${accentColor} mb-6 flex items-center gap-2`}>
             <CalendarCheck size={16} /> Booking
           </h3>
           <div className="space-y-4">
             <div className="flex flex-col">
-              <span className="text-2xl font-bold text-primary">{upcomingBooking.date}</span>
-              <span className="text-sm font-bold text-aqua">{upcomingBooking.time}</span>
+              <span className={`text-2xl font-bold ${accentColor}`}>{upcomingBooking.date}</span>
+              <span className="text-sm font-bold text-white/60">{upcomingBooking.time}</span>
             </div>
             <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-              <div className="p-2 rounded-lg bg-primary/10">
-                <MapPin size={16} className="text-primary" />
+              <div className={`p-2 rounded-lg ${accentBg}`}>
+                <MapPin size={16} className={`${accentColor}`} />
               </div>
               <div className="flex flex-col">
-                <span className="text-xs font-bold text-primary">{upcomingBooking.centre} Centre</span>
-                <span className="text-[10px] text-aqua uppercase font-black">{upcomingBooking.type}</span>
+                <span className={`text-xs font-bold ${accentColor}`}>{upcomingBooking.centre} Centre</span>
+                <span className="text-[10px] text-white/40 uppercase font-black">{upcomingBooking.type}</span>
               </div>
             </div>
           </div>
         </div>
 
-        <div className="card-premium border-gold-tile relative overflow-hidden group">
+        <div className={`card-premium border-${tileColor === 'blue-tile' ? 'gold-tile' : tileColor} relative overflow-hidden group`}>
           <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all" />
           <h3 className="text-sm font-black uppercase tracking-widest text-amber-500/60 mb-6 flex items-center gap-2">
             <CreditCard size={16} /> Subscription
           </h3>
           <div className="space-y-5">
             <div>
-              <p className="text-2xl font-bold text-amber-500 leading-none mb-1">{userActiveMembership.name} Plan</p>
-              <p className="text-xs text-white/60 font-bold">Auto-renews on {userActiveMembership.expiryDate}</p>
+              <p className="text-2xl font-bold text-amber-500 leading-none mb-1">{membership.name} Plan</p>
+              <p className="text-xs text-white/60 font-bold">Auto-renews on {membership.expiryDate}</p>
             </div>
             <div className="flex items-center gap-2">
               <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
-                {userActiveMembership.status}
+                {membership.status}
               </span>
             </div>
-            <Link to="/portal/memberships" className="flex items-center gap-2 text-xs font-black uppercase tracking-widest text-primary hover:text-aqua transition-colors pt-2">
+            <Link to="/portal/memberships" className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${accentColor} hover:text-white transition-colors pt-2`}>
               Upgrade Plan <ArrowRight size={14} />
             </Link>
           </div>
         </div>
       </div>
 
+      {/* Quick Actions Grid */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {quickActions.map((action, i) => (
+          <Link
+            key={i}
+            to={action.path}
+            className={`card-premium border-${tileColor === 'blue-tile' ? 'cyan-tile' : tileColor} flex flex-col items-center justify-center p-6 gap-3 group hover:-translate-y-1 transition-transform`}
+          >
+            <div className={`p-4 rounded-2xl ${action.color} group-hover:scale-110 group-hover:-rotate-3 transition-all shadow-lg shadow-black/20`}>
+              <action.icon size={28} />
+            </div>
+            <span className="text-white font-bold text-sm text-center">{action.label}</span>
+          </Link>
+        ))}
+      </div>
+
       <div className="grid lg:grid-cols-4 gap-6">
-        <div className="lg:col-span-3 card-premium border-red-tile">
+        <div className={`lg:col-span-3 card-premium border-${tileColor === 'blue-tile' ? 'red-tile' : tileColor}`}>
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-              <GraduationCap size={24} className="text-primary" /> Training Performance
+              <GraduationCap size={24} className={`${accentColor}`} /> Training Performance
             </h2>
-            <Link to="/portal/programs" className="text-xs font-bold text-primary hover:underline">Full Analytics</Link>
+            <Link to="/portal/programs" className={`text-xs font-bold ${accentColor} hover:underline`}>Full Analytics</Link>
           </div>
           <div className="grid md:grid-cols-2 gap-8">
-            {userEnrollments.map((prog) => (
+            {enrollments.map((prog) => (
               <div key={prog.programId} className="space-y-3">
                 <div className="flex justify-between items-end">
                   <p className="text-sm font-bold text-white">{prog.title}</p>
@@ -474,7 +446,7 @@ export default function PortalDashboard() {
                     initial={{ width: 0 }}
                     animate={{ width: `${prog.progress}%` }}
                     transition={{ duration: 1.5, ease: "easeOut" }}
-                    className="h-full bg-gradient-to-r from-primary to-aqua relative"
+                    className={`h-full bg-gradient-to-r ${accentBadge} to-emerald-400 relative`}
                   >
                     <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
                   </motion.div>
@@ -489,7 +461,7 @@ export default function PortalDashboard() {
         </div>
 
         <div className="lg:col-span-1 space-y-6">
-          <div className="card-premium border-white/20 hover:border-primary/40 transition-colors">
+          <div className={`card-premium border-white/20 hover:border-${accentColor.replace('text-', '')}/40 transition-colors`}>
             <h3 className="text-sm font-bold text-white mb-4">Need Help?</h3>
             <p className="text-xs text-white/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
             <div className="space-y-3">
