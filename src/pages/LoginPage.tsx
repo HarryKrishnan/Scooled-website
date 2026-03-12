@@ -1,13 +1,27 @@
-import { motion } from "framer-motion";
+import { motion, AnimatePresence } from "framer-motion";
 import { useState } from "react";
-import { Link } from "react-router-dom";
-import { Mail, Lock, User, Phone, Eye, EyeOff, ArrowRight } from "lucide-react";
+import { useNavigate, Link } from "react-router-dom";
+import { Mail, Lock, User, Phone, Eye, EyeOff, ArrowRight, X, ChevronRight } from "lucide-react";
 
 import heroImg from "@/assets/hero-pool.jpg";
+import heroSwimming from "@/assets/hero-swimming.png";
+import heroFutsal from "@/assets/hero-futsal.png";
 
 export default function LoginPage() {
+  const navigate = useNavigate();
   const [isRegister, setIsRegister] = useState(false);
   const [showPw, setShowPw] = useState(false);
+  const [showSportModal, setShowSportModal] = useState(false);
+
+  const sports = [
+    { name: "Swimming", image: heroSwimming, color: "from-blue-600/80" },
+    { name: "Futsal", image: heroFutsal, color: "from-orange-600/80" },
+  ];
+
+  const handleSportSelect = (sport: string) => {
+    setShowSportModal(false);
+    navigate("/portal");
+  };
 
   return (
     <section className="fixed inset-0 z-[100] flex bg-navy overflow-hidden">
@@ -83,7 +97,7 @@ export default function LoginPage() {
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                alert("Demo: Auth successful!");
+                setShowSportModal(true);
               }}
               className="space-y-4"
             >
@@ -213,12 +227,12 @@ export default function LoginPage() {
             {/* Bottom Links */}
             <div className="mt-6 pt-5 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
 
-              <Link
-                to="/portal"
+              <button
+                onClick={() => setShowSportModal(true)}
                 className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
               >
                 Customer <ArrowRight size={14} />
-              </Link>
+              </button>
 
               <Link
                 to="/admin"
@@ -240,6 +254,73 @@ export default function LoginPage() {
         </motion.div>
 
       </div>
+
+      {/* Sport Selection Modal */}
+      <AnimatePresence>
+        {showSportModal && (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={() => setShowSportModal(false)}
+              className="absolute inset-0 bg-navy/95 backdrop-blur-xl"
+            />
+
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.9, y: 20 }}
+              className="relative w-full max-w-2xl bg-[#0a0a0a] rounded-[3rem] p-8 lg:p-12 overflow-hidden shadow-2xl border border-white/10"
+            >
+              <button
+                onClick={() => setShowSportModal(false)}
+                className="absolute top-8 right-8 p-2 rounded-full hover:bg-white/5 text-white/40 transition-colors z-20"
+              >
+                <X size={24} />
+              </button>
+
+              <div className="text-center mb-10">
+                <h2 className="font-display text-3xl font-bold text-white mb-3">Which Sport Today?</h2>
+                <p className="text-white/50 text-sm italic font-medium">Select a subscribed sport to enter your dashboard</p>
+              </div>
+
+              <div className="grid sm:grid-cols-2 gap-6">
+                {sports.map((sport) => (
+                  <motion.div
+                    key={sport.name}
+                    whileHover={{ y: -8, scale: 1.02 }}
+                    onClick={() => handleSportSelect(sport.name)}
+                    className="group relative h-64 rounded-3xl overflow-hidden cursor-pointer border border-white/10 shadow-2xl shadow-black/40"
+                  >
+                    <img
+                      src={sport.image}
+                      alt={sport.name}
+                      className="absolute inset-0 w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className={`absolute inset-0 bg-gradient-to-t ${sport.color} via-transparent to-transparent opacity-80`} />
+                    <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+
+                    <div className="absolute inset-x-0 bottom-0 p-6 flex items-end justify-between">
+                      <div>
+                        <p className="text-[10px] font-black uppercase tracking-widest text-white/70 mb-1">Subscribed</p>
+                        <h3 className="text-2xl font-display font-bold text-white">{sport.name}</h3>
+                      </div>
+                      <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-primary group-hover:border-primary transition-all">
+                        <ChevronRight size={20} />
+                      </div>
+                    </div>
+                  </motion.div>
+                ))}
+              </div>
+
+              <p className="text-center text-[10px] text-white/20 font-black uppercase tracking-widest mt-10">
+                Don't see your sport? <Link to="/programs" className="text-primary hover:underline">Explore Programs</Link>
+              </p>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }
