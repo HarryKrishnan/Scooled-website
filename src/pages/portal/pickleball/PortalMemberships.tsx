@@ -1,22 +1,29 @@
 import SportMemberships from "@/components/portal/SportMemberships";
-import { userActiveMembership, membershipPlans } from "@/data/mockData";
+import { allSportMemberships } from "@/data/mockData";
 import { ShieldCheck, Calendar, History } from "lucide-react";
 import pbImg1 from "@/assets/hero-pickleball.png";
 import pbImg2 from "@/assets/prog-pickleball-competitive.png";
 
 export default function PortalMemberships() {
+  const sportName = "Pickleball";
+  const memberships = allSportMemberships[sportName];
+  
+  // Use the first membership as "active" for Pickleball mock
+  const mockActive = memberships[0];
+
   const activePlan = {
-    ...userActiveMembership,
-    name: "Pickleball Social Play",
+    ...mockActive,
+    status: "Active",
+    expiryDate: "2025-06-15",
     usage: {
       metric1Label: "Court Sessions",
-      metric1Value: userActiveMembership.usage.poolAccess,
+      metric1Value: "8",
       metric1Sub: "this month",
       metric2Label: "Guest Passes",
-      metric2Value: `${userActiveMembership.usage.guestPassesUsed} / ${userActiveMembership.usage.guestPassesTotal}`,
+      metric2Value: `1 / ${mockActive.features.find(f => f.includes("Guest"))?.match(/\d+/)?.[0] || 0}`,
       metric3Label: "Discount Active",
       metric3Value: "15% Off",
-      metric3Sub: "paddles"
+      metric3Sub: "gear"
     }
   };
 
@@ -33,11 +40,7 @@ export default function PortalMemberships() {
     }
   ];
 
-  const upgradePlans = membershipPlans.filter(p => p.id !== activePlan.id).map(p => ({
-    ...p,
-    name: p.name.replace("Quarterly", "Tournament Tier").replace("Annual", "Pro Player Tier"),
-    features: p.features.map(f => f.replace("pool access", "court access").replace("coaching discount", "gear discount"))
-  }));
+  const upgradePlans = memberships.filter(p => p.id !== mockActive.id);
 
   const perks = [
     { icon: ShieldCheck, title: "Priority Booking", desc: "Access slots 24h before non-members.", color: "text-emerald-500" },
@@ -55,7 +58,8 @@ export default function PortalMemberships() {
       upgradePlans={upgradePlans}
       perksTitle="Player Perks"
       perks={perks}
-      promoButtonClass="bg-emerald-500 hover:bg-emerald-400 hover:shadow-emerald-500/20 shadow-emerald-500/10"
+      accentColor="text-emerald-500"
+      promoButtonClass="bg-emerald-500 hover:bg-emerald-400"
     />
   );
 }

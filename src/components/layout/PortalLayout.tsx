@@ -196,7 +196,7 @@ export default function PortalLayout() {
                           })}
                           <div className="h-px bg-white/10 my-1 mx-2" />
                           <Link
-                            to="/"
+                            to="/login"
                             className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-500/80 hover:bg-red-500/10 hover:text-red-500 transition-all"
                           >
                             <LogOut size={16} />
@@ -267,7 +267,7 @@ export default function PortalLayout() {
                     </Link>
                   ))}
                 </div>
-                <Link to="/" className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-50 mt-4">
+                <Link to="/login" className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-50 mt-4">
                   <LogOut size={20} />
                   Sign Out
                 </Link>

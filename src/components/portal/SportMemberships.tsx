@@ -227,7 +227,7 @@ export default function SportMemberships({
           {/* Upgrade Plans */}
           <div className="space-y-8">
             <h3 className="font-display text-2xl font-bold text-white px-2">Upgrade Opportunities</h3>
-            <div className="grid md:grid-cols-2 gap-6">
+            <div className="grid md:grid-cols-2 xl:grid-cols-4 gap-4">
               {upgradePlans.map((plan) => (
                 <motion.div
                   key={plan.id}
@@ -287,49 +287,6 @@ export default function SportMemberships({
             </div>
           </div>
 
-          <div className="card-premium border-gold-tile bg-black/95 shadow-2xl shadow-gold/5">
-            <div className="flex items-center gap-3 text-gold mb-6">
-              <Gift size={22} className="shadow-white" />
-              <h4 className="text-sm font-black uppercase tracking-[0.2em]">Global Promo</h4>
-            </div>
-            <p className="text-xs text-white/40 font-bold mb-8 italic leading-relaxed">Have a gift card code? Redeem it now to extend your premium plan instantly.</p>
-            <div className="space-y-4">
-              <div className="relative">
-                <input 
-                  type="text" 
-                  value={promoCode}
-                  onChange={(e) => setPromoCode(e.target.value)}
-                  placeholder="PROMOCODE"
-                  className="w-full px-6 py-4 rounded-2xl bg-white/5 border border-white/10 text-white font-black text-xs uppercase tracking-widest focus:border-gold outline-none transition-all placeholder:text-white/10"
-                />
-                {isValidating && <Loader2 size={16} className="absolute right-5 top-1/2 -translate-y-1/2 text-gold animate-spin" />}
-              </div>
-              
-              <AnimatePresence>
-                {promoStatus !== "none" && (
-                  <motion.div
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    className={`flex items-center gap-2 text-[10px] font-black uppercase tracking-widest p-3 rounded-xl border ${
-                      promoStatus === "success" ? "bg-emerald-500/10 text-emerald-500 border-emerald-500/20" : "bg-destructive/10 text-destructive border-destructive/20"
-                    }`}
-                  >
-                    {promoStatus === "success" ? <CheckCircle2 size={14} /> : <AlertCircle size={14} />}
-                    {promoMessage}
-                  </motion.div>
-                )}
-              </AnimatePresence>
-
-              <button 
-                onClick={handleRedeem}
-                disabled={isValidating || !promoCode}
-                className={`w-full py-5 rounded-2xl ${promoButtonClass} text-white text-[11px] font-black uppercase tracking-[0.25em] disabled:opacity-30 disabled:cursor-not-allowed transition-all shadow-xl`}
-              >
-                Redeem Gift
-              </button>
-            </div>
-          </div>
         </div>
       </div>
     </div>

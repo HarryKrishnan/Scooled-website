@@ -1,3 +1,23 @@
+import programKids from "@/assets/program-kids.png";
+import programAdult from "@/assets/program-adult.png";
+import programCompetitive from "@/assets/program-competitive.png";
+import programWeekend from "@/assets/program-weekend.png";
+// Futsal
+import progFutsalKids from "@/assets/prog-futsal-kids.png";
+import progFutsalAdult from "@/assets/prog-futsal-adult.png";
+import progFutsalCompetitive from "@/assets/prog-futsal-competitive.png";
+import progFutsalWeekend from "@/assets/prog-futsal-weekend.png";
+// Pickleball
+import progPickleballKids from "@/assets/prog-pickleball-kids.png";
+import progPickleballAdult from "@/assets/prog-pickleball-adult.png";
+import progPickleballCompetitive from "@/assets/prog-pickleball-competitive.png";
+import progPickleballWeekend from "@/assets/prog-pickleball-weekend.png";
+// Table Tennis
+import progTTKids from "@/assets/prog-tt-kids.png";
+import progTTAdult from "@/assets/prog-tt-adult.png";
+import progTTCompetitive from "@/assets/prog-tt-competitive.png";
+import progTTWeekend from "@/assets/prog-tt-weekend.png";
+
 export const centres = [
   { id: "c1", name: "Scooled — Downtown", city: "Mumbai", address: "12 Marine Drive, Mumbai 400001", pools: 3 },
   { id: "c2", name: "Scooled — Westside", city: "Mumbai", address: "45 Bandra West, Mumbai 400050", pools: 2 },
@@ -244,6 +264,292 @@ export const notificationHistory = [
   { id: "nh3", customerId: "cu7", customerName: "Karthik Raj", type: "Expiration Warning", channel: "Alert", message: "Your Annual membership expires on Mar 1, 2025", sentAt: "2025-02-22 02:00 PM", status: "Sent" },
   { id: "nh4", customerId: "cu5", customerName: "Vikram Singh", type: "Premium Upgrade Offer", channel: "WhatsApp", message: "Upgrade to Annual plan and save 30%! Limited time offer.", sentAt: "2025-02-10 11:00 AM", status: "Sent" },
   { id: "nh5", customerId: "cu6", customerName: "Ananya Reddy", type: "Renewal Reminder", channel: "Alert", message: "Your membership expires in 9 days. Renew now!", sentAt: "2025-03-11 08:00 AM", status: "Sent" },
+];
+
+export type SportProgram = {
+  id: string;
+  title: string;
+  level: string;
+  ageGroup: string;
+  schedule: string;
+  price: number;
+  image: string;
+  badge: string;
+  badgeColor: string;
+  accentColor: string;
+  description: string;
+};
+
+export const allSportPrograms: Record<string, SportProgram[]> = {
+  Swimming: [
+    {
+      id: "sw-p1",
+      title: "Kids Learn to Swim",
+      level: "Beginner",
+      ageGroup: "4–8 years",
+      schedule: "Mon, Wed, Fri",
+      price: 3500,
+      image: programKids,
+      badge: "🏊 Most Popular",
+      badgeColor: "bg-emerald-500",
+      accentColor: "from-emerald-600/80",
+      description: "A comprehensive beginner program for kids to learn basic swimming skills and water safety.",
+    },
+    {
+      id: "sw-p2",
+      title: "Adult Fitness Swimming",
+      level: "All Levels",
+      ageGroup: "18+ years",
+      schedule: "Tue, Thu, Sat",
+      price: 4500,
+      image: programAdult,
+      badge: "🔥 Trending",
+      badgeColor: "bg-orange-500",
+      accentColor: "from-blue-600/80",
+      description: "Fitness-focused swimming program for adults. Improve cardiovascular health and endurance.",
+    },
+    {
+      id: "sw-p3",
+      title: "Competitive Coaching",
+      level: "Advanced",
+      ageGroup: "10–18 years",
+      schedule: "Mon–Sat",
+      price: 8000,
+      image: programCompetitive,
+      badge: "🏆 Elite",
+      badgeColor: "bg-amber-500",
+      accentColor: "from-purple-700/80",
+      description: "Intensive training program for competitive swimmers preparing for championships.",
+    },
+    {
+      id: "sw-p4",
+      title: "Weekend Family Training",
+      level: "Intermediate",
+      ageGroup: "All Ages",
+      schedule: "Sat, Sun",
+      price: 3000,
+      image: programWeekend,
+      badge: "👨‍👩‍👧 Family",
+      badgeColor: "bg-primary",
+      accentColor: "from-cyan-700/80",
+      description: "Perfect for busy families. Weekend-focused intermediate swimming training program.",
+    },
+  ],
+  Futsal: [
+    {
+      id: "fs-p1",
+      title: "Kids Futsal Fundamentals",
+      level: "Beginner",
+      ageGroup: "5–10 years",
+      schedule: "Mon, Wed, Fri",
+      price: 3000,
+      image: progFutsalKids,
+      badge: "⚽ Most Popular",
+      badgeColor: "bg-emerald-500",
+      accentColor: "from-emerald-600/80",
+      description: "Essential ball control and teamwork skills for young football enthusiasts.",
+    },
+    {
+      id: "fs-p2",
+      title: "Adult Futsal Fitness",
+      level: "All Levels",
+      ageGroup: "18+ years",
+      schedule: "Tue, Thu, Sat",
+      price: 4000,
+      image: progFutsalAdult,
+      badge: "🔥 Trending",
+      badgeColor: "bg-orange-500",
+      accentColor: "from-orange-700/80",
+      description: "High-intensity match play and fitness drills for the modern urban player.",
+    },
+    {
+      id: "fs-p3",
+      title: "Competitive Futsal Training",
+      level: "Advanced",
+      ageGroup: "12–20 years",
+      schedule: "Mon–Sat",
+      price: 7000,
+      image: progFutsalCompetitive,
+      badge: "🏆 Elite",
+      badgeColor: "bg-amber-500",
+      accentColor: "from-yellow-700/80",
+      description: "Tactical and physical preparation for competitive futsal tournaments.",
+    },
+    {
+      id: "fs-p4",
+      title: "Weekend Futsal League",
+      level: "Intermediate",
+      ageGroup: "All Ages",
+      schedule: "Sat, Sun",
+      price: 2500,
+      image: progFutsalWeekend,
+      badge: "🎉 Social League",
+      badgeColor: "bg-primary",
+      accentColor: "from-green-700/80",
+      description: "Friendly community matches to keep you active and connected every weekend.",
+    },
+  ],
+  Pickleball: [
+    {
+      id: "pb-p1",
+      title: "Kids Pickleball Starter",
+      level: "Beginner",
+      ageGroup: "6–12 years",
+      schedule: "Mon, Wed, Fri",
+      price: 2800,
+      image: progPickleballKids,
+      badge: "🏓 Most Popular",
+      badgeColor: "bg-emerald-500",
+      accentColor: "from-lime-600/80",
+      description: "Fun-filled introduction to the fastest growing sport. Focus on basic dinks and serves.",
+    },
+    {
+      id: "pb-p2",
+      title: "Adult Fitness Pickleball",
+      level: "All Levels",
+      ageGroup: "18+ years",
+      schedule: "Tue, Thu, Sat",
+      price: 3500,
+      image: progPickleballAdult,
+      badge: "🔥 Trending",
+      badgeColor: "bg-orange-500",
+      accentColor: "from-teal-600/80",
+      description: "Improve your agility and heart health with dynamic pickleball drills and gameplay.",
+    },
+    {
+      id: "pb-p3",
+      title: "Competitive Pickleball",
+      level: "Advanced",
+      ageGroup: "14–35 years",
+      schedule: "Mon–Sat",
+      price: 6500,
+      image: progPickleballCompetitive,
+      badge: "🏆 Elite",
+      badgeColor: "bg-amber-500",
+      accentColor: "from-indigo-700/80",
+      description: "Tournament-level coaching focusing on advanced strategy and power plays.",
+    },
+    {
+      id: "pb-p4",
+      title: "Weekend Doubles Clinic",
+      level: "Intermediate",
+      ageGroup: "All Ages",
+      schedule: "Sat, Sun",
+      price: 2500,
+      image: progPickleballWeekend,
+      badge: "👫 Doubles",
+      badgeColor: "bg-primary",
+      accentColor: "from-sky-700/80",
+      description: "Master the art of doubles coordination and tactical positioning.",
+    },
+  ],
+  "Table Tennis": [
+    {
+      id: "tt-p1",
+      title: "Kids TT Starter",
+      level: "Beginner",
+      ageGroup: "5–12 years",
+      schedule: "Mon, Wed, Fri",
+      price: 2500,
+      image: progTTKids,
+      badge: "🏓 Most Popular",
+      badgeColor: "bg-emerald-500",
+      accentColor: "from-emerald-600/80",
+      description: "Develop lightning reflexes and core table tennis techniques for young beginners.",
+    },
+    {
+      id: "tt-p2",
+      title: "Adult Table Tennis Fitness",
+      level: "All Levels",
+      ageGroup: "18+ years",
+      schedule: "Tue, Thu, Sat",
+      price: 3000,
+      image: progTTAdult,
+      badge: "🔥 Trending",
+      badgeColor: "bg-orange-500",
+      accentColor: "from-red-700/80",
+      description: "Enhance your focus and fitness with high-speed table tennis training and volleys.",
+    },
+    {
+      id: "tt-p3",
+      title: "Competitive TT Coaching",
+      level: "Advanced",
+      ageGroup: "10–25 years",
+      schedule: "Mon–Sat",
+      price: 6000,
+      image: progTTCompetitive,
+      badge: "🏆 Elite",
+      badgeColor: "bg-amber-500",
+      accentColor: "from-purple-700/80",
+      description: "Advanced spin control and psychological preparation for state and national tournaments.",
+    },
+    {
+      id: "tt-p4",
+      title: "Weekend TT Social League",
+      level: "Intermediate",
+      ageGroup: "All Ages",
+      schedule: "Sat, Sun",
+      price: 2000,
+      image: progTTWeekend,
+      badge: "🎉 Social",
+      badgeColor: "bg-primary",
+      accentColor: "from-pink-700/80",
+      description: "Join our vibrant social league to enjoy competitive yet fun matches every weekend.",
+    },
+  ],
+};
+
+export const allSportMemberships: Record<string, { id: string; name: string; duration: string; price: number; features: string[]; popular: boolean }[]> = {
+  Swimming: [
+    { id: "sm1", name: "Monthly", duration: "1 Month", price: 2999, features: ["Unlimited pool access", "Locker facility", "1 Guest pass", "Basic progress report"], popular: false },
+    { id: "sm2", name: "Quarterly", duration: "3 Months", price: 7999, features: ["Unlimited pool access", "Locker facility", "3 Guest passes", "Detailed progress reports", "10% coaching discount"], popular: true },
+    { id: "sm3", name: "Half-Yearly", duration: "6 Months", price: 13999, features: ["Unlimited pool access", "Premium locker", "6 Guest passes", "Detailed progress reports", "15% coaching discount", "Free towel service"], popular: false },
+    { id: "sm4", name: "Annual", duration: "12 Months", price: 24999, features: ["Unlimited pool access", "Premium locker", "12 Guest passes", "All progress reports", "20% coaching discount", "Free towel service", "Priority slot booking"], popular: false },
+  ],
+  Futsal: [
+    { id: "fm1", name: "Monthly", duration: "1 Month", price: 2499, features: ["Unlimited court access", "Locker facility", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "fm2", name: "Quarterly", duration: "3 Months", price: 6499, features: ["Unlimited court access", "Locker facility", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "fm3", name: "Half-Yearly", duration: "6 Months", price: 11999, features: ["Unlimited court access", "Premium locker", "6 Guest passes", "Performance reports", "15% coaching discount", "Free jersey"], popular: false },
+    { id: "fm4", name: "Annual", duration: "12 Months", price: 21999, features: ["Unlimited court access", "Premium locker", "12 Guest passes", "All performance reports", "20% coaching discount", "Free jersey", "Priority booking"], popular: false },
+  ],
+  Pickleball: [
+    { id: "pm1", name: "Monthly", duration: "1 Month", price: 1999, features: ["Unlimited court access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "pm2", name: "Quarterly", duration: "3 Months", price: 5499, features: ["Unlimited court access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "pm3", name: "Half-Yearly", duration: "6 Months", price: 9999, features: ["Unlimited court access", "Own paddle storage", "6 Guest passes", "Performance reports", "15% coaching discount", "Free grip tape"], popular: false },
+    { id: "pm4", name: "Annual", duration: "12 Months", price: 17999, features: ["Unlimited court access", "Own paddle storage", "12 Guest passes", "All performance reports", "20% coaching discount", "Free grip tape", "Priority booking"], popular: false },
+  ],
+  "Table Tennis": [
+    { id: "tm1", name: "Monthly", duration: "1 Month", price: 1499, features: ["Unlimited table access", "Paddle rental", "1 Guest pass", "Basic stats report"], popular: false },
+    { id: "tm2", name: "Quarterly", duration: "3 Months", price: 3999, features: ["Unlimited table access", "Paddle rental", "3 Guest passes", "Performance reports", "10% coaching discount"], popular: true },
+    { id: "tm3", name: "Half-Yearly", duration: "6 Months", price: 7499, features: ["Unlimited table access", "Own paddle rack", "6 Guest passes", "Performance reports", "15% coaching discount", "Free rubber sheet"], popular: false },
+    { id: "tm4", name: "Annual", duration: "12 Months", price: 13499, features: ["Unlimited table access", "Own paddle rack", "12 Guest passes", "All performance reports", "20% coaching discount", "Free rubber sheet", "Priority booking"], popular: false },
+  ],
+};
+
+export const multiSportTestimonials = [
+  // Swimming
+  { name: "Priya Sharma", initials: "PS", role: "Swimming · Parent", sport: "🏊 Swimming", accent: "from-cyan-600/30 to-blue-500/10", text: "Our kids have transformed completely. The coaches are incredibly patient and the pool facilities are world-class!" },
+  { name: "Rahul Verma", initials: "RV", role: "Swimming · Competitive", sport: "🏊 Swimming", accent: "from-blue-700/30 to-cyan-400/10", text: "I cut 8 seconds off my 100m freestyle in just 3 months. The data-driven tracking is unlike anything I've experienced." },
+  { name: "Anita Krishnan", initials: "AK", role: "Swimming · Adult Fitness", sport: "🏊 Swimming", accent: "from-teal-600/30 to-emerald-400/10", text: "Started as a complete beginner at 38. Within 6 months I'm swimming 2km daily. The booking app makes everything effortless." },
+  // Futsal
+  { name: "Kiran Mehta", initials: "KM", role: "Futsal · Weekend League", sport: "⚽ Futsal", accent: "from-emerald-600/30 to-green-400/10", text: "The weekend futsal league is the highlight of my week. Great facilities, excellent coaching and a brilliant community!" },
+  { name: "Siddharth Rao", initials: "SR", role: "Futsal · Competitive", sport: "⚽ Futsal", accent: "from-lime-600/30 to-yellow-400/10", text: "Competitive futsal training at Scooled is top-notch. Our team went from district level to state finals in one season." },
+  { name: "Deepa Nair", initials: "DN", role: "Futsal · Adult Fitness", sport: "⚽ Futsal", accent: "from-green-700/30 to-emerald-300/10", text: "Never thought I'd love indoor football this much. The coaches push you just right and the energy in every session is electric." },
+  // Pickleball
+  { name: "Arjun Pillai", initials: "AP", role: "Pickleball · Doubles Clinic", sport: "🏓 Pickleball", accent: "from-violet-600/30 to-purple-400/10", text: "The doubles clinic completely transformed my game. The court quality is superb and coaches break down strategy brilliantly." },
+  { name: "Meera Joshi", initials: "MJ", role: "Pickleball · Adult Fitness", sport: "🏓 Pickleball", accent: "from-indigo-600/30 to-blue-400/10", text: "Pickleball at Scooled is addictive! Perfect pace for beginners. I went from not knowing the rules to winning club matches." },
+  { name: "Rajan Thomas", initials: "RT", role: "Pickleball · Competitive", sport: "🏓 Pickleball", accent: "from-purple-700/30 to-violet-300/10", text: "The competitive pickleball program is structured brilliantly. I can track every improvement session-by-session through the app." },
+  // Table Tennis
+  { name: "Sneha Iyer", initials: "SI", role: "Table Tennis · Social League", sport: "🏓 Table Tennis", accent: "from-rose-600/30 to-pink-400/10", text: "The TT social league is so fun and friendly. I've made so many friends and my backhand has improved dramatically!" },
+  { name: "Vikram Bose", initials: "VB", role: "Table Tennis · Competitive", sport: "🏓 Table Tennis", accent: "from-red-600/30 to-orange-400/10", text: "Elite coaching at Scooled helped me qualify for the state juniors. The attention to technique and spin is exceptional." },
+  { name: "Lavanya Reddy", initials: "LR", role: "Table Tennis · Kids Starter", sport: "🏓 Table Tennis", accent: "from-pink-600/30 to-rose-300/10", text: "My 9-year-old daughter is obsessed with table tennis now! Patient coaches and a programme designed perfectly for young players." },
+];
+
+export const sportTabs = [
+  { key: "Swimming", label: "Swimming", emoji: "🏊" },
+  { key: "Futsal", label: "Futsal", emoji: "⚽" },
+  { key: "Pickleball", label: "Pickleball", emoji: "🏓" },
+  { key: "Table Tennis", label: "Table Tennis", emoji: "🏓" },
 ];
 
 // Helper function to calculate days until expiry

@@ -4,12 +4,12 @@ import SectionHeading from "@/components/ui/SectionHeading";
 import heroImg from "@/assets/hero-pool.jpg";
 
 const values = [
-  { icon: Heart, title: "Passion for Swimming", desc: "We believe swimming is a life skill that transforms health, confidence, and wellbeing." },
-  { icon: Shield, title: "Safety First", desc: "Every session is supervised by certified lifeguards with stringent safety protocols." },
-  { icon: Target, title: "Excellence", desc: "Our coaches bring world-class training methodologies to every swimmer." },
-  { icon: Droplets, title: "Inclusivity", desc: "Programs designed for every age, ability, and fitness level." },
-  { icon: Award, title: "Certified Coaches", desc: "All coaches are internationally certified with years of competitive experience." },
-  { icon: Users, title: "Community", desc: "A thriving community of swimmers supporting each other's aquatic journey." },
+  { icon: Heart, title: "Passion for Sports", desc: "We believe in the transformative power of sports to improve health, discipline, and community wellbeing." },
+  { icon: Shield, title: "Safety First", desc: "Every session is conducted with professional supervision and stringent safety protocols for all age groups." },
+  { icon: Target, title: "Excellence", desc: "Our coaches bring elite training methodologies to every athlete, from beginner to pro." },
+  { icon: Droplets, title: "Modern Facilities", desc: "State-of-the-art courts and pools designed for performance and safety." },
+  { icon: Award, title: "Expert Coaching", desc: "All coaches are certified professionals with years of competitive experience in their respective sports." },
+  { icon: Users, title: "Thriving Community", desc: "Join thousands of active members supporting each other's fitness and athletic journeys." },
 ];
 
 export default function AboutPage() {
@@ -20,8 +20,8 @@ export default function AboutPage() {
           <img src={heroImg} alt="" className="w-full h-full object-cover" />
         </div>
         <div className="container-custom relative z-10 text-center">
-          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl md:text-5xl font-bold mb-4">About Scooled Aquatics</motion.h1>
-          <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">Redefining the swimming experience with technology, passion, and world-class coaching.</p>
+          <motion.h1 initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} className="font-display text-4xl md:text-5xl font-bold mb-4">About Scooled</motion.h1>
+          <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">Redefining the fitness and sports experience with technology, passion, and elite coaching.</p>
         </div>
       </section>
 
@@ -29,15 +29,15 @@ export default function AboutPage() {
         <div className="container-custom">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <div>
-              <SectionHeading badge="Our Story" title="Where Excellence Meets Water" center={false} />
+              <SectionHeading badge="Our Story" title="Where Excellence Meets Innovation" center={false} />
               <p className="text-muted-foreground leading-relaxed mb-4">
-                Founded with a vision to modernize swimming operations, Scooled Aquatics brings together cutting-edge technology and expert coaching to create an unparalleled aquatic experience.
+                Founded with a vision to revolutionize sports operations, Scooled brings together cutting-edge technology and expert coaching to create an unparalleled athletic experience.
               </p>
               <p className="text-muted-foreground leading-relaxed mb-4">
-                From seamless slot booking to detailed progress tracking, we've built a platform that puts swimmers and their families first — while giving administrators the tools they need to run world-class facilities.
+                Whether it's Swimming, Futsal, Pickleball, or Table Tennis — we've built a platform that puts athletes and their families first, from seamless booking to advanced progress tracking.
               </p>
               <p className="text-muted-foreground leading-relaxed">
-                Today, we serve thousands of active members across multiple centres, with a team of certified coaches dedicated to nurturing the next generation of swimmers.
+                Today, we serve thousands of active members across multiple high-performance centres, with a team of certified coaches dedicated to nurturing the next generation of excellence.
               </p>
             </div>
             <div className="rounded-2xl overflow-hidden" style={{ boxShadow: "var(--shadow-elevated)" }}>

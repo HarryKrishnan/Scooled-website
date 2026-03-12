@@ -400,7 +400,7 @@ export default function SportDashboard({
                 {membership.status}
               </span>
             </div>
-            <Link to="/portal/memberships" className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${accentColor} hover:text-white transition-colors pt-2`}>
+            <Link to="memberships" className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${accentColor} hover:text-white transition-colors pt-2`}>
               Upgrade Plan <ArrowRight size={14} />
             </Link>
           </div>
@@ -408,20 +408,22 @@ export default function SportDashboard({
       </div>
 
       {/* Quick Actions Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {quickActions.map((action, i) => (
-          <Link
-            key={i}
-            to={action.path}
-            className={`card-premium border-${tileColor === 'blue-tile' ? 'cyan-tile' : tileColor} flex flex-col items-center justify-center p-6 gap-3 group hover:-translate-y-1 transition-transform`}
-          >
-            <div className={`p-4 rounded-2xl ${action.color} group-hover:scale-110 group-hover:-rotate-3 transition-all shadow-lg shadow-black/20`}>
-              <action.icon size={28} />
-            </div>
-            <span className="text-white font-bold text-sm text-center">{action.label}</span>
-          </Link>
-        ))}
-      </div>
+      {quickActions && quickActions.length > 0 && (
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+          {quickActions.map((action, i) => (
+            <Link
+              key={i}
+              to={action.path}
+              className={`card-premium border-${tileColor === 'blue-tile' ? 'cyan-tile' : tileColor} flex flex-col items-center justify-center p-6 gap-3 group hover:-translate-y-1 transition-transform`}
+            >
+              <div className={`p-4 rounded-2xl ${action.color} group-hover:scale-110 group-hover:-rotate-3 transition-all shadow-lg shadow-black/20`}>
+                <action.icon size={28} />
+              </div>
+              <span className="text-white font-bold text-sm text-center">{action.label}</span>
+            </Link>
+          ))}
+        </div>
+      )}
 
       <div className="grid lg:grid-cols-4 gap-6">
         <div className={`lg:col-span-3 card-premium border-${tileColor === 'blue-tile' ? 'red-tile' : tileColor}`}>

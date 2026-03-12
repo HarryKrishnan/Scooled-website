@@ -1,18 +1,26 @@
 import SportMemberships from "@/components/portal/SportMemberships";
-import { userActiveMembership, membershipPlans } from "@/data/mockData";
+import { allSportMemberships } from "@/data/mockData";
 import { ShieldCheck, Calendar, History } from "lucide-react";
 import summerSplashImg from "@/assets/summer_splash_offer_bg_1773151662663.png";
 import proCoachingImg from "@/assets/pro_coaching_bundle_bg_1773151684239.png";
 
 export default function PortalMemberships() {
+  const sportName = "Swimming";
+  const memberships = allSportMemberships[sportName];
+  
+  // Use the first membership as "active" for mock purposes
+  const mockActive = memberships[0];
+
   const activePlan = {
-    ...userActiveMembership,
+    ...mockActive,
+    status: "Active",
+    expiryDate: "2025-04-15",
     usage: {
       metric1Label: "Pool Visits",
-      metric1Value: userActiveMembership.usage.poolAccess,
+      metric1Value: 28,
       metric1Sub: "this month",
       metric2Label: "Guest Passes",
-      metric2Value: `${userActiveMembership.usage.guestPassesUsed} / ${userActiveMembership.usage.guestPassesTotal}`,
+      metric2Value: `1 / ${mockActive.features.find(f => f.includes("Guest"))?.match(/\d+/)?.[0] || 0}`,
       metric3Label: "Discount Active",
       metric3Value: "10% Off",
       metric3Sub: "coaching"
@@ -37,7 +45,7 @@ export default function PortalMemberships() {
     },
   ];
 
-  const upgradePlans = membershipPlans.filter(p => p.id !== activePlan.id);
+  const upgradePlans = memberships.filter(p => p.id !== mockActive.id);
 
   const perks = [
     { icon: ShieldCheck, title: "Priority Booking", desc: "Access slots 24h before non-members.", color: "text-emerald-500" },

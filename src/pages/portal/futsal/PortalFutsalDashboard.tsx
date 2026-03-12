@@ -63,7 +63,7 @@ export default function PortalFutsalDashboard() {
       statsPoint={850}
       campaigns={campaigns}
       upcomingBooking={upcomingBooking}
-      quickActions={quickActions}
+      quickActions={[]}
       enrollments={futsalEnrollments}
       membership={futsalMembership}
     />
