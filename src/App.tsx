@@ -80,6 +80,7 @@ import AdminPayments from "@/pages/admin/AdminPayments";
 import AdminCalendar from "@/pages/admin/AdminCalendar";
 import AdminComplaints from "@/pages/admin/AdminComplaints";
 import AdminMemberships from "@/pages/admin/AdminMemberships";
+import AdminReminders from "@/pages/admin/AdminReminders";
 import AdminPlaceholder from "@/pages/admin/AdminPlaceholder";
 
 // Coach Pages
@@ -178,7 +179,7 @@ const App = () => (
             <Route path="attendance" element={<AdminPlaceholder title="Attendance & Progress" />} />
             <Route path="progress" element={<AdminPlaceholder title="Progress Reports" />} />
             <Route path="complaints" element={<AdminComplaints />} />
-            <Route path="notifications" element={<AdminPlaceholder title="Notifications" />} />
+            <Route path="notifications" element={<AdminReminders />} />
             <Route path="reports" element={<AdminPlaceholder title="Reports & Analytics" />} />
             <Route path="settings" element={<AdminPlaceholder title="Settings" />} />
           </Route>

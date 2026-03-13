@@ -1,12 +1,14 @@
+import { SportID } from "./sportConfig";
+
 export const centres = [
   { id: "c1", name: "Scooled — Downtown", city: "Mumbai", address: "12 Marine Drive, Mumbai 400001", pools: 3 },
   { id: "c2", name: "Scooled — Westside", city: "Mumbai", address: "45 Bandra West, Mumbai 400050", pools: 2 },
 ];
 
 export const coaches = [
-  { id: "co1", name: "Arjun Menon", specialization: "Competitive Swimming", avatar: "", certifications: ["FINA Level 2", "CPR Certified"] },
-  { id: "co2", name: "Priya Sharma", specialization: "Kids Learn to Swim", avatar: "", certifications: ["SSA Coach", "First Aid"] },
-  { id: "co3", name: "Rahul Das", specialization: "Adult Fitness", avatar: "", certifications: ["ACE Certified", "Lifeguard"] },
+  { id: "co1", name: "Arjun Menon", specialization: "Competitive Swimming", avatar: "", certifications: ["FINA Level 2", "CPR Certified"], sports: ["swimming"] as SportID[] },
+  { id: "co2", name: "Priya Sharma", specialization: "Kids Learn to Swim", avatar: "", certifications: ["SSA Coach", "First Aid"], sports: ["swimming"] as SportID[] },
+  { id: "co3", name: "Rahul Das", specialization: "Adult Fitness", avatar: "", certifications: ["ACE Certified", "Lifeguard"], sports: ["swimming", "futsal", "pickleball", "tableTennis"] as SportID[] },
 ];
 
 export const programs = [
@@ -47,14 +49,14 @@ export const slots = [
 ];
 
 export const customers = [
-  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15" },
-  { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20" },
-  { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01" },
-  { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10" },
-  { id: "cu5", name: "Vikram Singh", email: "vikram@example.com", phone: "+91 98765 43214", membership: "Quarterly", status: "Expired", joinDate: "2024-06-15" },
-  { id: "cu6", name: "Ananya Reddy", email: "ananya@example.com", phone: "+91 98765 43215", membership: "Monthly", status: "Active", joinDate: "2025-02-20" },
-  { id: "cu7", name: "Karthik Raj", email: "karthik@example.com", phone: "+91 98765 43216", membership: "Annual", status: "Active", joinDate: "2024-03-01" },
-  { id: "cu8", name: "Divya Kapoor", email: "divya@example.com", phone: "+91 98765 43217", membership: "None", status: "Trial", joinDate: "2025-03-05" },
+  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15", sports: ["swimming", "futsal"] },
+  { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20", sports: ["swimming", "pickleball", "tableTennis"] },
+  { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01", sports: ["futsal"] },
+  { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10", sports: ["swimming", "futsal", "pickleball", "tableTennis"] },
+  { id: "cu5", name: "Vikram Singh", email: "vikram@example.com", phone: "+91 98765 43214", membership: "Quarterly", status: "Expired", joinDate: "2024-06-15", sports: ["swimming"] },
+  { id: "cu6", name: "Ananya Reddy", email: "ananya@example.com", phone: "+91 98765 43215", membership: "Monthly", status: "Active", joinDate: "2025-02-20", sports: ["tableTennis", "pickleball"] },
+  { id: "cu7", name: "Karthik Raj", email: "karthik@example.com", phone: "+91 98765 43216", membership: "Annual", status: "Active", joinDate: "2024-03-01", sports: ["swimming", "futsal"] },
+  { id: "cu8", name: "Divya Kapoor", email: "divya@example.com", phone: "+91 98765 43217", membership: "None", status: "Trial", joinDate: "2025-03-05", sports: [] },
 ];
 
 export const leads = [
@@ -269,3 +271,91 @@ export const getExpiryStatus = (expiryDate: string): { status: string; color: st
     return { status: "Active", color: "text-primary bg-primary/10", daysRemaining };
   }
 };
+
+// Reminder History for Admin Reminders Page
+export const reminderHistory = [
+  { 
+    id: "rh1", 
+    recipientType: "user" as const, 
+    recipientIds: ["cu1", "cu2", "cu4", "cu6", "cu7"], 
+    recipientNames: ["Aarav Patel", "Sneha Iyer", "Meera Nair", "Ananya Reddy", "Karthik Raj"],
+    type: "reminder" as const, 
+    subject: "Pool Maintenance Schedule", 
+    message: "Dear members, our Downtown facility will undergo routine maintenance this Saturday from 6 AM to 9 AM. All slots during this time are cancelled and will be automatically refunded.", 
+    sentAt: "2026-03-10 09:30 AM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh2", 
+    recipientType: "coach" as const, 
+    recipientIds: ["co1", "co2", "co3"], 
+    recipientNames: ["Arjun Menon", "Priya Sharma", "Rahul Das"],
+    type: "announcement" as const, 
+    subject: "New Safety Protocol Training", 
+    message: "All coaches are required to attend the mandatory safety protocol training session on March 15th at 2 PM in the conference room. Please confirm your attendance.", 
+    sentAt: "2026-03-08 02:15 PM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh3", 
+    recipientType: "both" as const, 
+    recipientIds: ["cu1", "cu2", "cu3", "cu4", "cu5", "cu6", "cu7", "cu8", "co1", "co2", "co3"], 
+    recipientNames: ["Aarav Patel", "Sneha Iyer", "Rohan Gupta", "Meera Nair", "Vikram Singh", "Ananya Reddy", "Karthik Raj", "Divya Kapoor", "Arjun Menon", "Priya Sharma", "Rahul Das"],
+    type: "announcement" as const, 
+    subject: "Extended Hours for March", 
+    message: "Great news! We're extending our operating hours for the month of March. The facility will now open at 5:00 AM (instead of 5:30 AM) and close at 10:00 PM. More slots are now available for booking!", 
+    sentAt: "2026-03-05 11:00 AM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh4", 
+    recipientType: "user" as const, 
+    recipientIds: ["cu3", "cu5", "cu7", "cu9"], 
+    recipientNames: ["Rohan Gupta", "Vikram Singh", "Karthik Raj", "Aditya Joshi"],
+    type: "reminder" as const, 
+    subject: "Membership Renewal Required", 
+    message: "Your membership has expired or is expiring soon. Renew today to continue enjoying unlimited pool access and exclusive member benefits. Visit our portal or contact us for assistance.", 
+    sentAt: "2026-03-03 08:00 AM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh5", 
+    recipientType: "user" as const, 
+    recipientIds: ["cu1", "cu2", "cu4", "cu6", "cu7", "cu10", "cu11", "cu12"], 
+    recipientNames: ["Aarav Patel", "Sneha Iyer", "Meera Nair", "Ananya Reddy", "Karthik Raj", "Priya Malhotra", "Ravi Kumar", "Sanjana Shah"],
+    type: "message" as const, 
+    subject: "New Multi-Sport Programs Available", 
+    message: "Exciting news! We've expanded our offerings to include Futsal, Pickleball, and Table Tennis. Check out the new programs in your portal and book your sessions today!", 
+    sentAt: "2026-03-01 10:45 AM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh6", 
+    recipientType: "coach" as const, 
+    recipientIds: ["co1", "co2"], 
+    recipientNames: ["Arjun Menon", "Priya Sharma"],
+    type: "message" as const, 
+    subject: "February Performance Reports Due", 
+    message: "Please submit your trainee performance reports for February by March 5th. Use the online portal to upload reports or email them to admin@scooled.com.", 
+    sentAt: "2026-02-28 04:30 PM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+  { 
+    id: "rh7", 
+    recipientType: "both" as const, 
+    recipientIds: ["cu1", "cu2", "cu6", "co3"], 
+    recipientNames: ["Aarav Patel", "Sneha Iyer", "Ananya Reddy", "Rahul Das"],
+    type: "reminder" as const, 
+    subject: "Upcoming Holiday Closure", 
+    message: "Our facilities will be closed on March 20th for Holi celebrations. All scheduled sessions will be rescheduled automatically. Enjoy the festivities!", 
+    sentAt: "2026-02-25 01:00 PM", 
+    sentBy: "Admin", 
+    status: "Sent" 
+  },
+];

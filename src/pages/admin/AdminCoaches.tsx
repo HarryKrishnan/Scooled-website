@@ -5,6 +5,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SportID } from "@/data/sportConfig";
+import sportConfigs from "@/data/sportConfig";
+import { SportBadgeList } from "@/components/ui/SportBadge";
 
 type Coach = {
   id: string;
@@ -14,10 +18,12 @@ type Coach = {
   certifications: string[];
   email?: string;
   phone?: string;
+  sports: SportID[];
 };
 
 export default function AdminCoaches() {
   const [search, setSearch] = useState("");
+  const [sportFilter, setSportFilter] = useState<"all" | SportID>("all");
   const [coachList, setCoachList] = useState<Coach[]>(coaches);
   const [deleteMode, setDeleteMode] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
@@ -29,9 +35,14 @@ export default function AdminCoaches() {
     email: "",
     phone: "",
     certifications: "",
+    sports: [] as SportID[],
   });
 
-  const filtered = coachList.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = coachList.filter((c) => {
+    const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
+    const matchesSport = sportFilter === "all" || c.sports.includes(sportFilter);
+    return matchesSearch && matchesSport;
+  });
 
   const handleAddNew = () => {
     setEditingCoach(null);
@@ -41,6 +52,7 @@ export default function AdminCoaches() {
       email: "",
       phone: "",
       certifications: "",
+      sports: [] as SportID[],
     });
     setDialogOpen(true);
   };
@@ -53,6 +65,7 @@ export default function AdminCoaches() {
       email: coach.email || "",
       phone: coach.phone || "",
       certifications: coach.certifications.join(", "),
+      sports: coach.sports || [],
     });
     setDialogOpen(true);
   };
@@ -68,7 +81,8 @@ export default function AdminCoaches() {
           specialization: formData.specialization,
           email: formData.email,
           phone: formData.phone,
-          certifications: certArray 
+          certifications: certArray,
+          sports: formData.sports
         } : c
       ));
     } else {
@@ -80,6 +94,7 @@ export default function AdminCoaches() {
         certifications: certArray,
         email: formData.email,
         phone: formData.phone,
+        sports: formData.sports,
       };
       setCoachList([...coachList, newCoach]);
     }
@@ -106,6 +121,22 @@ export default function AdminCoaches() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="font-display text-4xl font-bold text-white">Coaches</h1>
         <div className="flex items-center gap-2 flex-wrap">
+          <Select value={sportFilter} onValueChange={(v) => setSportFilter(v as "all" | SportID)}>
+            <SelectTrigger className="w-[140px] rounded-xl border-white/10 bg-white/10 text-white text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-black/95 border-white/10 text-white">
+              <SelectItem value="all">All Sports</SelectItem>
+              {(Object.keys(sportConfigs) as SportID[]).map((sportId) => {
+                const config = sportConfigs[sportId];
+                return (
+                  <SelectItem key={sportId} value={sportId}>
+                    {config.label}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
           <div className="relative">
             <Search size={16} className="absolute left-3 top-2.5 text-white/60" />
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search coaches..." className="pl-10 pr-4 py-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-white placeholder:text-white/40" />
@@ -140,23 +171,13 @@ export default function AdminCoaches() {
         </div>
       </div>
 
-      <div className="grid sm:grid-cols-3 gap-4">
-        {["All", "Competitive Swimming", "Kids Learn to Swim", "Adult Fitness"].map((spec, idx) => (
-          <div key={spec} className={`card-premium text-center hover:${['border-orange-tile', 'border-teal-tile', 'border-yellow-tile'][idx % 3]} hover:-translate-y-2 transition-all duration-500`}>
-            <p className="text-2xl font-bold text-white">
-              {spec === "All" ? coachList.length : coachList.filter(c => c.specialization === spec).length}
-            </p>
-            <p className="text-xs text-white/60 mt-1">{spec}</p>
-          </div>
-        ))}
-      </div>
-
-      <div className="card-premium overflow-x-auto hover:border-teal-tile hover:-translate-y-2 transition-all duration-500">
+      {/* Coaches Table - Scrollable */}
+      <div className="card-premium overflow-x-auto max-h-[500px] overflow-y-auto hover:border-teal-tile hover:-translate-y-2 transition-all duration-500">
         <table className="w-full text-sm">
-          <thead>
+          <thead className="sticky top-0 bg-black/95 backdrop-blur-sm">
             <tr className="border-b border-white/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
-              {["Name", "Specialization", "Contact", "Certifications", ""].map((h) => (
+              {["Name", "Specialization", "Sports Coached", "Contact", "Certifications", ""].map((h) => (
                 <th key={h} className="text-left py-2.5 text-xs text-white/40 font-semibold uppercase tracking-wider">{h}</th>
               ))}
             </tr>
@@ -181,6 +202,9 @@ export default function AdminCoaches() {
                   </div>
                 </td>
                 <td className="py-2.5 text-white/70">{c.specialization}</td>
+                <td className="py-2.5">
+                  <SportBadgeList sports={c.sports} size="sm" emptyText="No sports assigned" />
+                </td>
                 <td className="py-2.5 text-white/70 text-xs">
                   {c.email && <div>{c.email}</div>}
                   {c.phone && <div>{c.phone}</div>}
@@ -210,6 +234,31 @@ export default function AdminCoaches() {
             ))}
           </tbody>
         </table>
+      </div>
+
+      {/* Stats Tiles - Sport-based counts */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+        {/* All Coaches Tile */}
+        <div className="card-premium text-center hover:border-amber-500/50 hover:-translate-y-2 transition-all duration-500">
+          <p className="text-2xl font-bold text-white">{coachList.length}</p>
+          <p className="text-xs text-white/60 mt-1">All Coaches</p>
+        </div>
+        
+        {/* Per-Sport Tiles */}
+        {(Object.keys(sportConfigs) as SportID[]).map((sportId) => {
+          const config = sportConfigs[sportId];
+          const count = coachList.filter(c => c.sports.includes(sportId)).length;
+          
+          return (
+            <div 
+              key={sportId} 
+              className={`card-premium text-center hover:border-${config.classes.accentText.replace('text-', '')}/50 hover:-translate-y-2 transition-all duration-500`}
+            >
+              <p className="text-2xl font-bold text-white">{count}</p>
+              <p className={`text-xs mt-1 font-medium ${config.classes.accentText}`}>{config.label}</p>
+            </div>
+          );
+        })}
       </div>
 
       {/* Add/Edit Dialog */}
@@ -273,6 +322,41 @@ export default function AdminCoaches() {
                 placeholder="e.g., FINA Level 2, CPR Certified"
                 className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-white/80 text-sm font-medium">
+                Sports Coached <span className="text-white/40 text-xs">(select all that apply)</span>
+              </Label>
+              <div className="grid grid-cols-2 gap-2 mt-2">
+                {(Object.keys(sportConfigs) as SportID[]).map((sportId) => {
+                  const config = sportConfigs[sportId];
+                  const isChecked = formData.sports.includes(sportId);
+                  
+                  return (
+                    <label 
+                      key={sportId} 
+                      className={`flex items-center gap-2 p-2 rounded-lg border cursor-pointer transition-colors ${
+                        isChecked 
+                          ? `${config.classes.accentBg} ${config.classes.accentBorder} ${config.classes.accentText}` 
+                          : 'border-white/10 bg-white/5 text-white/60 hover:bg-white/10'
+                      }`}
+                    >
+                      <input
+                        type="checkbox"
+                        checked={isChecked}
+                        onChange={(e) => {
+                          const newSports = e.target.checked
+                            ? [...formData.sports, sportId]
+                            : formData.sports.filter(s => s !== sportId);
+                          setFormData({ ...formData, sports: newSports });
+                        }}
+                        className="w-4 h-4 rounded border-white/20 text-amber-500 focus:ring-amber-500/20"
+                      />
+                      <span className="text-sm font-medium">{config.label}</span>
+                    </label>
+                  );
+                })}
+              </div>
             </div>
           </div>
           <DialogFooter>

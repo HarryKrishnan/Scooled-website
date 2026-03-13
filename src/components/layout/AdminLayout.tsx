@@ -19,7 +19,7 @@ const navItems = [
   { label: "Memberships", path: "/admin/memberships", icon: CardIcon },
   { label: "Attendance", path: "/admin/attendance", icon: ClipboardCheck },
   { label: "Progress", path: "/admin/progress", icon: TrendingUp },
-  { label: "Notifications", path: "/admin/notifications", icon: Bell },
+  { label: "Reminders", path: "/admin/notifications", icon: Bell },
   { label: "Reports", path: "/admin/reports", icon: BarChart3 },
   { label: "Settings", path: "/admin/settings", icon: Settings },
 ];

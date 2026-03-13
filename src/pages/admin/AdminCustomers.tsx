@@ -6,6 +6,9 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { SportID } from "@/data/sportConfig";
+import sportConfigs from "@/data/sportConfig";
+import { SportBadgeList } from "@/components/ui/SportBadge";
 
 type Customer = {
   id: string;
@@ -15,10 +18,12 @@ type Customer = {
   membership: string;
   status: string;
   joinDate: string;
+  sports: SportID[];
 };
 
 export default function AdminCustomers() {
   const [search, setSearch] = useState("");
+  const [sportFilter, setSportFilter] = useState<"all" | SportID>("all");
   const [customerList, setCustomerList] = useState<Customer[]>(customers);
   const [deleteMode, setDeleteMode] = useState(false);
   const [selected, setSelected] = useState<string[]>([]);
@@ -31,9 +36,14 @@ export default function AdminCustomers() {
     membership: "Monthly",
     status: "Active",
     joinDate: new Date().toISOString().split("T")[0],
+    sports: [] as SportID[],
   });
 
-  const filtered = customerList.filter((c) => c.name.toLowerCase().includes(search.toLowerCase()));
+  const filtered = customerList.filter((c) => {
+    const matchesSearch = c.name.toLowerCase().includes(search.toLowerCase());
+    const matchesSport = sportFilter === "all" || c.sports.includes(sportFilter);
+    return matchesSearch && matchesSport;
+  });
 
   const handleAddNew = () => {
     setEditingCustomer(null);
@@ -44,6 +54,7 @@ export default function AdminCustomers() {
       membership: "Monthly",
       status: "Active",
       joinDate: new Date().toISOString().split("T")[0],
+      sports: [],
     });
     setDialogOpen(true);
   };
@@ -57,6 +68,7 @@ export default function AdminCustomers() {
       membership: customer.membership,
       status: customer.status,
       joinDate: customer.joinDate,
+      sports: customer.sports || [],
     });
     setDialogOpen(true);
   };
@@ -96,6 +108,22 @@ export default function AdminCustomers() {
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <h1 className="font-display text-4xl font-bold text-white">Customers</h1>
         <div className="flex items-center gap-2 flex-wrap">
+          <Select value={sportFilter} onValueChange={(v) => setSportFilter(v as "all" | SportID)}>
+            <SelectTrigger className="w-[140px] rounded-xl border-white/10 bg-white/10 text-white text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent className="bg-black/95 border-white/10 text-white">
+              <SelectItem value="all">All Sports</SelectItem>
+              {(Object.keys(sportConfigs) as SportID[]).map((sportId) => {
+                const config = sportConfigs[sportId];
+                return (
+                  <SelectItem key={sportId} value={sportId}>
+                    {config.label}
+                  </SelectItem>
+                );
+              })}
+            </SelectContent>
+          </Select>
           <div className="relative">
             <Search size={16} className="absolute left-3 top-2.5 text-white/60" />
             <input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Search customers..." className="pl-10 pr-4 py-2 rounded-xl border border-white/10 bg-white/10 backdrop-blur-sm text-sm w-64 focus:outline-none focus:ring-2 focus:ring-amber-500/20 text-white placeholder:text-white/40" />
@@ -135,7 +163,7 @@ export default function AdminCustomers() {
           <thead>
             <tr className="border-b border-white/10">
               {deleteMode && <th className="text-left py-2.5 w-10"></th>}
-              {["Name", "Email", "Phone", "Membership", "Status", "Joined", ""].map((h) => (
+              {["Name", "Email", "Phone", "Sports", "Membership", "Status", "Joined", ""].map((h) => (
                 <th key={h} className="text-left py-2.5 text-xs text-white/40 font-semibold uppercase tracking-wider">{h}</th>
               ))}
             </tr>
@@ -161,6 +189,9 @@ export default function AdminCustomers() {
                 </td>
                 <td className="py-2.5 text-white/70">{c.email}</td>
                 <td className="py-2.5 text-white/70">{c.phone}</td>
+                <td className="py-2.5">
+                  <SportBadgeList sports={c.sports} />
+                </td>
                 <td className="py-2.5 text-white/70">{c.membership}</td>
                 <td className="py-2.5">
                   <span className={`text-xs px-2.5 py-1 rounded-full font-semibold border ${
@@ -225,6 +256,34 @@ export default function AdminCustomers() {
                 placeholder="+91 XXXXX XXXXX"
                 className="rounded-xl border-white/10 bg-white/10 text-white placeholder:text-white/40"
               />
+            </div>
+            <div className="space-y-2">
+              <Label className="text-white/80 text-sm font-medium">Sports</Label>
+              <div className="grid grid-cols-2 gap-2">
+                {(Object.keys(sportConfigs) as SportID[]).map((sportId) => {
+                  const config = sportConfigs[sportId];
+                  const isSelected = formData.sports.includes(sportId);
+                  return (
+                    <button
+                      key={sportId}
+                      type="button"
+                      onClick={() => {
+                        const newSports = isSelected
+                          ? formData.sports.filter((s) => s !== sportId)
+                          : [...formData.sports, sportId];
+                        setFormData({ ...formData, sports: newSports });
+                      }}
+                      className={`px-3 py-2 rounded-lg border text-xs font-semibold transition-all ${
+                        isSelected
+                          ? `${config.classes.accentBg} ${config.classes.accentText} ${config.classes.accentBorder}`
+                          : "bg-white/5 text-white/60 border-white/10 hover:bg-white/10"
+                      }`}
+                    >
+                      {config.label}
+                    </button>
+                  );
+                })}
+              </div>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div className="space-y-2">

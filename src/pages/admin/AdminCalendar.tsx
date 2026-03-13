@@ -5,6 +5,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
+import { format, startOfWeek, endOfWeek } from "date-fns";
 
 type ViewMode = "daily" | "weekly" | "monthly";
 
@@ -29,6 +30,7 @@ type Slot = {
 export default function AdminCalendar() {
   const [viewMode, setViewMode] = useState<ViewMode>("daily");
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [clickedDate, setClickedDate] = useState<Date | null>(null);
   const [selectedCentre, setSelectedCentre] = useState<string>(centres[0].id);
   const [cancelDialog, setCancelDialog] = useState<{ open: boolean; booking: SlotBooking | null }>({ open: false, booking: null });
   const [bookingList, setBookingList] = useState<SlotBooking[]>(slotBookings);
@@ -95,6 +97,31 @@ export default function AdminCalendar() {
 
   const goToToday = () => {
     setSelectedDate(new Date());
+  };
+
+  // Get adaptive date range display based on view mode
+  const getDateRangeDisplay = () => {
+    if (viewMode === "weekly") {
+      const weekStart = startOfWeek(selectedDate, { weekStartsOn: 0 });
+      const weekEnd = endOfWeek(selectedDate, { weekStartsOn: 0 });
+      return `${format(weekStart, "do MMM")} - ${format(weekEnd, "do MMM yyyy")}`;
+    } else if (viewMode === "monthly") {
+      return format(selectedDate, "MMMM yyyy");
+    } else {
+      return formatDisplayDate(selectedDate);
+    }
+  };
+
+  // Handle calendar date click
+  const handleCalendarDateClick = (date: Date | undefined) => {
+    if (date) {
+      // Toggle behavior: if same date clicked again, deselect
+      if (clickedDate && formatDate(date) === formatDate(clickedDate)) {
+        setClickedDate(null);
+      } else {
+        setClickedDate(date);
+      }
+    }
   };
 
   // Calculate stats for selected date/centre
@@ -293,33 +320,140 @@ export default function AdminCalendar() {
             <p className="text-xs text-white/40 mt-1 font-medium">Bookings per day</p>
           </div>
         </div>
+      </div>
+    );
+  };
 
-        {/* Calendar */}
-        <div className="card-premium">
-          <Calendar
-            mode="single"
-            selected={selectedDate}
-            onSelect={(date) => {
-              if (date) {
-                setSelectedDate(date);
-                setViewMode("daily");
-              }
-            }}
-            className="rounded-md border-0"
-            modifiers={{
-              booked: (date) => {
-                const dateStr = formatDate(date);
-                return getBookingsForDate(dateStr, selectedCentre).length > 0;
-              }
-            }}
-            modifiersStyles={{
-              booked: {
-                fontWeight: 'bold',
-                backgroundColor: 'rgba(59, 130, 246, 0.1)',
-              }
-            }}
-          />
+  // Enhanced Calendar Component (visible in all views)
+  const CalendarWidget = () => {
+    return (
+      <div className="card-premium p-6">
+        <h3 className="text-lg font-bold text-white mb-4">Select Date</h3>
+        <Calendar
+          mode="single"
+          selected={clickedDate || undefined}
+          onSelect={handleCalendarDateClick}
+          className="rounded-md border-0 [&_.rdp-months]:w-full [&_.rdp-month]:w-full [&_.rdp-caption]:text-white [&_.rdp-caption]:text-base [&_.rdp-caption]:font-bold [&_.rdp-nav_button]:hover:bg-white/10 [&_.rdp-nav_button]:text-white [&_.rdp-head_cell]:text-white/60 [&_.rdp-head_cell]:font-bold [&_.rdp-head_cell]:text-sm [&_.rdp-cell]:p-0 [&_.rdp-day]:h-14 [&_.rdp-day]:w-full [&_.rdp-day]:text-base [&_.rdp-day]:font-medium [&_.rdp-day]:text-white/80 [&_.rdp-day:hover]:bg-white/10 [&_.rdp-day_selected]:bg-amber-500 [&_.rdp-day_selected]:text-white [&_.rdp-day_selected]:font-bold [&_.rdp-day_selected]:hover:bg-amber-600 [&_.rdp-day_today]:bg-white/5 [&_.rdp-day_today]:border-2 [&_.rdp-day_today]:border-primary [&_.rdp-day_today]:font-bold"
+          modifiers={{
+            booked: (date) => {
+              const dateStr = formatDate(date);
+              return getBookingsForDate(dateStr, selectedCentre).length > 0;
+            }
+          }}
+          modifiersStyles={{
+            booked: {
+              position: 'relative',
+            }
+          }}
+          modifiersClassNames={{
+            booked: "after:content-[''] after:absolute after:bottom-1 after:left-1/2 after:-translate-x-1/2 after:w-1.5 after:h-1.5 after:bg-primary after:rounded-full"
+          }}
+        />
+      </div>
+    );
+  };
+
+  // Side Panel Schedule Display
+  const SidePanel = () => {
+    if (!clickedDate) return null;
+
+    const clickedDateStr = formatDate(clickedDate);
+    const dayBookings = getBookingsForDate(clickedDateStr, selectedCentre);
+
+    // Group bookings by slot and sort by time
+    const sortedSlots = [...slots].sort((a, b) => {
+      const getHour = (time: string) => {
+        const match = time.match(/(\d+):(\d+)\s*(AM|PM)/);
+        if (!match) return 0;
+        let hour = parseInt(match[1]);
+        if (match[3] === "PM" && hour !== 12) hour += 12;
+        if (match[3] === "AM" && hour === 12) hour = 0;
+        return hour;
+      };
+      return getHour(a.time) - getHour(b.time);
+    });
+
+    const slotsWithBookings = sortedSlots.map(slot => ({
+      slot,
+      bookings: dayBookings.filter(b => b.slotId === slot.id)
+    })).filter(item => item.bookings.length > 0);
+
+    return (
+      <div className="w-[360px] card-premium p-6 space-y-4 max-h-[calc(100vh-240px)] overflow-y-auto hidden lg:block">
+        <div className="flex items-center justify-between mb-2">
+          <div>
+            <h3 className="text-lg font-bold text-white">Schedules</h3>
+            <p className="text-sm text-white/60 font-medium">{format(clickedDate, "EEEE, do MMMM yyyy")}</p>
+          </div>
+          <button
+            onClick={() => setClickedDate(null)}
+            className="p-2 rounded-lg hover:bg-white/10 text-white/60 hover:text-white transition-colors"
+            title="Close panel"
+          >
+            <X size={18} />
+          </button>
         </div>
+
+        {slotsWithBookings.length === 0 ? (
+          <div className="text-center py-12">
+            <CalendarIcon size={48} className="text-white/20 mx-auto mb-3" />
+            <p className="text-white/60 font-medium">No schedules for this date</p>
+            <p className="text-xs text-white/40 mt-1">Select another date to view bookings</p>
+          </div>
+        ) : (
+          <div className="space-y-4">
+            {slotsWithBookings.map(({ slot, bookings }) => {
+              const availability = getAvailabilityColor(bookings.length, slot.capacity);
+              
+              return (
+                <div key={slot.id} className="p-4 rounded-xl bg-white/5 border border-white/10 space-y-3">
+                  {/* Slot Header */}
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-2">
+                      <Clock size={14} className="text-white/60" />
+                      <span className="text-sm font-bold text-white">{slot.time}</span>
+                    </div>
+                    <span className={`text-xs px-2 py-1 rounded-full font-medium ${
+                      slot.type === "Open Swim" ? "bg-primary/10 text-primary" :
+                      slot.type === "Coaching" ? "bg-orange-500/10 text-orange-500" :
+                      slot.type === "Ladies Only" ? "bg-pink-500/10 text-pink-500" :
+                      "bg-cyan/10 text-cyan"
+                    }`}>
+                      {slot.type}
+                    </span>
+                  </div>
+
+                  {/* Capacity Indicator */}
+                  <div className="flex items-center justify-between text-xs">
+                    <span className="text-white/60 font-medium">{bookings.length}/{slot.capacity} booked</span>
+                    <span className={`font-bold ${availability.text}`}>{availability.status}</span>
+                  </div>
+
+                  {/* Bookings List */}
+                  <div className="space-y-2">
+                    {bookings.map((booking) => (
+                      <div key={booking.id} className="flex items-center justify-between p-2 rounded-lg bg-white/5 border border-white/10">
+                        <div className="flex items-center gap-2">
+                          <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary text-xs font-bold">
+                            {booking.customerName.charAt(0)}
+                          </div>
+                          <span className="text-xs font-medium text-white">{booking.customerName}</span>
+                        </div>
+                        <button
+                          onClick={() => handleCancelBooking(booking)}
+                          className="p-1 rounded hover:bg-destructive/10 text-destructive transition-colors"
+                          title="Cancel booking"
+                        >
+                          <X size={12} />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        )}
       </div>
     );
   };
@@ -364,8 +498,8 @@ export default function AdminCalendar() {
             >
               <ChevronLeft size={16} className="text-white" />
             </button>
-            <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/10 min-w-[180px] text-center">
-              <span className="text-sm font-bold text-white">{formatDisplayDate(selectedDate)}</span>
+            <div className="px-4 py-2 rounded-xl bg-white/10 border border-white/10 min-w-[200px] text-center">
+              <span className="text-sm font-bold text-white">{getDateRangeDisplay()}</span>
             </div>
             <button
               onClick={() => navigateDate("next")}
@@ -429,11 +563,23 @@ export default function AdminCalendar() {
         </div>
       )}
 
-      {/* View Content */}
-      <div>
-        {viewMode === "daily" && <DailyView />}
-        {viewMode === "weekly" && <WeeklyView />}
-        {viewMode === "monthly" && <MonthlyView />}
+      {/* Two-Panel Layout: Main Content + Side Panel */}
+      <div className="flex gap-6">
+        {/* Main Content Area */}
+        <div className="flex-1 space-y-6">
+          {/* Calendar Widget (visible in all views) */}
+          <CalendarWidget />
+
+          {/* View-Specific Content */}
+          <div>
+            {viewMode === "daily" && <DailyView />}
+            {viewMode === "weekly" && <WeeklyView />}
+            {viewMode === "monthly" && <MonthlyView />}
+          </div>
+        </div>
+
+        {/* Side Panel (shows when date is clicked) */}
+        <SidePanel />
       </div>
 
       {/* Cancel Booking Dialog */}
