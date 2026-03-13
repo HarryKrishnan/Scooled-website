@@ -106,38 +106,6 @@ export default function LoginPage() {
               className="space-y-4"
             >
 
-              {isRegister && (
-                <div className="grid grid-cols-1 gap-4">
-
-                  <div className="relative group">
-                    <User
-                      size={18}
-                      className="absolute left-4 top-3 text-primary-foreground/30 group-focus-within:text-primary transition-colors"
-                    />
-
-                    <input
-                      required
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border border-white/10 bg-navy/40 text-white text-sm focus:border-primary/50 outline-none transition-all placeholder:text-white/20"
-                      placeholder="Full name"
-                    />
-                  </div>
-
-
-                  <div className="relative group">
-                    <Phone
-                      size={18}
-                      className="absolute left-4 top-3 text-primary-foreground/30 group-focus-within:text-primary transition-colors"
-                    />
-
-                    <input
-                      className="w-full pl-12 pr-4 py-3 rounded-xl border border-white/10 bg-navy/40 text-white text-sm focus:border-primary/50 outline-none transition-all placeholder:text-white/20"
-                      placeholder="Phone number"
-                    />
-                  </div>
-
-                </div>
-              )}
-
 
               {/* Email */}
               <div className="relative group">
@@ -179,16 +147,14 @@ export default function LoginPage() {
               </div>
 
 
-              {!isRegister && (
-                <div className="flex justify-end">
-                  <a
-                    href="#"
-                    className="text-xs text-primary-foreground/40 hover:text-primary transition-colors"
-                  >
-                    Forgot password?
-                  </a>
-                </div>
-              )}
+              <div className="flex justify-end">
+                <a
+                  href="#"
+                  className="text-xs text-primary-foreground/40 hover:text-primary transition-colors"
+                >
+                  Forgot password?
+                </a>
+              </div>
 
 
               {/* Button */}
@@ -196,7 +162,7 @@ export default function LoginPage() {
                 type="submit"
                 className="btn-primary w-full py-3 text-base font-bold shadow-xl shadow-primary/10"
               >
-                {isRegister ? "Create Account" : "Sign In"}
+                Sign In
               </button>
 
             </form>
@@ -218,13 +184,13 @@ export default function LoginPage() {
 
             {/* Toggle Login/Register */}
             <p className="text-center text-sm text-primary-foreground/50">
-              {isRegister ? "Already a member?" : "Don't have an account?"}{" "}
-              <button
-                onClick={() => setIsRegister(!isRegister)}
+              Don't have an account?{" "}
+              <Link
+                to="/register"
                 className="text-primary font-bold hover:text-primary/80 transition-all"
               >
-                {isRegister ? "Sign In" : "Register"}
-              </button>
+                Register
+              </Link>
             </p>
 
 

@@ -407,58 +407,78 @@ export default function SportDashboard({
         </div>
       </div>
 
-      {/* Quick Actions Grid */}
-      {quickActions && quickActions.length > 0 && (
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {quickActions.map((action, i) => (
-            <Link
-              key={i}
-              to={action.path}
-              className={`card-premium border-${tileColor === 'blue-tile' ? 'cyan-tile' : tileColor} flex flex-col items-center justify-center p-6 gap-3 group hover:-translate-y-1 transition-transform`}
-            >
-              <div className={`p-4 rounded-2xl ${action.color} group-hover:scale-110 group-hover:-rotate-3 transition-all shadow-lg shadow-black/20`}>
-                <action.icon size={28} />
-              </div>
-              <span className="text-white font-bold text-sm text-center">{action.label}</span>
-            </Link>
-          ))}
-        </div>
-      )}
 
       <div className="grid lg:grid-cols-4 gap-6">
         <div className={`lg:col-span-3 card-premium border-${tileColor === 'blue-tile' ? 'red-tile' : tileColor}`}>
           <div className="flex items-center justify-between mb-8">
             <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-              <GraduationCap size={24} className={`${accentColor}`} /> Training Performance
+              <GraduationCap size={24} className={`${accentColor}`} /> Training & Schedule
             </h2>
-            <Link to="/portal/programs" className={`text-xs font-bold ${accentColor} hover:underline`}>Full Analytics</Link>
+            <Link to="programs" className={`text-xs font-bold ${accentColor} hover:underline`}>Full Analytics</Link>
           </div>
-          <div className="grid md:grid-cols-2 gap-8">
-            {enrollments.map((prog) => (
-              <div key={prog.programId} className="space-y-3">
-                <div className="flex justify-between items-end">
-                  <p className="text-sm font-bold text-white">{prog.title}</p>
-                  <div className="flex items-center gap-1">
-                    <Star size={10} className="fill-amber-500 text-amber-500" />
-                    <p className="text-xs font-black text-white">{prog.progress}%</p>
+          <div className="grid md:grid-cols-2 gap-12">
+            <div className="space-y-6">
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Performance</h3>
+              {enrollments.map((prog) => (
+                <div key={prog.programId} className="space-y-3">
+                  <div className="flex justify-between items-end">
+                    <p className="text-sm font-bold text-white">{prog.title}</p>
+                    <div className="flex items-center gap-1">
+                      <Star size={10} className="fill-amber-500 text-amber-500" />
+                      <p className="text-xs font-black text-white">{prog.progress}%</p>
+                    </div>
+                  </div>
+                  <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                    <motion.div
+                      initial={{ width: 0 }}
+                      animate={{ width: `${prog.progress}%` }}
+                      transition={{ duration: 1.5, ease: "easeOut" }}
+                      className={`h-full bg-gradient-to-r ${accentBadge} to-emerald-400 relative`}
+                    >
+                      <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
+                    </motion.div>
+                  </div>
+                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30">
+                    <span>{prog.sessionsCompleted} Sessions</span>
+                    <span>{prog.sessionsTotal - prog.sessionsCompleted} Left</span>
                   </div>
                 </div>
-                <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-                  <motion.div
-                    initial={{ width: 0 }}
-                    animate={{ width: `${prog.progress}%` }}
-                    transition={{ duration: 1.5, ease: "easeOut" }}
-                    className={`h-full bg-gradient-to-r ${accentBadge} to-emerald-400 relative`}
-                  >
-                    <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
-                  </motion.div>
+              ))}
+            </div>
+
+            <div className="space-y-6 pt-1">
+              <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Active Schedule</h3>
+              {enrollments.length > 0 ? (
+                <div className="space-y-4">
+                  {enrollments.map((prog) => (
+                    <div key={`sched-${prog.programId}`} className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-4">
+                      <div className="flex items-center gap-3">
+                        <div className={`p-2 rounded-xl ${accentBg}`}>
+                          <Clock size={16} className={accentColor} />
+                        </div>
+                        <div>
+                          <p className={`text-xs font-black uppercase tracking-widest ${accentColor}`}>{prog.days}</p>
+                          <p className="text-sm font-bold text-white">{prog.time}</p>
+                        </div>
+                      </div>
+                      <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                        <div className="p-2 rounded-xl bg-white/5">
+                          <MapPin size={16} className="text-white/40" />
+                        </div>
+                        <div>
+                          <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Venue & Slot</p>
+                          <p className="text-sm font-bold text-white">{prog.lane} • {prog.center.split('—')[1]?.trim() || prog.center}</p>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-                <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30">
-                  <span>{prog.sessionsCompleted} Sessions</span>
-                  <span>{prog.sessionsTotal - prog.sessionsCompleted} Left</span>
+              ) : (
+                <div className="h-full flex items-center justify-center p-8 rounded-2xl border border-dashed border-white/10">
+                  <p className="text-xs font-bold text-white/40 uppercase tracking-widest">No active coaching</p>
                 </div>
-              </div>
-            ))}
+              )}
+            </div>
           </div>
         </div>
 

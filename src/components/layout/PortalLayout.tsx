@@ -20,6 +20,7 @@ const getProfileNavItems = (basePath: string) => [
   { label: "Stats", path: `${basePath}/progress`, icon: TrendingUp },
   { label: "Memberships", path: `${basePath}/memberships`, icon: CreditCard },
   { label: "Payments", path: `${basePath}/payments`, icon: Wallet },
+  { label: "Feedback", path: `${basePath}/feedback`, icon: MessageSquare },
 ];
 
 export default function PortalLayout() {
@@ -145,10 +146,19 @@ export default function PortalLayout() {
                 </AnimatePresence>
               </div>
 
-              <button className="relative w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-amber-500/20 hover:text-amber-500 transition-all">
+              <Link 
+                to={`${basePath}/notifications`}
+                className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
+                   location.pathname === `${basePath}/notifications`
+                    ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
+                    : "bg-white/10 text-white/60 hover:bg-amber-500/20 hover:text-amber-500"
+                }`}
+              >
                 <Bell size={18} />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-amber-500 rounded-full border-2 border-black" />
-              </button>
+                <span className={`absolute top-2.5 right-2.5 w-2 h-2 rounded-full border-2 border-black ${
+                  location.pathname === `${basePath}/notifications` ? "bg-navy" : "bg-amber-500"
+                }`} />
+              </Link>
               <div className="relative">
                 <button 
                   onClick={() => setShowProfileMenu(!showProfileMenu)}

@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MapPin, Calendar as CalendarIcon, Clock, Users, CheckCircle2, AlertCircle } from "lucide-react";
 import { centres } from "@/data/mockData";
 
@@ -19,6 +20,7 @@ interface SportBookSlotProps {
   buttonGradientClass: string;
   slots: Slot[];
   getCapacityLabel: (avail: number, full: boolean) => string;
+  hasMembership: boolean;
 }
 
 export default function SportBookSlot({
@@ -29,6 +31,7 @@ export default function SportBookSlot({
   buttonGradientClass,
   slots,
   getCapacityLabel,
+  hasMembership,
 }: SportBookSlotProps) {
   const [selectedCentre, setSelectedCentre] = useState(centres[0].id);
   const [selectedDate, setSelectedDate] = useState("2026-03-12");
@@ -40,13 +43,30 @@ export default function SportBookSlot({
 
   return (
     <div className="space-y-8">
+      {!hasMembership && (
+        <div className="card-premium border-amber-500/50 bg-amber-500/5 flex items-center gap-4 py-6">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white shrink-0">
+            <AlertCircle size={24} />
+          </div>
+          <div className="flex-1">
+            <h4 className="text-amber-500 font-bold text-base mb-1">Active Membership Required</h4>
+            <p className="text-white/60 text-xs font-semibold leading-relaxed">
+              Ad-hoc booking is reserved for members only. Please purchase or renew your membership to continue.
+            </p>
+          </div>
+          <Link to="../memberships" className="px-6 py-3 rounded-xl bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform">
+            View Plans
+          </Link>
+        </div>
+      )}
+
       <div className={`card-premium ${headerBorderClass} bg-black/95 mb-8`}>
         <h1 className="font-display text-3xl font-bold text-white tracking-tight">{title}</h1>
         <p className="text-sm text-white/70 font-bold mt-1">{subtitle}</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+        <div className={`lg:col-span-2 space-y-6 ${!hasMembership ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
           {/* Centre Selection */}
           <div className="card-premium border-white/5 bg-black/95">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-primary mb-8 flex items-center gap-3">
@@ -145,7 +165,15 @@ export default function SportBookSlot({
         <div className="lg:col-span-1">
           <div className="card-premium border-gold-tile bg-black/95 sticky top-24 shadow-2xl shadow-primary/5">
             <h3 className="font-display text-lg font-bold text-white mb-8 uppercase tracking-tight">Booking Summary</h3>
-            {showSummary && slot ? (
+            {!hasMembership ? (
+              <div className="text-center py-16 px-6">
+                <div className="w-16 h-16 rounded-3xl bg-amber-500/10 flex items-center justify-center mx-auto mb-6">
+                  <Shield size={32} className="text-amber-500" />
+                </div>
+                <p className="text-sm text-white/40 font-medium leading-relaxed mb-8">You need an active membership to book ad-hoc slots.</p>
+                <Link to="../memberships" className="btn-primary w-full block text-center py-4 bg-amber-500 shadow-amber-500/20">Upgrade Now</Link>
+              </div>
+            ) : showSummary && slot ? (
               <div className="space-y-8">
                 <div className="space-y-5">
                   {[

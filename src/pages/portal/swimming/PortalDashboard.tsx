@@ -24,13 +24,6 @@ export default function PortalDashboard() {
   // Get active membership for this sport (using index 0 for now as mock)
   const membership = allSportMemberships[sportName][0]; 
 
-  const quickActions = [
-    { label: "Book a Slot", path: "/portal/swimming/book", icon: CalendarCheck, color: "bg-primary/10 text-primary" },
-    { label: "My Bookings", path: "/portal/swimming/bookings", icon: Clock, color: "bg-cyan/10 text-cyan" },
-    { label: "View Programs", path: "/portal/swimming/programs", icon: GraduationCap, color: "bg-aqua/10 text-aqua" },
-    { label: "Make Payment", path: "/portal/swimming/payments", icon: CreditCard, color: "bg-gold/10 text-gold" },
-  ];
-
   return (
     <SportDashboard
       sportName={sportName}
@@ -43,8 +36,8 @@ export default function PortalDashboard() {
       statsPoint={1250}
       campaigns={campaigns}
       upcomingBooking={upcomingBooking}
-      quickActions={quickActions}
-      enrollments={userEnrollments}
+      quickActions={[]}
+      enrollments={userEnrollments.filter(e => e.programId.startsWith('sw-'))}
       membership={membership}
     />
   );

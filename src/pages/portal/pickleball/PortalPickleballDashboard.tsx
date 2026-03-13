@@ -23,38 +23,6 @@ export default function PortalPickleballDashboard() {
   // Get active membership for this sport
   const membership = allSportMemberships[sportName][0]; 
 
-  const quickActions = [
-    { label: "Book a Court", path: "/portal/pickleball/book", icon: CalendarCheck, color: "bg-emerald-500/10 text-emerald-500" },
-    { label: "My Matches", path: "/portal/pickleball/bookings", icon: Clock, color: "bg-cyan/10 text-cyan" },
-    { label: "View Leagues", path: "/portal/pickleball/programs", icon: GraduationCap, color: "bg-emerald-500/10 text-emerald-500" },
-    { label: "Pay Fees", path: "/portal/pickleball/payments", icon: CreditCard, color: "bg-gold/10 text-gold" },
-  ];
-
-  // For mock purposes, we'll keep using the sport-specific hardcoded enrollments if they look better, 
-  // or we can add them to mockData.ts later. For now, keep the local ones but ensure it's sport-specific.
-  const pickleballEnrollments = [
-    {
-      programId: "pb1",
-      title: "Saturday League",
-      coach: "Coach Arjun",
-      sessionsTotal: 12,
-      sessionsCompleted: 4,
-      progress: 33,
-      nextSession: "Sat, 10:00 AM",
-      attendanceRate: 100
-    },
-    {
-      programId: "pb2",
-      title: "Advanced Ball Control",
-      coach: "Coach Rahul",
-      sessionsTotal: 8,
-      sessionsCompleted: 6,
-      progress: 75,
-      nextSession: "Thu, 6:00 PM",
-      attendanceRate: 85
-    }
-  ];
-
   return (
     <SportDashboard
       sportName={sportName}
@@ -68,8 +36,8 @@ export default function PortalPickleballDashboard() {
       statsPoint={850}
       campaigns={campaigns}
       upcomingBooking={upcomingBooking}
-      quickActions={quickActions}
-      enrollments={pickleballEnrollments}
+      quickActions={[]}
+      enrollments={userEnrollments.filter(e => e.programId.startsWith('pb-'))}
       membership={membership}
     />
   );

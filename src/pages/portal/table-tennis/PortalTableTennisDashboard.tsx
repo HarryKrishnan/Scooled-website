@@ -23,36 +23,6 @@ export default function PortalTableTennisDashboard() {
   // Get active membership for this sport
   const membership = allSportMemberships[sportName][0]; 
 
-  const quickActions = [
-    { label: "Book a Table", path: "/portal/table-tennis/book", icon: CalendarCheck, color: "bg-rose-500/10 text-rose-500" },
-    { label: "My Matches", path: "/portal/table-tennis/bookings", icon: Clock, color: "bg-cyan/10 text-cyan" },
-    { label: "View Leagues", path: "/portal/table-tennis/programs", icon: GraduationCap, color: "bg-rose-500/10 text-rose-500" },
-    { label: "Pay Fees", path: "/portal/table-tennis/payments", icon: CreditCard, color: "bg-gold/10 text-gold" },
-  ];
-
-  const ttEnrollments = [
-    {
-      programId: "tt1",
-      title: "Saturday League",
-      coach: "Coach Arjun",
-      sessionsTotal: 12,
-      sessionsCompleted: 4,
-      progress: 33,
-      nextSession: "Sat, 11:00 AM",
-      attendanceRate: 90
-    },
-    {
-      programId: "tt2",
-      title: "Advanced Spin Control",
-      coach: "Coach Rahul",
-      sessionsTotal: 8,
-      sessionsCompleted: 6,
-      progress: 75,
-      nextSession: "Wed, 7:00 PM",
-      attendanceRate: 80
-    }
-  ];
-
   return (
     <SportDashboard
       sportName={sportName}
@@ -66,8 +36,8 @@ export default function PortalTableTennisDashboard() {
       statsPoint={850}
       campaigns={campaigns}
       upcomingBooking={upcomingBooking}
-      quickActions={quickActions}
-      enrollments={ttEnrollments}
+      quickActions={[]}
+      enrollments={userEnrollments.filter(e => e.programId.startsWith('tt-'))}
       membership={membership}
     />
   );
