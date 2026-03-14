@@ -10,7 +10,6 @@ const futsalSlots = [
   { id: "fs5", time: "5:00 PM – 6:00 PM", capacity: 2, booked: 2, type: "Court Booking" },
   { id: "fs6", time: "6:00 PM – 7:00 PM", capacity: 2, booked: 1, type: "Team Match" },
   { id: "fs7", time: "7:00 PM – 8:00 PM", capacity: 2, booked: 0, type: "Court Booking" },
-  { id: "fs8", time: "8:00 PM – 9:00 PM", capacity: 2, booked: 1, type: "Training" },
   { id: "fs9", time: "9:00 PM – 10:00 PM", capacity: 2, booked: 0, type: "Court Booking" },
 ];
 

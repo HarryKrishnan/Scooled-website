@@ -11,6 +11,9 @@ const portalUser = "Aarav Patel";
 export default function PortalDashboard() {
   const sportName = "Swimming";
   
+  const memberStatus = localStorage.getItem('scooled_member_status');
+  const isTrial = memberStatus !== 'active';
+
   // Map allSportPrograms to campaigns
   const campaigns = allSportPrograms[sportName].map(p => ({
     id: p.id,
@@ -22,7 +25,12 @@ export default function PortalDashboard() {
   }));
 
   // Get active membership for this sport (using index 0 for now as mock)
-  const membership = allSportMemberships[sportName][0]; 
+  const mockMembership = allSportMemberships[sportName][0]; 
+  const membership = {
+    name: mockMembership.name,
+    status: "Active",
+    expiryDate: "June 12, 2025"
+  };
 
   return (
     <SportDashboard
@@ -39,6 +47,7 @@ export default function PortalDashboard() {
       quickActions={[]}
       enrollments={userEnrollments.filter(e => e.programId.startsWith('sw-'))}
       membership={membership}
+      isTrial={isTrial}
     />
   );
 }

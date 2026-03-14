@@ -9,6 +9,8 @@ const portalUser = "Aarav Patel";
 
 export default function PortalPickleballDashboard() {
   const sportName = "Pickleball";
+  const memberStatus = localStorage.getItem('scooled_member_status');
+  const isTrial = memberStatus !== 'active';
   
   // Map allSportPrograms to campaigns
   const campaigns = allSportPrograms[sportName].map(p => ({
@@ -21,7 +23,12 @@ export default function PortalPickleballDashboard() {
   }));
 
   // Get active membership for this sport
-  const membership = allSportMemberships[sportName][0]; 
+  const mockMembership = allSportMemberships[sportName][0]; 
+  const membership = {
+    name: mockMembership.name,
+    status: "Active",
+    expiryDate: "May 20, 2025"
+  };
 
   return (
     <SportDashboard
@@ -39,6 +46,7 @@ export default function PortalPickleballDashboard() {
       quickActions={[]}
       enrollments={userEnrollments.filter(e => e.programId.startsWith('pb-'))}
       membership={membership}
+      isTrial={isTrial}
     />
   );
 }

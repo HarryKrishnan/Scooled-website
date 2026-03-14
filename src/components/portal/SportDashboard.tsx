@@ -31,6 +31,7 @@ interface SportDashboardProps {
     status: string;
     expiryDate: string;
   };
+  isTrial?: boolean;
 }
 
 export default function SportDashboard({
@@ -47,7 +48,8 @@ export default function SportDashboard({
   upcomingBooking,
   quickActions,
   enrollments,
-  membership
+  membership,
+  isTrial = false
 }: SportDashboardProps) {
   const [selectedCamp, setSelectedCamp] = useState<any | null>(null);
   const [isRedeeming, setIsRedeeming] = useState(false);
@@ -78,85 +80,289 @@ export default function SportDashboard({
 
   return (
     <div className="space-y-10">
-      <div className={`card-premium border-${tileColor} flex flex-col md:flex-row md:items-center justify-between gap-6`}>
-        <div className="flex flex-col gap-1">
+      {/* Welcome Banner */}
+      <div className={`relative p-10 rounded-[2.5rem] border ${sportName === 'Pickleball' ? 'border-[#ccff00]/60' : `border-${tileColor}`} bg-[#050505] flex flex-col md:flex-row md:items-center justify-between gap-6 overflow-hidden shadow-2xl shadow-emerald-500/5`}>
+        {/* Glow behind */}
+        <div className={`absolute -top-24 -left-24 w-64 h-64 ${accentBg} blur-[120px] opacity-30`} />
+        
+        <div className="flex flex-col gap-1 relative z-10">
           <h1 className="font-display text-4xl font-bold text-white tracking-tight">
             Welcome back, {welcomeName}! 👋
           </h1>
-          <p className="text-white/70 font-semibold text-lg italic">
-            {welcomeSubtitle || `You have 2 ${sportName.toLowerCase()} sessions scheduled for this week.`}
+          <p className="text-white/50 font-medium text-lg leading-relaxed">
+            {isTrial 
+              ? `You have a ${sportName.toLowerCase()} trial session booked.` 
+              : welcomeSubtitle || `You have 2 ${sportName.toLowerCase()} sessions scheduled for this week.`}
           </p>
         </div>
-        <div className="flex items-center gap-4">
-          <div className="p-4 rounded-2xl bg-white/5 border border-white/10 flex flex-col items-center">
-            <span className={`text-[10px] uppercase font-black tracking-widest ${accentColor} mb-1`}>Status</span>
-            <span className="text-sm font-bold text-white">Member</span>
+        
+        <div className="flex items-center gap-3 relative z-10">
+          <div className="w-24 h-20 rounded-[1.5rem] bg-[#111111] flex flex-col items-center justify-center border border-white/5 shadow-inner">
+            <span className={`text-[8px] uppercase font-black tracking-[0.2em] text-white/20 mb-1`}>Status</span>
+            <span className="text-xs font-bold text-white uppercase tracking-tighter">{isTrial ? 'Trial' : 'Member'}</span>
           </div>
-          <div className={`p-4 rounded-2xl ${accentBg} border ${accentBorder} flex flex-col items-center`}>
-            <span className={`text-[10px] uppercase font-black tracking-widest ${accentColor} mb-1`}>Points</span>
-            <span className={`text-sm font-bold ${accentColor}`}>{statsPoint.toLocaleString()}</span>
+          <div className="w-24 h-20 rounded-[1.5rem] bg-[#111111] flex flex-col items-center justify-center border border-white/5 shadow-inner">
+            <span className={`text-[8px] uppercase font-black tracking-[0.2em] text-[#ccff00] mb-1`}>Points</span>
+            <span className={`text-xl font-black text-[#ccff00]`}>{statsPoint}</span>
           </div>
         </div>
       </div>
 
-      {/* Campaigns & Offers Section - Floating Marquee Style */}
-      <div className="relative overflow-hidden -mx-4 px-4 py-4">
-        <div className="flex overflow-hidden">
-          <motion.div
-            className="flex gap-8 whitespace-nowrap"
-            animate={{
-              x: [0, -1000]
-            }}
-            transition={{
-              duration: 30,
-              repeat: Infinity,
-              ease: "linear"
-            }}
-          >
-            {[...campaigns, ...campaigns, ...campaigns].map((camp, i) => (
-              <div
-                key={`${camp.id}-${i}`}
-                onClick={() => setSelectedCamp(camp)}
-                className="relative h-[240px] w-[500px] shrink-0 rounded-[2.5rem] overflow-hidden group cursor-pointer shadow-2xl shadow-black/10 border border-white/20 inline-block align-top"
-              >
-                <div className="absolute inset-0 z-0">
-                  <img
-                    src={camp.image}
-                    alt=""
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity group-hover:opacity-80" />
+      {isTrial ? (
+        <div className="grid lg:grid-cols-2 gap-8">
+          <div className={`relative p-8 rounded-[2.5rem] bg-[#080808] border border-white/10 overflow-hidden group shadow-2xl`}>
+             <div className="absolute top-0 right-0 w-32 h-32 bg-[#ccff00]/5 blur-3xl rounded-full" />
+             <h3 className="text-sm font-black uppercase tracking-widest text-[#ccff00] mb-6 flex items-center gap-2">
+                <CalendarCheck size={18} /> Trial Session Details
+             </h3>
+             
+             <div className="space-y-6 relative z-10">
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#111111] border border-white/5 flex items-center justify-center">
+                    <Clock className="text-[#ccff00] w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-2xl font-black text-white">{upcomingBooking.date}</p>
+                    <p className="text-sm font-bold text-white/40">{upcomingBooking.time}</p>
+                  </div>
                 </div>
 
-                <div className="relative z-10 h-full p-8 flex flex-col justify-end whitespace-normal">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className={`px-4 py-1.5 ${accentBadge} rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-lg`}>
-                      {camp.badge}
-                    </span>
-                    <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
-                      <ArrowRight size={20} />
+                <div className="flex items-center gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-[#111111] border border-white/5 flex items-center justify-center">
+                    <MapPin className="text-[#ccff00] w-6 h-6" />
+                  </div>
+                  <div>
+                    <p className="text-lg font-bold text-white">{upcomingBooking.centre} Centre</p>
+                    <p className="text-xs uppercase font-black text-white/20 tracking-widest">{upcomingBooking.type}</p>
+                  </div>
+                </div>
+
+                <div className="pt-4 border-t border-white/5">
+                   <p className="text-xs text-white/40 italic leading-relaxed">
+                     Please arrive 15 minutes before your scheduled time. All equipment for the trial session will be provided at the centre.
+                   </p>
+                </div>
+             </div>
+          </div>
+
+          <div className={`relative p-8 rounded-[2.5rem] bg-gradient-to-br from-[#111111] to-black border border-white/10 flex flex-col justify-center gap-8 shadow-2xl`}>
+            <div>
+              <h3 className="text-2xl font-display font-black text-white uppercase tracking-tight mb-2">Upgrade to Pro</h3>
+              <p className="text-white/40 text-sm leading-relaxed">
+                Unlock full access to the dashboard including performance tracking, elite coaching programs, and unlimited court bookings.
+              </p>
+            </div>
+            
+            <button 
+              onClick={() => {
+                localStorage.setItem('scooled_force_upgrade', 'true');
+                window.location.reload();
+              }}
+              className="w-full bg-[#ccff00] hover:bg-[#b8e600] text-black font-black py-6 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] shadow-xl shadow-lime-500/20 uppercase text-xs tracking-[0.2em]"
+            >
+              Upgrade Plan
+              <ArrowRight size={18} />
+            </button>
+          </div>
+        </div>
+      ) : (
+        <>
+          {/* Campaigns & Offers Section - Floating Marquee Style */}
+          <div className="relative overflow-hidden -mx-4 px-4 py-4">
+            <div className="flex overflow-hidden">
+              <motion.div
+                className="flex gap-8 whitespace-nowrap"
+                animate={{
+                  x: [0, -1000]
+                }}
+                transition={{
+                  duration: 30,
+                  repeat: Infinity,
+                  ease: "linear"
+                }}
+              >
+                {[...campaigns, ...campaigns, ...campaigns].map((camp, i) => (
+                  <div
+                    key={`${camp.id}-${i}`}
+                    onClick={() => setSelectedCamp(camp)}
+                    className="relative h-[240px] w-[500px] shrink-0 rounded-[2.5rem] overflow-hidden group cursor-pointer shadow-2xl shadow-black/10 border border-white/20 inline-block align-top"
+                  >
+                    <div className="absolute inset-0 z-0">
+                      <img
+                        src={camp.image}
+                        alt=""
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700 ease-out"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/40 to-transparent transition-opacity group-hover:opacity-80" />
+                    </div>
+
+                    <div className="relative z-10 h-full p-8 flex flex-col justify-end whitespace-normal">
+                      <div className="flex items-center justify-between mb-4">
+                        <span className={`px-4 py-1.5 ${accentBadge} rounded-full text-[10px] font-black uppercase tracking-widest text-white shadow-lg`}>
+                          {camp.badge}
+                        </span>
+                        <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md flex items-center justify-center text-white border border-white/20 group-hover:bg-primary group-hover:border-primary transition-all duration-300">
+                          <ArrowRight size={20} />
+                        </div>
+                      </div>
+
+                      <div className="space-y-2">
+                        <h3 className="text-2xl font-display font-bold text-white leading-tight">
+                          {camp.title}
+                        </h3>
+                        <p className="text-white/80 text-sm font-medium max-w-[90%] leading-relaxed">
+                          {camp.desc}
+                        </p>
+                      </div>
+
+                      <div className="mt-4 flex items-center gap-2 text-white font-bold text-xs transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
+                        <span>View Details & Redeem</span>
+                        <ArrowRight size={14} />
+                      </div>
                     </div>
                   </div>
+                ))}
+              </motion.div>
+            </div>
+          </div>
 
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-display font-bold text-white leading-tight">
-                      {camp.title}
-                    </h3>
-                    <p className="text-white/80 text-sm font-medium max-w-[90%] leading-relaxed">
-                      {camp.desc}
-                    </p>
+          <div className="grid lg:grid-cols-2 gap-6">
+            <div className={`card-premium border-${tileColor === 'blue-tile' ? 'green-tile' : tileColor} relative overflow-hidden group`}>
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all" />
+              <h3 className={`text-sm font-black uppercase tracking-widest ${accentColor} mb-6 flex items-center gap-2`}>
+                <CalendarCheck size={16} /> Booking
+              </h3>
+              <div className="space-y-4">
+                <div className="flex flex-col">
+                  <span className={`text-2xl font-bold ${accentColor}`}>{upcomingBooking.date}</span>
+                  <span className="text-sm font-bold text-white/60">{upcomingBooking.time}</span>
+                </div>
+                <div className="flex items-center gap-3 pt-4 border-t border-white/10">
+                  <div className={`p-2 rounded-lg ${accentBg}`}>
+                    <MapPin size={16} className={`${accentColor}`} />
                   </div>
-
-                  <div className="mt-4 flex items-center gap-2 text-white font-bold text-xs transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300">
-                    <span>View Details & Redeem</span>
-                    <ArrowRight size={14} />
+                  <div className="flex flex-col">
+                    <span className={`text-xs font-bold ${accentColor}`}>{upcomingBooking.centre} Centre</span>
+                    <span className="text-[10px] text-white/40 uppercase font-black">{upcomingBooking.type}</span>
                   </div>
                 </div>
               </div>
-            ))}
-          </motion.div>
-        </div>
-      </div>
+            </div>
+
+            <div className={`card-premium border-${tileColor === 'blue-tile' ? 'gold-tile' : tileColor} relative overflow-hidden group`}>
+              <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all" />
+              <h3 className="text-sm font-black uppercase tracking-widest text-amber-500/60 mb-6 flex items-center gap-2">
+                <CreditCard size={16} /> Subscription
+              </h3>
+              <div className="space-y-5">
+                <div>
+                  <p className="text-2xl font-bold text-amber-500 leading-none mb-1">{membership.name} Plan</p>
+                  <p className="text-xs text-white/60 font-bold">Auto-renews on {membership.expiryDate}</p>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
+                    {membership.status}
+                  </span>
+                </div>
+                <Link to="memberships" className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${accentColor} hover:text-white transition-colors pt-2`}>
+                  Upgrade Plan <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+          </div>
+
+
+          <div className="grid lg:grid-cols-4 gap-6">
+            <div className={`lg:col-span-3 card-premium border-${tileColor === 'blue-tile' ? 'red-tile' : tileColor}`}>
+              <div className="flex items-center justify-between mb-8">
+                <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
+                  <GraduationCap size={24} className={`${accentColor}`} /> Training & Schedule
+                </h2>
+                <Link to="programs" className={`text-xs font-bold ${accentColor} hover:underline`}>Full Analytics</Link>
+              </div>
+              <div className="grid md:grid-cols-2 gap-12">
+                <div className="space-y-6">
+                  <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Performance</h3>
+                  {enrollments.map((prog) => (
+                    <div key={prog.programId} className="space-y-3">
+                      <div className="flex justify-between items-end">
+                        <p className="text-sm font-bold text-white">{prog.title}</p>
+                        <div className="flex items-center gap-1">
+                          <Star size={10} className="fill-amber-500 text-amber-500" />
+                          <p className="text-xs font-black text-white">{prog.progress}%</p>
+                        </div>
+                      </div>
+                      <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
+                        <motion.div
+                          initial={{ width: 0 }}
+                          animate={{ width: `${prog.progress}%` }}
+                          transition={{ duration: 1.5, ease: "easeOut" }}
+                          className={`h-full bg-gradient-to-r ${accentBadge} to-emerald-400 relative`}
+                        >
+                          <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
+                        </motion.div>
+                      </div>
+                      <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30">
+                        <span>{prog.sessionsCompleted} Sessions</span>
+                        <span>{prog.sessionsTotal - prog.sessionsCompleted} Left</span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="space-y-6 pt-1">
+                  <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Active Schedule</h3>
+                  {enrollments.length > 0 ? (
+                    <div className="space-y-4">
+                      {enrollments.map((prog) => (
+                        <div key={`sched-${prog.programId}`} className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-4">
+                          <div className="flex items-center gap-3">
+                            <div className={`p-2 rounded-xl ${accentBg}`}>
+                              <Clock size={16} className={accentColor} />
+                            </div>
+                            <div>
+                              <p className={`text-xs font-black uppercase tracking-widest ${accentColor}`}>{prog.days}</p>
+                              <p className="text-sm font-bold text-white">{prog.time}</p>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-3 pt-4 border-t border-white/5">
+                            <div className="p-2 rounded-xl bg-white/5">
+                              <MapPin size={16} className="text-white/40" />
+                            </div>
+                            <div>
+                              <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Venue & Slot</p>
+                              <p className="text-sm font-bold text-white">{prog.lane} • {prog.center.split('—')[1]?.trim() || prog.center}</p>
+                            </div>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="h-full flex items-center justify-center p-8 rounded-2xl border border-dashed border-white/10">
+                      <p className="text-xs font-bold text-white/40 uppercase tracking-widest">No active coaching</p>
+                    </div>
+                  )}
+                </div>
+              </div>
+            </div>
+
+            <div className="lg:col-span-1 space-y-6">
+              <div className={`card-premium border-white/20 hover:border-${accentColor.replace('text-', '')}/40 transition-colors`}>
+                <h3 className="text-sm font-bold text-white mb-4">Need Help?</h3>
+                <p className="text-xs text-white/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
+                <div className="space-y-3">
+                  <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
+                    Chat Support <MessageSquare size={14} />
+                  </button>
+                  <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
+                    Call Manager <Clock size={14} />
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </>
+      )}
 
       {/* Campaign Details Modal */}
       <AnimatePresence>
@@ -361,142 +567,6 @@ export default function SportDashboard({
           </div>
         )}
       </AnimatePresence>
-
-      <div className="grid lg:grid-cols-2 gap-6">
-        <div className={`card-premium border-${tileColor === 'blue-tile' ? 'green-tile' : tileColor} relative overflow-hidden group`}>
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-white/5 rounded-full blur-3xl group-hover:bg-white/10 transition-all" />
-          <h3 className={`text-sm font-black uppercase tracking-widest ${accentColor} mb-6 flex items-center gap-2`}>
-            <CalendarCheck size={16} /> Booking
-          </h3>
-          <div className="space-y-4">
-            <div className="flex flex-col">
-              <span className={`text-2xl font-bold ${accentColor}`}>{upcomingBooking.date}</span>
-              <span className="text-sm font-bold text-white/60">{upcomingBooking.time}</span>
-            </div>
-            <div className="flex items-center gap-3 pt-4 border-t border-white/10">
-              <div className={`p-2 rounded-lg ${accentBg}`}>
-                <MapPin size={16} className={`${accentColor}`} />
-              </div>
-              <div className="flex flex-col">
-                <span className={`text-xs font-bold ${accentColor}`}>{upcomingBooking.centre} Centre</span>
-                <span className="text-[10px] text-white/40 uppercase font-black">{upcomingBooking.type}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <div className={`card-premium border-${tileColor === 'blue-tile' ? 'gold-tile' : tileColor} relative overflow-hidden group`}>
-          <div className="absolute -top-10 -right-10 w-32 h-32 bg-amber-500/10 rounded-full blur-3xl group-hover:bg-amber-500/20 transition-all" />
-          <h3 className="text-sm font-black uppercase tracking-widest text-amber-500/60 mb-6 flex items-center gap-2">
-            <CreditCard size={16} /> Subscription
-          </h3>
-          <div className="space-y-5">
-            <div>
-              <p className="text-2xl font-bold text-amber-500 leading-none mb-1">{membership.name} Plan</p>
-              <p className="text-xs text-white/60 font-bold">Auto-renews on {membership.expiryDate}</p>
-            </div>
-            <div className="flex items-center gap-2">
-              <span className="px-3 py-1 bg-emerald-500/10 text-emerald-400 text-[10px] font-black uppercase tracking-widest rounded-full border border-emerald-500/30">
-                {membership.status}
-              </span>
-            </div>
-            <Link to="memberships" className={`flex items-center gap-2 text-xs font-black uppercase tracking-widest ${accentColor} hover:text-white transition-colors pt-2`}>
-              Upgrade Plan <ArrowRight size={14} />
-            </Link>
-          </div>
-        </div>
-      </div>
-
-
-      <div className="grid lg:grid-cols-4 gap-6">
-        <div className={`lg:col-span-3 card-premium border-${tileColor === 'blue-tile' ? 'red-tile' : tileColor}`}>
-          <div className="flex items-center justify-between mb-8">
-            <h2 className="font-display text-2xl font-bold text-white flex items-center gap-2">
-              <GraduationCap size={24} className={`${accentColor}`} /> Training & Schedule
-            </h2>
-            <Link to="programs" className={`text-xs font-bold ${accentColor} hover:underline`}>Full Analytics</Link>
-          </div>
-          <div className="grid md:grid-cols-2 gap-12">
-            <div className="space-y-6">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Performance</h3>
-              {enrollments.map((prog) => (
-                <div key={prog.programId} className="space-y-3">
-                  <div className="flex justify-between items-end">
-                    <p className="text-sm font-bold text-white">{prog.title}</p>
-                    <div className="flex items-center gap-1">
-                      <Star size={10} className="fill-amber-500 text-amber-500" />
-                      <p className="text-xs font-black text-white">{prog.progress}%</p>
-                    </div>
-                  </div>
-                  <div className="h-2 w-full bg-white/5 rounded-full overflow-hidden border border-white/5">
-                    <motion.div
-                      initial={{ width: 0 }}
-                      animate={{ width: `${prog.progress}%` }}
-                      transition={{ duration: 1.5, ease: "easeOut" }}
-                      className={`h-full bg-gradient-to-r ${accentBadge} to-emerald-400 relative`}
-                    >
-                      <div className="absolute top-0 right-0 w-8 h-full bg-white/20 blur-sm" />
-                    </motion.div>
-                  </div>
-                  <div className="flex justify-between items-center text-[10px] font-black uppercase tracking-widest text-white/30">
-                    <span>{prog.sessionsCompleted} Sessions</span>
-                    <span>{prog.sessionsTotal - prog.sessionsCompleted} Left</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            <div className="space-y-6 pt-1">
-              <h3 className="text-[10px] font-black uppercase tracking-widest text-white/40 mb-4">Active Schedule</h3>
-              {enrollments.length > 0 ? (
-                <div className="space-y-4">
-                  {enrollments.map((prog) => (
-                    <div key={`sched-${prog.programId}`} className="p-5 rounded-2xl bg-white/5 border border-white/5 space-y-4">
-                      <div className="flex items-center gap-3">
-                        <div className={`p-2 rounded-xl ${accentBg}`}>
-                          <Clock size={16} className={accentColor} />
-                        </div>
-                        <div>
-                          <p className={`text-xs font-black uppercase tracking-widest ${accentColor}`}>{prog.days}</p>
-                          <p className="text-sm font-bold text-white">{prog.time}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3 pt-4 border-t border-white/5">
-                        <div className="p-2 rounded-xl bg-white/5">
-                          <MapPin size={16} className="text-white/40" />
-                        </div>
-                        <div>
-                          <p className="text-[10px] font-black uppercase tracking-widest text-white/40">Venue & Slot</p>
-                          <p className="text-sm font-bold text-white">{prog.lane} • {prog.center.split('—')[1]?.trim() || prog.center}</p>
-                        </div>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              ) : (
-                <div className="h-full flex items-center justify-center p-8 rounded-2xl border border-dashed border-white/10">
-                  <p className="text-xs font-bold text-white/40 uppercase tracking-widest">No active coaching</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        <div className="lg:col-span-1 space-y-6">
-          <div className={`card-premium border-white/20 hover:border-${accentColor.replace('text-', '')}/40 transition-colors`}>
-            <h3 className="text-sm font-bold text-white mb-4">Need Help?</h3>
-            <p className="text-xs text-white/60 leading-relaxed mb-6">Our support team is available from 9 AM to 6 PM every day.</p>
-            <div className="space-y-3">
-              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
-                Chat Support <MessageSquare size={14} />
-              </button>
-              <button className="w-full flex items-center justify-between p-3 rounded-xl bg-white/5 hover:bg-white/10 text-xs font-bold text-white transition-all border border-white/10">
-                Call Manager <Clock size={14} />
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>
   );
 }

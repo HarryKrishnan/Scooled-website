@@ -10,6 +10,9 @@ const portalUser = "Aarav Patel";
 export default function PortalTableTennisDashboard() {
   const sportName = "Table Tennis";
   
+  const memberStatus = localStorage.getItem('scooled_member_status');
+  const isTrial = memberStatus !== 'active';
+
   // Map allSportPrograms to campaigns
   const campaigns = allSportPrograms[sportName].map(p => ({
     id: p.id,
@@ -21,24 +24,30 @@ export default function PortalTableTennisDashboard() {
   }));
 
   // Get active membership for this sport
-  const membership = allSportMemberships[sportName][0]; 
+  const mockMembership = allSportMemberships[sportName][0]; 
+  const membership = {
+    name: mockMembership.name,
+    status: "Active",
+    expiryDate: "July 10, 2025"
+  };
 
   return (
     <SportDashboard
       sportName={sportName}
-      accentColor="text-rose-500"
-      accentBg="bg-rose-500/10"
-      accentBorder="border-rose-500/20"
-      accentBadge="bg-rose-500"
-      tileColor="red-tile"
+      accentColor="text-purple-500"
+      accentBg="bg-purple-500/10"
+      accentBorder="border-purple-500/20"
+      accentBadge="bg-purple-500"
+      tileColor="purple-tile"
       welcomeName={portalUser}
       welcomeSubtitle="You have 2 table tennis bookings scheduled this week."
-      statsPoint={850}
+      statsPoint={600}
       campaigns={campaigns}
       upcomingBooking={upcomingBooking}
       quickActions={[]}
       enrollments={userEnrollments.filter(e => e.programId.startsWith('tt-'))}
       membership={membership}
+      isTrial={isTrial}
     />
   );
 }

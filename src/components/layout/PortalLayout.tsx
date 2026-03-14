@@ -89,12 +89,12 @@ export default function PortalLayout() {
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${active
-                        ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
-                        : "text-white/60 hover:bg-white/10 hover:text-white"
+                      className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${active
+                        ? "bg-[#ffb800] text-black shadow-lg shadow-amber-500/20"
+                        : "text-white/60 hover:text-white"
                         }`}
                     >
-                      <Icon size={14} />
+                      {active && <Icon size={14} />}
                       {item.label}
                     </Link>
                   );
@@ -102,14 +102,14 @@ export default function PortalLayout() {
               </nav>
             </div>
 
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-3">
               {/* Sport Switcher Dropdown */}
-              <div className="relative hidden sm:block mr-2">
+              <div className="relative hidden sm:block">
                 <button
                   onClick={() => setShowSportMenu(!showSportMenu)}
-                  className="flex items-center gap-2 px-3 py-1.5 rounded-xl border border-white/10 bg-white/5 text-sm font-bold text-white hover:bg-white/10 transition-all"
+                  className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#111111] border border-white/5 text-xs font-bold text-white hover:bg-black transition-all"
                 >
-                  <span className="text-white/60">Sport:</span> {activeSportName}
+                  <span className="text-white/40">Sport:</span> {activeSportName}
                   <ChevronDown size={14} className="text-white/40" />
                 </button>
 
@@ -148,27 +148,24 @@ export default function PortalLayout() {
 
               <Link 
                 to={`${basePath}/notifications`}
-                className={`relative w-10 h-10 rounded-xl flex items-center justify-center transition-all ${
-                   location.pathname === `${basePath}/notifications`
-                    ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
-                    : "bg-white/10 text-white/60 hover:bg-amber-500/20 hover:text-amber-500"
-                }`}
+                className={`relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all bg-[#111111] border border-white/5 text-white/40 hover:text-white hover:bg-black`}
               >
                 <Bell size={18} />
-                <span className={`absolute top-2.5 right-2.5 w-2 h-2 rounded-full border-2 border-black ${
-                  location.pathname === `${basePath}/notifications` ? "bg-navy" : "bg-amber-500"
-                }`} />
+                <span className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-[#ffb800]" />
               </Link>
-              <div className="relative">
+              
+              <div className="relative ml-2">
                 <button 
                   onClick={() => setShowProfileMenu(!showProfileMenu)}
-                  className="hidden sm:flex items-center gap-3 px-3 border-l border-white/10 ml-1 hover:bg-white/5 rounded-xl transition-all p-1"
+                  className="flex items-center gap-4 pl-4 hover:bg-white/5 rounded-2xl transition-all"
                 >
-                  <div className="text-right">
-                    <p className="text-xs font-bold text-white">Aarav Patel</p>
-                    <p className="text-[10px] font-black uppercase text-amber-500">Pro Member</p>
+                  <div className="text-right hidden sm:block">
+                    <p className="text-xs font-bold text-white leading-tight">Aarav Patel</p>
+                    <p className="text-[9px] font-black uppercase text-[#ffb800] tracking-wider">
+                      {localStorage.getItem('scooled_member_status') === 'active' ? 'Pro Member' : 'Member'}
+                    </p>
                   </div>
-                  <div className="w-10 h-10 rounded-xl bg-amber-500 text-navy flex items-center justify-center font-bold text-sm shadow-lg shadow-amber-500/20">
+                  <div className="w-11 h-11 rounded-2xl bg-[#ffb800] text-black flex items-center justify-center font-black text-sm shadow-xl shadow-amber-500/20">
                     A
                   </div>
                 </button>

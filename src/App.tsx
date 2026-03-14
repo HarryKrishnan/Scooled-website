@@ -2,6 +2,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { Toaster } from "@/components/ui/toaster";
+import MembershipGuard from "@/components/onboarding/MembershipGuard";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 // Layouts
@@ -34,7 +35,7 @@ import SwimmingPortalProgress from "@/pages/portal/swimming/PortalProgress";
 import SwimmingPortalFeedback from "@/pages/portal/swimming/PortalFeedback";
 
 // Futsal Portal Pages
-import FutsalPortalDashboard from "@/pages/portal/futsal/PortalFutsalDashboard";
+import FutsalPortalDashboard from "@/pages/portal/futsal/PortalDashboard";
 import FutsalPortalProfile from "@/pages/portal/futsal/PortalProfile";
 import FutsalPortalBookings from "@/pages/portal/futsal/PortalBookings";
 import FutsalPortalPayments from "@/pages/portal/futsal/PortalPayments";
@@ -111,7 +112,7 @@ const App = () => (
           <Route path="/register" element={<RegisterPage />} />
 
           {/* Customer Portal */}
-          <Route path="/portal" element={<PortalLayout />}>
+          <Route path="/portal" element={<MembershipGuard><PortalLayout /></MembershipGuard>}>
             {/* Default redirect to swimming */}
             <Route index element={<SwimmingPortalDashboard />} />
             

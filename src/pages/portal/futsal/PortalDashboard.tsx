@@ -10,6 +10,8 @@ const portalUser = "Aarav Patel";
 
 export default function PortalDashboard() {
   const sportName = "Futsal";
+  const memberStatus = localStorage.getItem('scooled_member_status');
+  const isTrial = memberStatus !== 'active';
   
   // Map allSportPrograms to campaigns
   const campaigns = allSportPrograms[sportName].map(p => ({
@@ -22,7 +24,12 @@ export default function PortalDashboard() {
   }));
 
   // Get active membership for this sport (using index 1 for Futsal mock)
-  const membership = allSportMemberships[sportName][1]; 
+  const mockMembership = allSportMemberships[sportName][1]; 
+  const membership = {
+    name: mockMembership.name,
+    status: "Active",
+    expiryDate: "April 15, 2025"
+  };
 
   const quickActions = [
     { label: "Book a Slot", path: "/portal/futsal/book", icon: CalendarCheck, color: "bg-primary/10 text-primary" },
@@ -46,6 +53,7 @@ export default function PortalDashboard() {
       quickActions={quickActions}
       enrollments={userEnrollments}
       membership={membership}
+      isTrial={isTrial}
     />
   );
 }
