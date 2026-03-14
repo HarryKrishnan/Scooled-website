@@ -137,6 +137,56 @@
   .scrollbar-hide::-webkit-scrollbar {
     display: none;
   }
+
+  /* ── Auto-hide scrollbar (fade in on scroll, fade out after) ── */
+  .scrollbar-fade {
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+    transition: scrollbar-color 0.3s ease;
+  }
+  .scrollbar-fade:hover,
+  .scrollbar-fade:focus-within {
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .scrollbar-fade::-webkit-scrollbar {
+    width: 5px;
+    height: 5px;
+  }
+  .scrollbar-fade::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-fade::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 999px;
+    transition: background 0.3s ease;
+  }
+  .scrollbar-fade:hover::-webkit-scrollbar-thumb,
+  .scrollbar-fade:focus-within::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+  }
+  .scrollbar-fade::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.28);
+  }
+
+  /* Apply fade scrollbar globally to admin scrollable areas */
+  .admin-scroll {
+    overflow-y: auto;
+    scrollbar-width: thin;
+    scrollbar-color: transparent transparent;
+  }
+  .admin-scroll:hover {
+    scrollbar-color: rgba(255,255,255,0.15) transparent;
+  }
+  .admin-scroll::-webkit-scrollbar { width: 5px; }
+  .admin-scroll::-webkit-scrollbar-track { background: transparent; }
+  .admin-scroll::-webkit-scrollbar-thumb {
+    background: transparent;
+    border-radius: 999px;
+    transition: background 0.4s ease;
+  }
+  .admin-scroll:hover::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.15);
+  }
   .portal-bg {
     @apply bg-transparent;
     min-height: 100vh;

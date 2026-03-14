@@ -24,9 +24,9 @@ export const centres = [
 ];
 
 export const coaches = [
-  { id: "co1", name: "Arjun Menon", specialization: "Competitive Swimming", avatar: "", certifications: ["FINA Level 2", "CPR Certified"] },
-  { id: "co2", name: "Priya Sharma", specialization: "Kids Learn to Swim", avatar: "", certifications: ["SSA Coach", "First Aid"] },
-  { id: "co3", name: "Rahul Das", specialization: "Adult Fitness", avatar: "", certifications: ["ACE Certified", "Lifeguard"] },
+  { id: "co1", name: "Arjun Menon", specialization: "Competitive Swimming", avatar: "", certifications: ["FINA Level 2", "CPR Certified"], sports: ["Swimming", "Futsal"], status: "Active" },
+  { id: "co2", name: "Priya Sharma", specialization: "Kids Learn to Swim", avatar: "", certifications: ["SSA Coach", "First Aid"], sports: ["Swimming", "Table Tennis"], status: "Active" },
+  { id: "co3", name: "Rahul Das", specialization: "Adult Fitness", avatar: "", certifications: ["ACE Certified", "Lifeguard"], sports: ["Swimming", "Pickleball"], status: "Active" },
 ];
 
 export const programs = [
@@ -67,14 +67,14 @@ export const slots = [
 ];
 
 export const customers = [
-  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15" },
-  { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20" },
-  { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01" },
-  { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10" },
-  { id: "cu5", name: "Vikram Singh", email: "vikram@example.com", phone: "+91 98765 43214", membership: "Quarterly", status: "Expired", joinDate: "2024-06-15" },
-  { id: "cu6", name: "Ananya Reddy", email: "ananya@example.com", phone: "+91 98765 43215", membership: "Monthly", status: "Active", joinDate: "2025-02-20" },
-  { id: "cu7", name: "Karthik Raj", email: "karthik@example.com", phone: "+91 98765 43216", membership: "Annual", status: "Active", joinDate: "2024-03-01" },
-  { id: "cu8", name: "Divya Kapoor", email: "divya@example.com", phone: "+91 98765 43217", membership: "None", status: "Trial", joinDate: "2025-03-05" },
+  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15", sports: ["Swimming", "Futsal"] },
+  { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20", sports: ["Swimming", "Table Tennis"] },
+  { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01", sports: ["Pickleball"] },
+  { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10", sports: ["Swimming", "Pickleball", "Futsal"] },
+  { id: "cu5", name: "Vikram Singh", email: "vikram@example.com", phone: "+91 98765 43214", membership: "Quarterly", status: "Expired", joinDate: "2024-06-15", sports: ["Futsal"] },
+  { id: "cu6", name: "Ananya Reddy", email: "ananya@example.com", phone: "+91 98765 43215", membership: "Monthly", status: "Active", joinDate: "2025-02-20", sports: ["Table Tennis"] },
+  { id: "cu7", name: "Karthik Raj", email: "karthik@example.com", phone: "+91 98765 43216", membership: "Annual", status: "Active", joinDate: "2024-03-01", sports: ["Swimming", "Table Tennis", "Pickleball"] },
+  { id: "cu8", name: "Divya Kapoor", email: "divya@example.com", phone: "+91 98765 43217", membership: "None", status: "Trial", joinDate: "2025-03-05", sports: ["Swimming"] },
 ];
 
 export const leads = [
