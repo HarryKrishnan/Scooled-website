@@ -1,29 +1,51 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, User, CalendarPlus, CalendarCheck, GraduationCap,
-  CreditCard, Wallet, TrendingUp, MessageSquare, Bell, LogOut, Menu, X, Waves
+  CreditCard, Wallet, TrendingUp, MessageSquare, Bell, LogOut, Menu, X, Waves, ChevronDown
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import logo from "@/assets/logo-new.png";
 import bgImage from "@/assets/portal-dash.jpg";
 
-const navItems = [
-  { label: "Dashboard", path: "/portal", icon: LayoutDashboard },
-  { label: "Profile", path: "/portal/profile", icon: User },
-  { label: "Book", path: "/portal/book", icon: CalendarPlus },
-  { label: "Bookings", path: "/portal/bookings", icon: CalendarCheck },
-  { label: "Programs", path: "/portal/programs", icon: GraduationCap },
-  { label: "Memberships", path: "/portal/memberships", icon: CreditCard },
-  { label: "Payments", path: "/portal/payments", icon: Wallet },
-  { label: "Progress", path: "/portal/progress", icon: TrendingUp },
-  { label: "Feedback", path: "/portal/feedback", icon: MessageSquare },
+const getPrimaryNavItems = (basePath: string) => [
+  { label: "Dashboard", path: `${basePath}`, icon: LayoutDashboard },
+  { label: "Book", path: `${basePath}/book`, icon: CalendarPlus },
+  { label: "Bookings", path: `${basePath}/bookings`, icon: CalendarCheck },
+  { label: "Programs", path: `${basePath}/programs`, icon: GraduationCap },
+];
+
+const getProfileNavItems = (basePath: string) => [
+  { label: "Profile", path: `${basePath}/profile`, icon: User },
+  { label: "Stats", path: `${basePath}/progress`, icon: TrendingUp },
+  { label: "Memberships", path: `${basePath}/memberships`, icon: CreditCard },
+  { label: "Payments", path: `${basePath}/payments`, icon: Wallet },
+  { label: "Feedback", path: `${basePath}/feedback`, icon: MessageSquare },
 ];
 
 export default function PortalLayout() {
   const location = useLocation();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
+  const [showSportMenu, setShowSportMenu] = useState(false);
+
+  // Determine active sport for links
+  let basePath = "/portal/swimming";
+  let activeSportName = "Swimming";
+  if (location.pathname.includes("/portal/futsal")) { basePath = "/portal/futsal"; activeSportName = "Futsal"; }
+  else if (location.pathname.includes("/portal/pickleball")) { basePath = "/portal/pickleball"; activeSportName = "Pickleball"; }
+  else if (location.pathname.includes("/portal/table-tennis")) { basePath = "/portal/table-tennis"; activeSportName = "Table Tennis"; }
+
+  const primaryNavItems = getPrimaryNavItems(basePath);
+  const profileNavItems = getProfileNavItems(basePath);
+
+  const sports = [
+    { name: "Swimming", path: "/portal/swimming" },
+    { name: "Futsal", path: "/portal/futsal" },
+    { name: "Pickleball", path: "/portal/pickleball" },
+    { name: "Table Tennis", path: "/portal/table-tennis" }
+  ];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 10);
@@ -60,19 +82,19 @@ export default function PortalLayout() {
               </Link>
 
               <nav className="hidden lg:flex items-center gap-1">
-                {navItems.map((item) => {
+                {primaryNavItems.map((item) => {
                   const Icon = item.icon;
                   const active = location.pathname === item.path;
                   return (
                     <Link
                       key={item.path}
                       to={item.path}
-                      className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all ${active
-                        ? "bg-amber-500 text-navy shadow-lg shadow-amber-500/20"
-                        : "text-white/60 hover:bg-white/10 hover:text-white"
+                      className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${active
+                        ? "bg-[#ffb800] text-black shadow-lg shadow-amber-500/20"
+                        : "text-white/60 hover:text-white"
                         }`}
                     >
-                      <Icon size={14} />
+                      {active && <Icon size={14} />}
                       {item.label}
                     </Link>
                   );
@@ -80,28 +102,119 @@ export default function PortalLayout() {
               </nav>
             </div>
 
-            <div className="flex items-center gap-2">
-              <button className="relative w-10 h-10 rounded-xl bg-white/10 flex items-center justify-center text-white/60 hover:bg-amber-500/20 hover:text-amber-500 transition-all">
-                <Bell size={18} />
-                <span className="absolute top-2.5 right-2.5 w-2 h-2 bg-amber-500 rounded-full border-2 border-black" />
-              </button>
-              <div className="hidden sm:flex items-center gap-3 px-3 border-l border-white/10 ml-1">
-                <div className="text-right">
-                  <p className="text-xs font-bold text-white">Aarav Patel</p>
-                  <p className="text-[10px] font-black uppercase text-amber-500">Pro Member</p>
-                </div>
-                <div className="w-10 h-10 rounded-xl bg-amber-500 text-navy flex items-center justify-center font-bold text-sm shadow-lg shadow-amber-500/20">
-                  A
-                </div>
+            <div className="flex items-center gap-3">
+              {/* Sport Switcher Dropdown */}
+              <div className="relative hidden sm:block">
+                <button
+                  onClick={() => setShowSportMenu(!showSportMenu)}
+                  className="flex items-center gap-3 px-5 py-2.5 rounded-full bg-[#111111] border border-white/5 text-xs font-bold text-white hover:bg-black transition-all"
+                >
+                  <span className="text-white/40">Sport:</span> {activeSportName}
+                  <ChevronDown size={14} className="text-white/40" />
+                </button>
+
+                <AnimatePresence>
+                  {showSportMenu && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setShowSportMenu(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 top-full mt-2 w-48 bg-[#1a1a1a] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl"
+                      >
+                        <div className="p-2 flex flex-col gap-1">
+                          {sports.map((sport) => (
+                            <Link
+                              key={sport.path}
+                              to={sport.path}
+                              onClick={() => setShowSportMenu(false)}
+                              className={`flex items-center gap-3 px-3 py-2 rounded-xl text-sm font-semibold transition-all ${
+                                activeSportName === sport.name
+                                  ? "bg-amber-500/10 text-amber-500"
+                                  : "text-white/60 hover:bg-white/5 hover:text-white"
+                              }`}
+                            >
+                              {sport.name}
+                            </Link>
+                          ))}
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
               </div>
-              {/* Logout */}
-              <Link
-                to="/"
-                title="Sign out & return to website"
-                className="hidden sm:flex w-10 h-10 rounded-xl bg-white/5 border border-white/10 items-center justify-center text-white/40 hover:bg-red-500/20 hover:text-red-400 hover:border-red-500/30 transition-all ml-1"
+
+              <Link 
+                to={`${basePath}/notifications`}
+                className={`relative w-11 h-11 rounded-2xl flex items-center justify-center transition-all bg-[#111111] border border-white/5 text-white/40 hover:text-white hover:bg-black`}
               >
-                <LogOut size={17} />
+                <Bell size={18} />
+                <span className="absolute top-3 right-3 w-1.5 h-1.5 rounded-full bg-[#ffb800]" />
               </Link>
+              
+              <div className="relative ml-2">
+                <button 
+                  onClick={() => setShowProfileMenu(!showProfileMenu)}
+                  className="flex items-center gap-4 pl-4 hover:bg-white/5 rounded-2xl transition-all"
+                >
+                  <div className="text-right hidden sm:block">
+                    <p className="text-xs font-bold text-white leading-tight">Aarav Patel</p>
+                    <p className="text-[9px] font-black uppercase text-[#ffb800] tracking-wider">
+                      {localStorage.getItem('scooled_member_status') === 'active' ? 'Pro Member' : 'Member'}
+                    </p>
+                  </div>
+                  <div className="w-11 h-11 rounded-2xl bg-[#ffb800] text-black flex items-center justify-center font-black text-sm shadow-xl shadow-amber-500/20">
+                    A
+                  </div>
+                </button>
+
+                {/* Profile Dropdown */}
+                <AnimatePresence>
+                  {showProfileMenu && (
+                    <>
+                      <div className="fixed inset-0 z-40" onClick={() => setShowProfileMenu(false)} />
+                      <motion.div
+                        initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                        transition={{ duration: 0.2 }}
+                        className="absolute right-0 top-full mt-2 w-56 bg-[#1a1a1a] border border-white/10 rounded-2xl shadow-2xl overflow-hidden z-50 backdrop-blur-xl"
+                      >
+                        <div className="p-2 flex flex-col gap-1">
+                          {profileNavItems.map((item) => {
+                            const Icon = item.icon;
+                            const active = location.pathname === item.path;
+                            return (
+                              <Link
+                                key={item.path}
+                                to={item.path}
+                                onClick={() => setShowProfileMenu(false)}
+                                className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${active
+                                  ? "bg-white/10 text-white"
+                                  : "text-white/60 hover:bg-white/5 hover:text-white"
+                                  }`}
+                              >
+                                <Icon size={16} />
+                                {item.label}
+                              </Link>
+                            );
+                          })}
+                          <div className="h-px bg-white/10 my-1 mx-2" />
+                          <Link
+                            to="/login"
+                            className="flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold text-red-500/80 hover:bg-red-500/10 hover:text-red-500 transition-all"
+                          >
+                            <LogOut size={16} />
+                            Sign Out
+                          </Link>
+                        </div>
+                      </motion.div>
+                    </>
+                  )}
+                </AnimatePresence>
+              </div>
               <button
                 onClick={() => setMobileMenuOpen(true)}
                 className="lg:hidden p-2 text-white hover:bg-white/10 rounded-xl transition-colors"
@@ -128,8 +241,25 @@ export default function PortalLayout() {
                     <X size={24} />
                   </button>
                 </div>
-                <div className="flex-1 flex flex-col gap-2">
-                  {navItems.map((item) => (
+                <div className="flex-1 flex flex-col gap-2 overflow-y-auto">
+                  {primaryNavItems.map((item) => (
+                    <Link
+                      key={item.path}
+                      to={item.path}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
+                        ? "bg-amber-500/10 text-amber-600"
+                        : "text-navy/60 hover:bg-navy/5"
+                        }`}
+                    >
+                      <item.icon size={20} />
+                      {item.label}
+                    </Link>
+                  ))}
+                  
+                  <div className="h-px bg-navy/10 my-2 mx-4" />
+                  
+                  {profileNavItems.map((item) => (
                     <Link
                       key={item.path}
                       to={item.path}
@@ -144,10 +274,10 @@ export default function PortalLayout() {
                     </Link>
                   ))}
                 </div>
-                <button className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-50 mt-auto">
+                <Link to="/login" className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-50 mt-4">
                   <LogOut size={20} />
                   Sign Out
-                </button>
+                </Link>
               </div>
             </motion.div>
           )}

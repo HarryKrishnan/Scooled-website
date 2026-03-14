@@ -2,8 +2,17 @@ import { motion } from "framer-motion";
 import { Mail, Phone, MapPin, Send, Clock } from "lucide-react";
 import SectionHeading from "@/components/ui/SectionHeading";
 import heroImg from "@/assets/hero-pool.jpg";
+import { useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 
 export default function ContactPage() {
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSubmitted(true);
+  };
+
   return (
     <>
       <section className="relative pt-32 pb-20 bg-navy text-primary-foreground overflow-hidden">
@@ -19,7 +28,7 @@ export default function ContactPage() {
             Contact Us
           </motion.h1>
           <p className="text-lg text-primary-foreground/70 max-w-2xl mx-auto">
-            Have questions? We're here to help you dive deeper into your aquatic journey.
+            Have questions? We're here to help you start your sports and fitness journey.
           </p>
         </div>
       </section>
@@ -68,31 +77,53 @@ export default function ContactPage() {
             <motion.div 
               initial={{ opacity: 0, x: 20 }}
               animate={{ opacity: 1, x: 0 }}
-              className="card-premium p-8 lg:p-10 border-primary/20 shadow-xl shadow-primary/5"
+              className="card-premium p-8 lg:p-10 border-primary/20 shadow-xl shadow-primary/5 min-h-[400px] flex flex-col justify-center"
             >
-              <form className="space-y-4" onSubmit={(e) => e.preventDefault()}>
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Full Name</label>
-                    <input type="text" placeholder="John Doe" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
+              {!isSubmitted ? (
+                <form className="space-y-4" onSubmit={handleSubmit}>
+                  <div className="grid sm:grid-cols-2 gap-4">
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Full Name</label>
+                      <input type="text" required placeholder="John Doe" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Email Address</label>
+                      <input type="email" required placeholder="john@example.com" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
+                    </div>
                   </div>
                   <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Email Address</label>
-                    <input type="email" placeholder="john@example.com" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Subject</label>
+                    <input type="text" required placeholder="Inquiry about Coaching" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
                   </div>
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Subject</label>
-                  <input type="text" placeholder="Inquiry about Coaching" className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm" />
-                </div>
-                <div className="space-y-1.5">
-                  <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Message</label>
-                  <textarea rows={4} placeholder="Tell us more about your needs..." className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm resize-none"></textarea>
-                </div>
-                <button type="submit" className="w-full btn-primary flex items-center justify-center gap-2 py-3 mt-4">
-                  <Send size={18} /> Send Message
-                </button>
-              </form>
+                  <div className="space-y-1.5">
+                    <label className="text-xs font-bold text-muted-foreground uppercase tracking-wider">Message</label>
+                    <textarea rows={4} required placeholder="Tell us more about your needs..." className="w-full bg-muted/30 border border-border px-4 py-2.5 rounded-lg focus:outline-none focus:ring-1 focus:ring-primary text-sm resize-none"></textarea>
+                  </div>
+                  <button type="submit" className="w-full btn-primary flex items-center justify-center gap-2 py-3 mt-4">
+                    <Send size={18} /> Send Message
+                  </button>
+                </form>
+              ) : (
+                <motion.div 
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-center py-10"
+                >
+                  <div className="w-16 h-16 bg-primary/10 rounded-full flex items-center justify-center mx-auto mb-6">
+                    <CheckCircle2 className="text-primary" size={32} />
+                  </div>
+                  <h3 className="font-display text-2xl font-bold text-foreground mb-4">Message Sent!</h3>
+                  <p className="text-muted-foreground mb-8">
+                    Thank you for contacting us. Our team will reach out to you shortly.
+                  </p>
+                  <button 
+                    onClick={() => setIsSubmitted(false)}
+                    className="text-sm font-bold text-primary hover:underline"
+                  >
+                    Send another message
+                  </button>
+                </motion.div>
+              )}
             </motion.div>
           </div>
         </div>

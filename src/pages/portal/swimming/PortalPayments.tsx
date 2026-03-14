@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { payments, membershipPlans, userActiveMembership } from "@/data/mockData";
+import { payments, allSportMemberships, allSportPrograms } from "@/data/mockData";
 import { 
   Download, CreditCard, Smartphone, Globe, 
   Plus, Check, ChevronRight, Wallet, History, Info,
@@ -267,7 +267,7 @@ export default function PortalPayments() {
                 {paymentStep === "upgrade" && (
                   <div className="space-y-4">
                     <p className="text-xs font-black uppercase tracking-widest text-white/30 mb-4 px-2">Elite Upgrade Tiers</p>
-                    {membershipPlans.filter(p => p.price > userActiveMembership.price).map(plan => (
+                    {allSportMemberships["Swimming"].filter(p => p.price > allSportMemberships["Swimming"][0].price).map(plan => (
                       <button 
                         key={plan.id}
                         onClick={() => { setSelectedPlan(plan); setPaymentStep("method"); }}

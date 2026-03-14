@@ -16,7 +16,7 @@ export default function PublicFooter() {
               </div>
             </div>
             <p className="text-sm leading-relaxed text-primary-foreground/60 mb-6">
-              Premium swimming pool booking, coaching, and membership platform. Making aquatics accessible, modern, and delightful.
+              Premium multi-sport platform for booking, coaching, and memberships. Making sports accessible, modern, and delightful.
             </p>
             <div className="flex gap-3">
               {[Facebook, Instagram, Youtube, Twitter].map((Icon, i) => (
@@ -60,7 +60,7 @@ export default function PublicFooter() {
               </div>
               <div className="flex items-center gap-2.5 text-sm">
                 <Mail size={16} className="shrink-0 text-cyan" />
-                <span>hello@scooledaquatics.com</span>
+                <span>hello@scooled.com</span>
               </div>
             </div>
           </div>

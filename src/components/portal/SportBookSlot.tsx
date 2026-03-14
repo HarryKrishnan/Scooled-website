@@ -1,11 +1,40 @@
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { Link } from "react-router-dom";
 import { MapPin, Calendar as CalendarIcon, Clock, Users, CheckCircle2, AlertCircle } from "lucide-react";
-import { centres, slots } from "@/data/mockData";
+import { centres } from "@/data/mockData";
 
-export default function PortalBookSlot() {
+export interface Slot {
+  id: string;
+  time: string;
+  capacity: number;
+  booked: number;
+  type: string;
+}
+
+interface SportBookSlotProps {
+  title: string;
+  subtitle: string;
+  headerBorderClass: string;
+  centreSelectionLabel: string;
+  buttonGradientClass: string;
+  slots: Slot[];
+  getCapacityLabel: (avail: number, full: boolean) => string;
+  hasMembership: boolean;
+}
+
+export default function SportBookSlot({
+  title,
+  subtitle,
+  headerBorderClass,
+  centreSelectionLabel,
+  buttonGradientClass,
+  slots,
+  getCapacityLabel,
+  hasMembership,
+}: SportBookSlotProps) {
   const [selectedCentre, setSelectedCentre] = useState(centres[0].id);
-  const [selectedDate, setSelectedDate] = useState("2025-03-10");
+  const [selectedDate, setSelectedDate] = useState("2026-03-12");
   const [selectedSlot, setSelectedSlot] = useState<string | null>(null);
   const [showSummary, setShowSummary] = useState(false);
 
@@ -14,17 +43,34 @@ export default function PortalBookSlot() {
 
   return (
     <div className="space-y-8">
-      <div className="card-premium border-blue-tile bg-black/95 mb-8">
-        <h1 className="font-display text-3xl font-bold text-white tracking-tight">Book Slots</h1>
-        <p className="text-sm text-white/70 font-bold mt-1">Select your centre, date, and preferred time to reserve a session.</p>
+      {!hasMembership && (
+        <div className="card-premium border-amber-500/50 bg-amber-500/5 flex items-center gap-4 py-6">
+          <div className="w-12 h-12 rounded-2xl bg-amber-500 flex items-center justify-center text-white shrink-0">
+            <AlertCircle size={24} />
+          </div>
+          <div className="flex-1">
+            <h4 className="text-amber-500 font-bold text-base mb-1">Active Membership Required</h4>
+            <p className="text-white/60 text-xs font-semibold leading-relaxed">
+              Ad-hoc booking is reserved for members only. Please purchase or renew your membership to continue.
+            </p>
+          </div>
+          <Link to="../memberships" className="px-6 py-3 rounded-xl bg-amber-500 text-white text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-transform">
+            View Plans
+          </Link>
+        </div>
+      )}
+
+      <div className={`card-premium ${headerBorderClass} bg-black/95 mb-8`}>
+        <h1 className="font-display text-3xl font-bold text-white tracking-tight">{title}</h1>
+        <p className="text-sm text-white/70 font-bold mt-1">{subtitle}</p>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
-        <div className="lg:col-span-2 space-y-6">
+        <div className={`lg:col-span-2 space-y-6 ${!hasMembership ? 'opacity-50 pointer-events-none grayscale' : ''}`}>
           {/* Centre Selection */}
           <div className="card-premium border-white/5 bg-black/95">
             <h3 className="text-[10px] font-black uppercase tracking-widest text-primary mb-8 flex items-center gap-3">
-              <MapPin size={18} /> Select Training Centre
+              <MapPin size={18} /> {centreSelectionLabel}
             </h3>
             <div className="grid sm:grid-cols-2 gap-4">
               {centres.map((c) => (
@@ -41,7 +87,7 @@ export default function PortalBookSlot() {
                   <p className={`text-xs mt-2 font-medium leading-relaxed ${selectedCentre === c.id ? "text-white/60" : "text-white/30"}`}>{c.address}</p>
                   <div className="flex items-center gap-2 mt-4">
                     <div className="w-1.5 h-1.5 rounded-full bg-primary" />
-                    <p className="text-[9px] text-primary font-black uppercase tracking-widest">{c.pools} premium pools</p>
+                    <p className="text-[9px] text-primary font-black uppercase tracking-widest">{c.pools} premium facilities</p>
                   </div>
                 </button>
               ))}
@@ -97,7 +143,7 @@ export default function PortalBookSlot() {
                         <div className="flex items-center gap-2">
                           <Users size={12} className={full ? "text-destructive" : "text-primary"} />
                           <span className={`text-[10px] font-black uppercase tracking-tight ${full ? "text-destructive" : "text-primary"}`}>
-                            {full ? "Sold Out" : `${avail} spots left`}
+                            {getCapacityLabel(avail, full)}
                           </span>
                         </div>
                       </div>
@@ -119,7 +165,15 @@ export default function PortalBookSlot() {
         <div className="lg:col-span-1">
           <div className="card-premium border-gold-tile bg-black/95 sticky top-24 shadow-2xl shadow-primary/5">
             <h3 className="font-display text-lg font-bold text-white mb-8 uppercase tracking-tight">Booking Summary</h3>
-            {showSummary && slot ? (
+            {!hasMembership ? (
+              <div className="text-center py-16 px-6">
+                <div className="w-16 h-16 rounded-3xl bg-amber-500/10 flex items-center justify-center mx-auto mb-6">
+                  <Shield size={32} className="text-amber-500" />
+                </div>
+                <p className="text-sm text-white/40 font-medium leading-relaxed mb-8">You need an active membership to book ad-hoc slots.</p>
+                <Link to="../memberships" className="btn-primary w-full block text-center py-4 bg-amber-500 shadow-amber-500/20">Upgrade Now</Link>
+              </div>
+            ) : showSummary && slot ? (
               <div className="space-y-8">
                 <div className="space-y-5">
                   {[
@@ -144,7 +198,7 @@ export default function PortalBookSlot() {
                     <span className="text-4xl font-black text-white tracking-tighter">₹299</span>
                   </div>
                   <button 
-                    className="w-full py-5 rounded-2xl bg-gradient-to-r from-primary to-aqua text-white text-[11px] font-black uppercase tracking-[0.25em] shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all" 
+                    className={`w-full py-5 rounded-2xl ${buttonGradientClass} text-white text-[11px] font-black uppercase tracking-[0.25em] shadow-2xl shadow-primary/20 hover:shadow-primary/40 hover:scale-[1.02] active:scale-95 transition-all`}
                     onClick={() => alert("Demo: Booking initiated!")}
                   >
                     Confirm Booking
