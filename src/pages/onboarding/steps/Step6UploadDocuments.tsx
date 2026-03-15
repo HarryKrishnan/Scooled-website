@@ -100,7 +100,7 @@ const Step6UploadDocuments: React.FC<Step6Props> = ({ data, updateData, onNext, 
           disabled={!isComplete}
           className="flex-1 bg-primary hover:bg-primary/80 text-white font-bold py-6 rounded-2xl shadow-lg shadow-primary/20"
         >
-          Save & Continue
+          Proceed to Payment
         </Button>
       </div>
     </div>

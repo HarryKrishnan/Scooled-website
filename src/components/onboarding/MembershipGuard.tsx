@@ -47,14 +47,34 @@ const MembershipGuard: React.FC<MembershipGuardProps> = ({ children }) => {
       }
 
       const trialDateStr = localStorage.getItem('scooled_trial_date');
-      if (trialDateStr) {
-        const trialDate = new Date(trialDateStr);
-        const today = new Date();
-        // Reset hours for comparison
-        today.setHours(0, 0, 0, 0);
-        trialDate.setHours(0, 0, 0, 0);
-
-        if (today > trialDate) {
+      const trialSlotStr = localStorage.getItem('scooled_trial_slot');
+      
+      if (trialDateStr && trialSlotStr) {
+        // Parse date like "Mon, 16 Mar"
+        const [, datePart] = trialDateStr.split(', ');
+        const [dayNum, monthName] = datePart.split(' ');
+        const monthMap: Record<string, number> = { 
+          'Jan': 0, 'Feb': 1, 'Mar': 2, 'Apr': 3, 'May': 4, 'Jun': 5,
+          'Jul': 6, 'Aug': 7, 'Sep': 8, 'Oct': 9, 'Nov': 10, 'Dec': 11 
+        };
+        
+        const currentYear = new Date().getFullYear();
+        const trialDate = new Date(currentYear, monthMap[monthName], parseInt(dayNum));
+        
+        // Parse time like "05:30 PM"
+        const [time, modifier] = trialSlotStr.split(' ');
+        let [hours, minutes] = time.split(':').map(Number);
+        
+        if (modifier === 'PM' && hours < 12) hours += 12;
+        if (modifier === 'AM' && hours === 12) hours = 0;
+        
+        trialDate.setHours(hours, minutes, 0, 0);
+        
+        // Trial ends 1 hour after start
+        const trialEnd = new Date(trialDate.getTime() + 60 * 60 * 1000);
+        const now = new Date();
+        
+        if (now > trialEnd) {
           setIsExpired(true);
         } else {
           setIsExpired(false);
@@ -70,8 +90,12 @@ const MembershipGuard: React.FC<MembershipGuardProps> = ({ children }) => {
       localStorage.removeItem('scooled_force_upgrade');
     }
 
+    const interval = setInterval(checkExpiry, 60000); // Check every minute
     window.addEventListener('storage', checkExpiry);
-    return () => window.removeEventListener('storage', checkExpiry);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('storage', checkExpiry);
+    };
   }, []);
 
   const nextStep = () => {
@@ -105,9 +129,9 @@ const MembershipGuard: React.FC<MembershipGuardProps> = ({ children }) => {
             <ShieldAlert className="w-10 h-10 text-red-500" />
           </div>
           
-          <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tight italic">Trial Expired</h2>
+          <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tight italic">Trial Complete</h2>
           <p className="text-white/40 text-sm mb-12 leading-relaxed">
-            Your free trial has expired. To continue training and access your professional dashboard, please upgrade your membership plan.
+            Your free trial has ended. We hope you enjoyed your session! To continue training and access your professional dashboard, please upgrade your membership plan.
           </p>
 
           <Button
@@ -180,8 +204,8 @@ const MembershipGuard: React.FC<MembershipGuardProps> = ({ children }) => {
                     className="h-full w-full p-8 flex flex-col min-h-0"
                   >
                     {step === 5 && <Step5SelectMembership data={data} updateData={updateData} onNext={nextStep} onBack={() => setShowUpgradeModal(false)} />}
-                    {step === 6 && <Step6UploadDocuments data={data} updateData={updateData} onNext={nextStep} onBack={prevStep} />}
-                    {step === 7 && <Step7Terms data={data} updateData={updateData} onNext={nextStep} onBack={prevStep} />}
+                    {step === 6 && <Step7Terms data={data} updateData={updateData} onNext={nextStep} onBack={prevStep} />}
+                    {step === 7 && <Step6UploadDocuments data={data} updateData={updateData} onNext={nextStep} onBack={prevStep} />}
                     {step === 8 && <Step8Payment data={data} onNext={nextStep} onBack={prevStep} />}
                     {step === 9 && <Step9Welcome data={data} />}
                   </motion.div>

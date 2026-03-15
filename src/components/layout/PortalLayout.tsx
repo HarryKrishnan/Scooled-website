@@ -1,7 +1,7 @@
 import { Outlet, Link, useLocation } from "react-router-dom";
 import {
   LayoutDashboard, User, CalendarPlus, CalendarCheck, GraduationCap,
-  CreditCard, Wallet, TrendingUp, MessageSquare, Bell, LogOut, Menu, X, Waves, ChevronDown
+  CreditCard, Wallet, TrendingUp, MessageSquare, Bell, LogOut, Menu, X, Waves, ChevronDown, ShieldCheck
 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
@@ -40,6 +40,13 @@ export default function PortalLayout() {
   const primaryNavItems = getPrimaryNavItems(basePath);
   const profileNavItems = getProfileNavItems(basePath);
 
+  const memberStatus = localStorage.getItem('scooled_member_status');
+  const isTrial = memberStatus !== 'active';
+
+  const isProfilePage = location.pathname === `${basePath}/profile`;
+  const isDashboardPage = location.pathname === basePath || location.pathname === `${basePath}/`;
+  const isRestricted = isTrial && !isProfilePage && !isDashboardPage;
+
   const sports = [
     { name: "Swimming", path: "/portal/swimming" },
     { name: "Futsal", path: "/portal/futsal" },
@@ -54,6 +61,17 @@ export default function PortalLayout() {
   }, []);
 
   useEffect(() => setMobileMenuOpen(false), [location]);
+
+  useEffect(() => {
+    if (isRestricted) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isRestricted]);
 
   return (
     <div className="relative min-h-screen w-full overflow-x-hidden selection:bg-primary/20">
@@ -85,6 +103,8 @@ export default function PortalLayout() {
                 {primaryNavItems.map((item) => {
                   const Icon = item.icon;
                   const active = location.pathname === item.path;
+                  const itemRestricted = isTrial && item.path !== basePath;
+                  
                   return (
                     <Link
                       key={item.path}
@@ -92,10 +112,15 @@ export default function PortalLayout() {
                       className={`flex items-center gap-2 px-6 py-2.5 rounded-full text-xs font-bold transition-all ${active
                         ? "bg-[#ffb800] text-black shadow-lg shadow-amber-500/20"
                         : "text-white/60 hover:text-white"
-                        }`}
+                        } ${itemRestricted ? "relative pr-10" : ""}`}
                     >
                       {active && <Icon size={14} />}
                       {item.label}
+                      {itemRestricted && (
+                        <div className="absolute right-3 top-1/2 -translate-y-1/2 opacity-40">
+                          <ShieldCheck size={12} className="text-[#ffb800]" />
+                        </div>
+                      )}
                     </Link>
                   );
                 })}
@@ -186,6 +211,8 @@ export default function PortalLayout() {
                           {profileNavItems.map((item) => {
                             const Icon = item.icon;
                             const active = location.pathname === item.path;
+                            const itemRestricted = isTrial && item.path !== `${basePath}/profile`;
+
                             return (
                               <Link
                                 key={item.path}
@@ -194,10 +221,11 @@ export default function PortalLayout() {
                                 className={`flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-semibold transition-all ${active
                                   ? "bg-white/10 text-white"
                                   : "text-white/60 hover:bg-white/5 hover:text-white"
-                                  }`}
+                                  } ${itemRestricted ? "opacity-50" : ""}`}
                               >
                                 <Icon size={16} />
-                                {item.label}
+                                <span className="flex-1">{item.label}</span>
+                                {itemRestricted && <ShieldCheck size={14} className="text-amber-500 opacity-60" />}
                               </Link>
                             );
                           })}
@@ -242,37 +270,45 @@ export default function PortalLayout() {
                   </button>
                 </div>
                 <div className="flex-1 flex flex-col gap-2 overflow-y-auto">
-                  {primaryNavItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
-                        ? "bg-amber-500/10 text-amber-600"
-                        : "text-navy/60 hover:bg-navy/5"
-                        }`}
-                    >
-                      <item.icon size={20} />
-                      {item.label}
-                    </Link>
-                  ))}
+                  {primaryNavItems.map((item) => {
+                    const itemRestricted = isTrial && item.path !== basePath;
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
+                          ? "bg-amber-500/10 text-amber-600"
+                          : "text-navy/60 hover:bg-navy/5"
+                          } ${itemRestricted ? "opacity-50" : ""}`}
+                      >
+                        <item.icon size={20} />
+                        <span className="flex-1">{item.label}</span>
+                        {itemRestricted && <ShieldCheck size={18} className="text-amber-500 opacity-60" />}
+                      </Link>
+                    );
+                  })}
                   
                   <div className="h-px bg-navy/10 my-2 mx-4" />
                   
-                  {profileNavItems.map((item) => (
-                    <Link
-                      key={item.path}
-                      to={item.path}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
-                        ? "bg-amber-500/10 text-amber-600"
-                        : "text-navy/60 hover:bg-navy/5"
-                        }`}
-                    >
-                      <item.icon size={20} />
-                      {item.label}
-                    </Link>
-                  ))}
+                  {profileNavItems.map((item) => {
+                    const itemRestricted = isTrial && item.path !== `${basePath}/profile`;
+                    return (
+                      <Link
+                        key={item.path}
+                        to={item.path}
+                        onClick={() => setMobileMenuOpen(false)}
+                        className={`flex items-center gap-4 p-4 rounded-2xl text-sm font-bold transition-all ${location.pathname === item.path
+                          ? "bg-amber-500/10 text-amber-600"
+                          : "text-navy/60 hover:bg-navy/5"
+                          } ${itemRestricted ? "opacity-50" : ""}`}
+                      >
+                        <item.icon size={20} />
+                        <span className="flex-1">{item.label}</span>
+                        {itemRestricted && <ShieldCheck size={18} className="text-amber-500 opacity-60" />}
+                      </Link>
+                    );
+                  })}
                 </div>
                 <Link to="/login" className="flex items-center gap-3 p-4 rounded-2xl text-sm font-bold text-red-500 hover:bg-red-50 mt-4">
                   <LogOut size={20} />
@@ -284,14 +320,68 @@ export default function PortalLayout() {
         </AnimatePresence>
 
         <main className="flex-1 pt-24 pb-12 relative z-10">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            className="container-custom"
-          >
-            <Outlet />
-          </motion.div>
+          <div className="container-custom relative h-full">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ 
+                opacity: 1, 
+                y: 0,
+                filter: isRestricted ? "blur(12px)" : "blur(0px)" 
+              }}
+              transition={{ duration: 0.4 }}
+              className={`h-full ${isRestricted ? "pointer-events-none select-none" : ""}`}
+            >
+              <Outlet />
+            </motion.div>
+
+            <AnimatePresence>
+              {isRestricted && (
+                <motion.div 
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  className="fixed inset-0 z-[100] flex items-center justify-center p-6 bg-black/40 backdrop-blur-sm"
+                >
+                  <motion.div 
+                    initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                    animate={{ opacity: 1, scale: 1, y: 0 }}
+                    exit={{ opacity: 0, scale: 0.9, y: 20 }}
+                    className="w-full max-w-md bg-[#111111]/80 backdrop-blur-2xl border border-white/10 rounded-[3rem] p-10 lg:p-14 text-center shadow-2xl overflow-hidden relative group"
+                  >
+                    {/* Background glow */}
+                    <div className="absolute -top-24 -right-24 w-64 h-64 bg-amber-500/10 blur-[100px] rounded-full group-hover:bg-amber-500/20 transition-all duration-700" />
+                    
+                    <div className="w-20 h-20 rounded-3xl bg-amber-500/10 border border-amber-500/20 flex items-center justify-center mx-auto mb-10 relative z-10 shadow-inner">
+                      <ShieldCheck className="w-10 h-10 text-amber-500 drop-shadow-[0_0_15px_rgba(245,158,11,0.5)]" />
+                    </div>
+                    
+                    <h2 className="text-3xl font-black text-white mb-4 uppercase tracking-tight italic relative z-10">Locked Feature</h2>
+                    <p className="text-white/50 text-base mb-12 leading-relaxed relative z-10 font-medium">
+                      This part of the portal is reserved for <span className="text-amber-500 font-bold">Pro Members</span>. Upgrade your plan to unlock full access to all features.
+                    </p>
+
+                    <button
+                      onClick={() => {
+                        localStorage.setItem('scooled_force_upgrade', 'true');
+                        window.location.reload();
+                      }}
+                      className="w-full bg-[#ffb800] hover:bg-[#e6a600] text-black font-black py-6 rounded-[1.5rem] flex items-center justify-center gap-3 transition-all transform hover:scale-[1.02] active:scale-95 shadow-2xl shadow-amber-500/30 uppercase text-xs tracking-[0.2em] relative z-10"
+                    >
+                      Upgrade Plan
+                      <TrendingUp size={18} />
+                    </button>
+                    
+                    <Link 
+                      to={basePath}
+                      className="mt-8 inline-block text-[10px] font-black uppercase tracking-[0.2em] text-white/20 hover:text-white/60 transition-colors relative z-10"
+                    >
+                      Return to Dashboard
+                    </Link>
+                  </motion.div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
         </main>
       </div>
     </div>

@@ -87,7 +87,7 @@ const Step7Terms: React.FC<Step7Props> = ({ data, updateData, onNext, onBack }) 
             disabled={!data.termsAccepted}
             className="flex-1 bg-primary hover:bg-primary/80 text-white font-bold py-6 rounded-2xl shadow-lg shadow-primary/20"
           >
-            Review & Pay
+            Continue to Uploads
           </Button>
         </div>
       </div>

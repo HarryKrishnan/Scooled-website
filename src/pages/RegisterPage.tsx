@@ -60,6 +60,7 @@ const RegisterPage = () => {
       localStorage.setItem('scooled_member_status', 'trial');
       localStorage.setItem('scooled_selected_sport', data.sport || '');
       localStorage.setItem('scooled_trial_date', data.trialDate);
+      localStorage.setItem('scooled_trial_slot', data.trialSlot);
       
       const sportPath = data.sport?.toLowerCase();
       navigate(`/portal/${sportPath}`);
