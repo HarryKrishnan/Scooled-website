@@ -195,29 +195,39 @@ export default function LoginPage() {
 
 
             {/* Bottom Links */}
-            <div className="mt-6 pt-5 border-t border-white/5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+            <div className="mt-6 pt-5 border-t border-white/5 grid grid-cols-2 gap-3">
+
+              <button
+                onClick={() => {
+                  localStorage.setItem('scooled_member_status', 'active');
+                  localStorage.setItem('scooled_selected_sport', 'Swimming');
+                  navigate('/portal/swimming');
+                }}
+                className="flex items-center justify-center gap-2 py-2.5 rounded-xl bg-primary/10 border border-primary/20 text-xs font-bold text-primary hover:bg-primary/20 transition-all col-span-2"
+              >
+                Demo Member Access <ArrowRight size={14} />
+              </button>
 
               <button
                 onClick={() => setShowSportModal(true)}
-                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-[10px] font-black uppercase tracking-widest text-white/40 hover:bg-white/5 hover:text-white transition-all"
               >
-                Customer <ArrowRight size={14} />
+                Customer <ArrowRight size={12} />
               </button>
 
               <Link
                 to="/admin"
-                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-[10px] font-black uppercase tracking-widest text-white/40 hover:bg-white/5 hover:text-white transition-all"
               >
-                Admin <ArrowRight size={14} />
+                Admin <ArrowRight size={12} />
               </Link>
 
               <Link
                 to="/coach"
-                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-sm font-semibold text-white/50 hover:bg-white/5 hover:text-white transition-all"
+                className="flex items-center justify-center gap-2 py-2 rounded-xl border border-white/5 text-[10px] font-black uppercase tracking-widest text-white/40 hover:bg-white/5 hover:text-white transition-all"
               >
-                Coach <ArrowRight size={14} />
+                Coach <ArrowRight size={12} />
               </Link>
-
             </div>
 
           </div>

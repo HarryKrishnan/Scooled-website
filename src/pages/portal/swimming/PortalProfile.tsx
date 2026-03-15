@@ -104,6 +104,36 @@ export default function PortalProfile() {
             </div>
           </div>
 
+          {/* Section: Active Memberships (New for Testing) */}
+          <div className="card-premium border-blue-tile bg-blue-500/5">
+            <div className="flex items-center gap-2 mb-8 border-b border-white/5 pb-4">
+              <ShieldCheck className="text-primary" size={20} />
+              <h2 className="font-display text-xl font-bold text-white">Member Status</h2>
+            </div>
+            <div className="flex flex-wrap gap-4">
+              <div className="p-6 rounded-[2rem] bg-black/40 border border-white/10 flex-1 min-w-[200px]">
+                <p className="text-[10px] font-black uppercase tracking-widest text-primary mb-2">Subscription Tier</p>
+                <div className="flex items-center gap-3">
+                  <div className={`w-3 h-3 rounded-full ${localStorage.getItem('scooled_member_status') === 'active' ? 'bg-green-500 animate-pulse' : 'bg-amber-500'}`} />
+                  <p className="text-2xl font-black text-white italic uppercase tracking-tight">
+                    {localStorage.getItem('scooled_member_status') === 'active' ? 'Pro Member' : 'Trial Member'}
+                  </p>
+                </div>
+              </div>
+              
+              <div className="p-6 rounded-[2rem] bg-black/40 border border-white/10 flex-1 min-w-[200px]">
+                <p className="text-[10px] font-black uppercase tracking-widest text-aqua mb-2">Active Sports</p>
+                <div className="flex gap-2">
+                  {["Swimming", "Table Tennis"].map(sport => (
+                    <span key={sport} className="px-3 py-1 bg-white/10 rounded-full text-[10px] font-bold text-white border border-white/10">
+                      {sport}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+
           {/* Section: Aquatic Profile */}
           <div className="card-premium border-gold-tile">
             <div className="flex items-center gap-2 mb-8 border-b border-white/5 pb-4">
@@ -195,7 +225,9 @@ export default function PortalProfile() {
               </button>
             </div>
             <h3 className="font-display text-2xl font-bold text-white mb-1">{profileData.name}</h3>
-            <p className="text-xs text-primary font-black uppercase tracking-widest mb-6">Pro Swimmer</p>
+            <p className="text-xs text-primary font-black uppercase tracking-widest mb-6">
+              {localStorage.getItem('scooled_member_status') === 'active' ? 'Pro Swimmer' : 'Trial Member'}
+            </p>
             
             <div className="grid grid-cols-2 gap-3 py-6 border-y border-white/5">
               <div>

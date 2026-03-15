@@ -67,7 +67,7 @@ export const slots = [
 ];
 
 export const customers = [
-  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15", sports: ["Swimming", "Futsal"] },
+  { id: "cu1", name: "Aarav Patel", email: "aarav@example.com", phone: "+91 98765 43210", membership: "Quarterly", status: "Active", joinDate: "2025-01-15", sports: ["Swimming", "Table Tennis"] },
   { id: "cu2", name: "Sneha Iyer", email: "sneha@example.com", phone: "+91 98765 43211", membership: "Annual", status: "Active", joinDate: "2024-08-20", sports: ["Swimming", "Table Tennis"] },
   { id: "cu3", name: "Rohan Gupta", email: "rohan@example.com", phone: "+91 98765 43212", membership: "Monthly", status: "Active", joinDate: "2025-02-01", sports: ["Pickleball"] },
   { id: "cu4", name: "Meera Nair", email: "meera@example.com", phone: "+91 98765 43213", membership: "Half-Yearly", status: "Active", joinDate: "2024-11-10", sports: ["Swimming", "Pickleball", "Futsal"] },
